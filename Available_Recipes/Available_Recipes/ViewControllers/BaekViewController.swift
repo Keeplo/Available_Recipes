@@ -9,9 +9,10 @@ import UIKit
 
 class BaekViewController: UIViewController {
 
-    @IBOutlet weak var searchView: UIView!
-    @IBOutlet weak var searchTextField: UITextField!
-    
+    @IBOutlet weak var searchV: UIView!
+    @IBOutlet weak var searchTF: UITextField!
+    @IBOutlet weak var sortSC: UISegmentedControl!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,6 +37,6 @@ class BaekViewController: UIViewController {
     }
     // BG 탭했을때, 키보드 내려오게 하기
     @IBAction func tapBG(_ sender: Any) {
-        searchTextField.resignFirstResponder() // 최고의 관심사가 아니게 된다.
+        searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
     }
 }
