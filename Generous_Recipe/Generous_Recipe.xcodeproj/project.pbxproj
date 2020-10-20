@@ -7,9 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A9523A87253D944B0008F7D5 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9523A86253D944B0008F7D5 /* Storage.swift */; };
+		A9523A8D253DC0EB0008F7D5 /* BaekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9523A8C253DC0EB0008F7D5 /* BaekViewController.swift */; };
+		A9523A92253DC0F60008F7D5 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9523A91253DC0F60008F7D5 /* SettingViewController.swift */; };
+		A9523A97253DC10B0008F7D5 /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9523A96253DC10B0008F7D5 /* AddRecipeViewController.swift */; };
+		A9B65FD7253EEB8F0098A2DC /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B65FD6253EEB8F0098A2DC /* Recipe.swift */; };
+		A9B65FDF253EF6B30098A2DC /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9B65FDE253EF6B30098A2DC /* RecipeViewController.swift */; };
 		A9E58E46253D827200341C25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E58E45253D827200341C25 /* AppDelegate.swift */; };
 		A9E58E48253D827200341C25 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E58E47253D827200341C25 /* SceneDelegate.swift */; };
-		A9E58E4A253D827200341C25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E58E49253D827200341C25 /* ViewController.swift */; };
+		A9E58E4A253D827200341C25 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E58E49253D827200341C25 /* MainViewController.swift */; };
 		A9E58E4D253D827200341C25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A9E58E4B253D827200341C25 /* Main.storyboard */; };
 		A9E58E50253D827200341C25 /* Generous_Recipe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A9E58E4E253D827200341C25 /* Generous_Recipe.xcdatamodeld */; };
 		A9E58E52253D827200341C25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A9E58E51253D827200341C25 /* Assets.xcassets */; };
@@ -36,10 +42,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A9523A86253D944B0008F7D5 /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		A9523A8C253DC0EB0008F7D5 /* BaekViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaekViewController.swift; sourceTree = "<group>"; };
+		A9523A91253DC0F60008F7D5 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		A9523A96253DC10B0008F7D5 /* AddRecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
+		A9B65FD6253EEB8F0098A2DC /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
+		A9B65FDE253EF6B30098A2DC /* RecipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		A9E58E42253D827200341C25 /* Generous_Recipe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Generous_Recipe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E58E45253D827200341C25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A9E58E47253D827200341C25 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A9E58E49253D827200341C25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A9E58E49253D827200341C25 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A9E58E4C253D827200341C25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A9E58E4F253D827200341C25 /* Generous_Recipe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Generous_Recipe.xcdatamodel; sourceTree = "<group>"; };
 		A9E58E51253D827200341C25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -78,6 +90,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A9B65FDB253EF6050098A2DC /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A9E58E49253D827200341C25 /* MainViewController.swift */,
+				A9523A8C253DC0EB0008F7D5 /* BaekViewController.swift */,
+				A9B65FDE253EF6B30098A2DC /* RecipeViewController.swift */,
+				A9523A96253DC10B0008F7D5 /* AddRecipeViewController.swift */,
+				A9523A91253DC0F60008F7D5 /* SettingViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A9B65FDC253EF61B0098A2DC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A9B65FD6253EEB8F0098A2DC /* Recipe.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A9B65FDD253EF66C0098A2DC /* DataHandler */ = {
+			isa = PBXGroup;
+			children = (
+				A9523A86253D944B0008F7D5 /* Storage.swift */,
+			);
+			path = DataHandler;
+			sourceTree = "<group>";
+		};
 		A9E58E39253D827200341C25 = {
 			isa = PBXGroup;
 			children = (
@@ -103,7 +143,9 @@
 			children = (
 				A9E58E45253D827200341C25 /* AppDelegate.swift */,
 				A9E58E47253D827200341C25 /* SceneDelegate.swift */,
-				A9E58E49253D827200341C25 /* ViewController.swift */,
+				A9B65FDC253EF61B0098A2DC /* Model */,
+				A9B65FDB253EF6050098A2DC /* ViewControllers */,
+				A9B65FDD253EF66C0098A2DC /* DataHandler */,
 				A9E58E4B253D827200341C25 /* Main.storyboard */,
 				A9E58E51253D827200341C25 /* Assets.xcassets */,
 				A9E58E53253D827200341C25 /* LaunchScreen.storyboard */,
@@ -261,10 +303,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A9E58E4A253D827200341C25 /* ViewController.swift in Sources */,
+				A9523A97253DC10B0008F7D5 /* AddRecipeViewController.swift in Sources */,
+				A9E58E4A253D827200341C25 /* MainViewController.swift in Sources */,
+				A9523A8D253DC0EB0008F7D5 /* BaekViewController.swift in Sources */,
 				A9E58E46253D827200341C25 /* AppDelegate.swift in Sources */,
+				A9B65FDF253EF6B30098A2DC /* RecipeViewController.swift in Sources */,
 				A9E58E48253D827200341C25 /* SceneDelegate.swift in Sources */,
 				A9E58E50253D827200341C25 /* Generous_Recipe.xcdatamodeld in Sources */,
+				A9B65FD7253EEB8F0098A2DC /* Recipe.swift in Sources */,
+				A9523A92253DC0F60008F7D5 /* SettingViewController.swift in Sources */,
+				A9523A87253D944B0008F7D5 /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
