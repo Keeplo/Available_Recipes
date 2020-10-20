@@ -8,7 +8,10 @@
 import UIKit
 
 class AddRecipeViewController: UIViewController {
-
+    @IBOutlet weak var cancelB: UIButton!
+    @IBOutlet weak var storeB: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,5 +28,7 @@ class AddRecipeViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func cancelAddingButton(_ sender: Any) {
+        self.presentingViewController?.dismiss(animated: true, completion:nil)
+    }
 }
