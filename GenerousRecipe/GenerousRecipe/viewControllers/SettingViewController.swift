@@ -1,20 +1,19 @@
 //
-//  ViewController.swift
+//  SettingViewController.swift
 //  GenerousRecipe
 //
-//  Created by James Kim on 8/5/20.
+//  Created by Yongwoo Marco on 2020/10/21.
 //  Copyright © 2020 FastCampus. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class SettingViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+
     }
 
 
 }
-
