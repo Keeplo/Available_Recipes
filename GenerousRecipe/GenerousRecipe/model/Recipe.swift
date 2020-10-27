@@ -7,13 +7,13 @@
 //
 
 import UIKit
-
+/*
 struct Recipe {
     var dishName: String
-    var favorite: Bool
-    
+    let mainIngredients: [Ingredient]
     let ingredients: [Ingredient]
     let steps: [Step]
+    var favorite: Bool?
     
     func containsAllIngrdients(_ ingredients: [Ingredient]) -> Bool {
         // TODO: 나중에 필터로 재료로 레시피를 찾을때 이용하면 편할 함수입니다.
@@ -24,15 +24,16 @@ struct Recipe {
     var toJSON: [String:Any] {
         return [
             "dishName": String(),
-            "favorite": Bool(),
-            "ingreidients": [String:Any](),
-            "steps": [[String:Any]]()
+            "importantIngreidients": [String:Any](),
+            "optionalIngreidients": [String:Any](),
+            "steps": [[String:Any]](),
+            "favorite": Bool()
         ]
     }
     
     static func instance(from json: [String:Any]) -> Recipe {
         // JSON에서 객체를 만들떄 써주세요.
-        return Recipe(dishName: "", favorite: Bool = false, ingredients: [], steps: [])
+        return Recipe(dishName: "", importantIngreidients: [], optionalIngreidients: [], steps: [], favorite: nil = false)
     }
 }
 
@@ -41,8 +42,8 @@ class RecipeManager {
     
     var recipes: [Recipe] = []
     
-    func createRecipe(dishName: String, ingredients: [Ingredient], steps: [Step]) -> Recipe {
-        return Recipe(dishName: dishName, favorite: Bool = false, ingredients: ingredients, steps: steps)
+    func createRecipe(dishName: String, important: [Ingredient], optional: [Ingredient], steps: [Step]) -> Recipe {
+        return Recipe(dishName: dishName, importantIngreidients: important, optionalIngreidients: [], steps: [], favorite: nil = false)
     }
     
     func addRecipe(_ recipe: Recipe) {
@@ -131,3 +132,4 @@ class RecipeViewModel {
         manager.retrieveRecipe()
     }
 }
+*/
