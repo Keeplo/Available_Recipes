@@ -98,10 +98,6 @@
                                     <constraint firstItem="Ofd-Q4-1Z1" firstAttribute="leading" secondItem="Q7m-JE-6xf" secondAttribute="leading" constant="15" id="vK8-8q-bju"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C2N-H9-Hm2">
-                                <rect key="frame" x="152" y="348" width="110" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stackView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMy-FY-SvG">
                                 <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -156,16 +152,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="K1e-Hn-y5z" secondAttribute="trailing" id="9xy-3u-8aH"/>
-                            <constraint firstItem="K1e-Hn-y5z" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="OWy-tX-h1Q"/>
-                            <constraint firstItem="Q7m-JE-6xf" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="TMv-kg-MmL"/>
-                            <constraint firstItem="PMy-FY-SvG" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="aXa-6b-FKm"/>
-                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="Q7m-JE-6xf" secondAttribute="trailing" id="c2C-p7-4QG"/>
-                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="PMy-FY-SvG" secondAttribute="trailing" id="hD8-JX-0Hf"/>
-                            <constraint firstItem="PMy-FY-SvG" firstAttribute="firstBaseline" secondItem="Q7m-JE-6xf" secondAttribute="baseline" id="ibU-6w-NSk"/>
-                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="bottom" secondItem="PMy-FY-SvG" secondAttribute="bottom" id="kMC-bT-Fmt"/>
-                            <constraint firstItem="K1e-Hn-y5z" firstAttribute="top" secondItem="WL9-Rv-uwa" secondAttribute="top" id="qta-uw-zgU"/>
-                            <constraint firstItem="Q7m-JE-6xf" firstAttribute="firstBaseline" secondItem="K1e-Hn-y5z" secondAttribute="baseline" id="tt9-rg-Cxb"/>
+                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="K1e-Hn-y5z" secondAttribute="trailing" id="FiL-Xy-Lwe"/>
+                            <constraint firstItem="PMy-FY-SvG" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="Fnk-68-fUz"/>
+                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="bottom" secondItem="PMy-FY-SvG" secondAttribute="bottom" id="LrV-W8-O4R"/>
+                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="PMy-FY-SvG" secondAttribute="trailing" id="ThV-qT-udb"/>
+                            <constraint firstItem="K1e-Hn-y5z" firstAttribute="top" secondItem="WL9-Rv-uwa" secondAttribute="top" id="akX-03-zcQ"/>
+                            <constraint firstItem="Q7m-JE-6xf" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="eas-ps-ewr"/>
+                            <constraint firstItem="Q7m-JE-6xf" firstAttribute="top" secondItem="K1e-Hn-y5z" secondAttribute="bottom" id="fM6-dr-89Y"/>
+                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="Q7m-JE-6xf" secondAttribute="trailing" id="mxx-3a-Aad"/>
+                            <constraint firstItem="PMy-FY-SvG" firstAttribute="top" secondItem="Q7m-JE-6xf" secondAttribute="bottom" id="otk-qp-mtx"/>
+                            <constraint firstItem="K1e-Hn-y5z" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="wR1-HL-QFd"/>
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="rfE-7k-8jP" appends="YES" id="otZ-hn-tbA"/>
@@ -178,6 +174,7 @@
                         <outlet property="searchTF" destination="Ofd-Q4-1Z1" id="1NI-HO-ckb"/>
                         <outlet property="searchV" destination="Q7m-JE-6xf" id="1a1-0D-wmY"/>
                         <outlet property="searchVBottomConstraint" destination="3c8-3Q-eqQ" id="1s7-yg-aMA"/>
+                        <outlet property="searchVHeightConstraint" destination="VyJ-68-O8Z" id="aOW-sc-8bU"/>
                         <outlet property="sortSC" destination="9hQ-BX-B1z" id="tHV-5W-7ZM"/>
                     </connections>
                 </viewController>
@@ -479,8 +476,8 @@
                                             <constraint firstAttribute="width" constant="160" id="5Vk-Xd-4oY"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="Main"/>
-                                            <segment title="Sub"/>
+                                            <segment title="Important"/>
+                                            <segment title="Optional"/>
                                         </segments>
                                         <connections>
                                             <action selector="changedSort:" destination="rQb-Bh-0l9" eventType="valueChanged" id="Dhf-li-wtr"/>
@@ -600,6 +597,8 @@
                         <outlet property="searchB" destination="Sjd-13-dtb" id="IqU-xN-BZi"/>
                         <outlet property="searchTF" destination="O2O-vJ-CjF" id="Aw9-4n-I44"/>
                         <outlet property="searchV" destination="fDi-Cb-pb6" id="15f-ck-fUF"/>
+                        <outlet property="searchVBottomConstraint" destination="nFy-kU-Ho8" id="tx4-aw-Hb5"/>
+                        <outlet property="searchVHeightConstraint" destination="yZl-Lx-idy" id="vch-tp-xKD"/>
                         <outlet property="sortSC" destination="mPq-Hm-63p" id="6rd-8q-xbY"/>
                     </connections>
                 </viewController>
@@ -614,7 +613,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="inE-3S-ZeW"/>
+        <segue reference="l7a-ZO-dir"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="cart.fill.badge.plus" catalog="system" width="128" height="106"/>

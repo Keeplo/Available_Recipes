@@ -10,44 +10,42 @@ import UIKit
 
 class ListViewController: UIViewController {
     @IBOutlet weak var searchV: UIView!
-    @IBOutlet weak var searchVBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchTF: UITextField!
         
+    @IBOutlet weak var searchVBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchVHeightConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var sortSC: UISegmentedControl!
     @IBOutlet weak var searchB: UIButton!
     @IBOutlet weak var addingB: UIButton!
     
     var searchVIsHidden: Bool!
-        
+    var searchVHeight: CGFloat!
+    var resiedHeight: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchVIsHidden = false
+        searchVIsHidden = true
+        searchVHeight = searchV.bounds.height
+        resiedHeight = searchV.bounds.height  - searchVBottomConstraint.constant - searchTF.bounds.height
+        
         changeViewState(isHidden: searchVIsHidden)
     }
     
     func changeViewState(isHidden: Bool) {
-        isHidden ? AppearSearchingView() : hideSearchingView()
+        isHidden ? hideSearchingView() : AppearSearchingView()
     }
     
     func hideSearchingView() {
-        let resiedHeight = searchV.bounds.height  - searchVBottomConstraint.constant - searchTF.bounds.height
-        print("before : \(searchV.bounds.height) / resize : \(resiedHeight)")
-        
-        searchV.sizeThatFits(CGSize(width: searchV.bounds.width, height: resiedHeight))
-        self.resignFirstResponder()
-        print(searchV.frame)
+        //print("before : \(searchV.bounds.height) / resize : \(resiedHeight)")
+        searchVHeightConstraint.constant = resiedHeight
         
         searchTF.isHidden = !searchTF.isHidden
         searchTF.isEnabled = !searchTF.isEnabled
     }
     func AppearSearchingView() {
-        let resiedHeight = searchV.bounds.height  + searchVBottomConstraint.constant + searchTF.bounds.height
-        print("before : \(searchV.bounds.height) / resize : \(resiedHeight)")
-        
-        searchV. = CGFloat(resiedHeight)
-        searchV.sizeToFit()
-        print(searchV.frame)
+        searchVHeightConstraint.constant = searchVHeight
         
         searchTF.isHidden = !searchTF.isHidden
         searchTF.isEnabled = !searchTF.isEnabled
@@ -57,17 +55,20 @@ class ListViewController: UIViewController {
         print("func addRecipeButton / press AddingRecipeButton")
     }
     @IBAction func searchingRecipeButton(_ sender: Any) {
-        print("func searchingRecipeButton / press SearchingRecipeButton")
-        searchVIsHidden = (searchVIsHidden ? false : true)
+        searchVIsHidden = !searchVIsHidden
         changeViewState(isHidden: searchVIsHidden)
     }
     // BG 탭했을때, 키보드 내려오게 하기
     @IBAction func tapBG(_ sender: Any) {
         searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
+        
+        if(!searchVIsHidden) {
+            searchVIsHidden = !searchVIsHidden
+            changeViewState(isHidden: searchVIsHidden)
+        }
     }
     
     @IBAction func changedSort(_ sender: Any) {
-        print("func changedSort / changed Sort Segumented Controler")
         print(sortSC.selectedSegmentIndex)
     }
 }

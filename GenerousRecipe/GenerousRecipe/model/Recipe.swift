@@ -7,11 +7,11 @@
 //
 
 import UIKit
-/*
+
 struct Recipe {
     var dishName: String
-    let mainIngredients: [Ingredient]
-    let ingredients: [Ingredient]
+    let IIngredients: [Ingredient] // important ingredients
+    let OIngredients: [Ingredient]
     let steps: [Step]
     var favorite: Bool?
     
