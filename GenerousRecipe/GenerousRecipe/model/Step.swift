@@ -8,8 +8,14 @@
 
 import UIKit
 
-struct Step {
+struct Step: Codable, Equatable {
     // TODO: 레시피에 사진도 있으면 사용자가 이해하기 더 쉽겠죠?
-    var imageDescription: UIImage?
+    var imageDescription: SomeImage?
     var textInstructions: String
+}
+public struct SomeImage: Codable, Equatable {
+    public let photo: Data
+    public init(photo: UIImage) {
+        self.photo = photo.pngData()!
+    }
 }

@@ -23,6 +23,8 @@ class IngredientsViewController: UIViewController {
     var searchVHeight: CGFloat!
     var resiedHeight: CGFloat!
     
+    
+//Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,17 +35,15 @@ class IngredientsViewController: UIViewController {
         changeViewState(isHidden: searchVIsHidden)
     }
     
+    // Seaching View UIControll
     func changeViewState(isHidden: Bool) {
-        isHidden ? hideSearchingView() : AppearSearchingView()
-    }
-    
+        isHidden ? hideSearchingView() : AppearSearchingView() }
     func hideSearchingView() {
         //print("before : \(searchV.bounds.height) / resize : \(resiedHeight)")
         searchVHeightConstraint.constant = resiedHeight
         
         searchTF.isHidden = !searchTF.isHidden
-        searchTF.isEnabled = !searchTF.isEnabled
-    }
+        searchTF.isEnabled = !searchTF.isEnabled }
     func AppearSearchingView() {
         searchVHeightConstraint.constant = searchVHeight
         
@@ -52,6 +52,7 @@ class IngredientsViewController: UIViewController {
     }
 
 
+//Mark - IBActions
     @IBAction func addRecipeButton(_ sender: Any) {
         print("func addRecipeButton / press AddingRecipeButton")
     }
@@ -87,6 +88,8 @@ class IngredientsViewController: UIViewController {
     
 }
 
+
+//Mark - CollectionView DataSource
 extension IngredientsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 0

@@ -23,27 +23,32 @@ class ListViewController: UIViewController {
     var searchVHeight: CGFloat!
     var resiedHeight: CGFloat!
     
+    let recipeListViewModel = RecipeViewModel()
+    
+//Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // SearchingView Control
         searchVIsHidden = true
         searchVHeight = searchV.bounds.height
         resiedHeight = searchV.bounds.height  - searchVBottomConstraint.constant - searchTF.bounds.height
         
         changeViewState(isHidden: searchVIsHidden)
+        
+        // CollectionView UIUpdate
+        recipeListViewModel.loadTasks()
     }
     
+    // Seaching View UIControll
     func changeViewState(isHidden: Bool) {
-        isHidden ? hideSearchingView() : AppearSearchingView()
-    }
-    
+        isHidden ? hideSearchingView() : AppearSearchingView() }
     func hideSearchingView() {
         //print("before : \(searchV.bounds.height) / resize : \(resiedHeight)")
         searchVHeightConstraint.constant = resiedHeight
         
         searchTF.isHidden = !searchTF.isHidden
-        searchTF.isEnabled = !searchTF.isEnabled
-    }
+        searchTF.isEnabled = !searchTF.isEnabled }
     func AppearSearchingView() {
         searchVHeightConstraint.constant = searchVHeight
         
@@ -51,6 +56,8 @@ class ListViewController: UIViewController {
         searchTF.isEnabled = !searchTF.isEnabled
     }
 
+    
+//Mark - IBActions
     @IBAction func addRecipeButton(_ sender: Any) {
         print("func addRecipeButton / press AddingRecipeButton")
     }
@@ -67,20 +74,32 @@ class ListViewController: UIViewController {
             changeViewState(isHidden: searchVIsHidden)
         }
     }
-    
     @IBAction func changedSort(_ sender: Any) {
         print(sortSC.selectedSegmentIndex)
     }
 }
 
+
+//Mark - CollectionView DataSource
 extension ListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return recipeListViewModel.numOfSection
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCollectionViewCell", for: indexPath) as? RecipesCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        var recipe: Recipe
+        if sortSC.selectedSegmentIndex == 0 {
+            recipe = recipeListViewModel.allRecipes[indexPath.row]
+        } else {
+            recipe = recipeListViewModel.favoriteRecipes[indexPath.row]
+        }
+        
+        // ++TODO: todo 를 이용해서 updateUI
+        cell.updateUI(recipe: recipe)
+        
         return cell
     }
 }

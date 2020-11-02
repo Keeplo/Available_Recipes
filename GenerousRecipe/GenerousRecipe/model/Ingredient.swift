@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Ingredient {
+struct Ingredient: Codable, Equatable {
     let name: String
     let amount: Float
 }

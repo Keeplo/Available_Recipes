@@ -13,7 +13,7 @@ public class Storage {
     private init() { }
     
     // TODO: directory 설명
-    // TODO: FileManager 설명 
+    // TODO: FileManager 설명
     enum Directory {
         case documents
         case caches
@@ -33,7 +33,7 @@ public class Storage {
     // TODO: Codable 설명, JSON 타입 설명
     // TODO: Codable encode 설명
     // TODO: Data 타입은 파일 형태로 저장 가능
-    
+    /*
     static func store<T: Encodable>(_ obj: T, to directory: Directory, as fileName: String) {
         let url = directory.url.appendingPathComponent(fileName, isDirectory: false)
         print("---> save to here: \(url)")
@@ -92,10 +92,10 @@ public class Storage {
             print("---> Failed to clear directory ms: \(error.localizedDescription)")
         }
     }
+ */
 }
 
 // MARK: TEST 용
-
 extension Storage {
     static func saveRecipe(_ obj: Recipe, fileName: String) {
         let url = Directory.documents.url.appendingPathComponent(fileName, isDirectory: false)
@@ -114,7 +114,7 @@ extension Storage {
         }
     }
     
-    static func restoreRecipe(_ fileName: String) -> Todo? {
+    static func restoreRecipe(_ fileName: String) -> Recipe? {
         let url = Directory.documents.url.appendingPathComponent(fileName, isDirectory: false)
         guard FileManager.default.fileExists(atPath: url.path) else { return nil }
         guard let data = FileManager.default.contents(atPath: url.path) else { return nil }
@@ -122,7 +122,7 @@ extension Storage {
         let decoder = JSONDecoder()
         
         do {
-            let model = try decoder.decode(Todo.self, from: data)
+            let model = try decoder.decode(Recipe.self, from: data)
             return model
         } catch let error {
             print("---> Failed to decode msg: \(error.localizedDescription)")
@@ -130,4 +130,3 @@ extension Storage {
         }
     }
 }
-
