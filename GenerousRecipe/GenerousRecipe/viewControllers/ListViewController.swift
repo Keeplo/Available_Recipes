@@ -38,6 +38,19 @@ class ListViewController: UIViewController {
         changeViewState(isHidden: searchVIsHidden)
         
         // CollectionView UIUpdate
+        
+        // 더미 파일 입력
+        let rs =
+        [
+            Recipe(dishName: "삼계탕", thumbnail: ImageData(photo: UIImage(named: "삼계탕")!), IIngredients: [Ingredient(name: "닭", amount: 1.000)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "인삼", amount: 0.030)], steps: [Step(textInstructions: "one"), Step(textInstructions: "two"), Step(textInstructions: "three")], favorite: false),
+            Recipe(dishName: "참치김치찌개", thumbnail: ImageData(photo: UIImage(named: "참치김치찌개")!), IIngredients: [Ingredient(name: "김치", amount: 0.150), Ingredient(name: "참치", amount: 0.070)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050)], steps: [Step(textInstructions: "1"), Step(textInstructions: "2"), Step(textInstructions: "3")], favorite: false),
+            Recipe(dishName: "제육볶음", thumbnail: ImageData(photo: UIImage(named: "제육볶음")!), IIngredients: [Ingredient(name: "돼지고기", amount: 0.350)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "당근", amount: 0.050)], steps: [Step(textInstructions: "하나"), Step(textInstructions: "둘"), Step(textInstructions: "셋")], favorite: true)
+        ]
+        let _ = rs.map({ recipeListViewModel.addRecipe($0)})
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         recipeListViewModel.loadTasks()
     }
     
@@ -89,8 +102,8 @@ extension ListViewController: UICollectionViewDataSource {
 //        return recipeListViewModel.numOfSection
 //    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("favorite \(recipeListViewModel.favoriteRecipes.count)")
-        print("All \(recipeListViewModel.allRecipes.count)")
+//        print("favorite \(recipeListViewModel.favoriteRecipes.count)")
+//        print("All \(recipeListViewModel.allRecipes.count)")
         return sortSC.selectedSegmentIndex == 0 ? recipeListViewModel.allRecipes.count : recipeListViewModel.favoriteRecipes.count
     }
     

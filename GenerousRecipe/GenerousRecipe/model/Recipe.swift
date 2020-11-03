@@ -24,6 +24,7 @@ struct Recipe: Codable, Equatable {
         
     }
     
+    
     // TODO: json에 저장할떄 이용해주세요.
     var toJSON: [String:Any] {
         return [
@@ -52,8 +53,8 @@ class RecipeManager {
     
     var recipes: [Recipe] = []
     
-    func createRecipe(dishName: String, thumbnail: ImageData?, important: [Ingredient], optional: [Ingredient], steps: [Step], favorite: Bool?) -> Recipe {
-        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: important, OIngredients: [], steps: [], favorite: favorite)
+    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool?) -> Recipe {
+        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite)
     }
     
     func addRecipe(_ recipe: Recipe) {
@@ -80,20 +81,20 @@ class RecipeManager {
         Storage.store(recipes, to: .documents, as: "recipes.json")
     }
     
-//    func retrieveRecipe() {
-//        recipes = Storage.retrive("recipes.json", from: .documents, as: [Recipe].self) ?? []
-//
+    func retrieveRecipe(){
+        recipes = Storage.retrive("recipes.json", from: .documents, as: [Recipe].self) ?? []
+
 //        let lastDishName = recipes.last?.dishName ?? ""
 //        RecipeManager.lastDishName = lastDishName
-//    }
-    func retrieveRecipe() {
-        recipes = [
-            Recipe(dishName: "삼계탕", thumbnail: ImageData(photo: UIImage(named: "삼계탕")!), IIngredients: [Ingredient(name: "닭", amount: 1.000)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "인삼", amount: 0.030)], steps: [Step(textInstructions: "one"), Step(textInstructions: "two"), Step(textInstructions: "three")], favorite: false),
-            Recipe(dishName: "참치김치찌개", thumbnail: ImageData(photo: UIImage(named: "참치김치찌개")!), IIngredients: [Ingredient(name: "김치", amount: 0.150), Ingredient(name: "참치", amount: 0.070)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050)], steps: [Step(textInstructions: "1"), Step(textInstructions: "2"), Step(textInstructions: "3")], favorite: false),
-            Recipe(dishName: "제육볶음", thumbnail: ImageData(photo: UIImage(named: "제육볶음")!), IIngredients: [Ingredient(name: "돼지고기", amount: 0.350)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "당근", amount: 0.050)], steps: [Step(textInstructions: "하나"), Step(textInstructions: "둘"), Step(textInstructions: "셋")], favorite: true)
-        ]
-        
     }
+//    func retrieveRecipe() {
+//        recipes = [
+//            Recipe(dishName: "삼계탕", thumbnail: ImageData(photo: UIImage(named: "삼계탕")!), IIngredients: [Ingredient(name: "닭", amount: 1.000)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "인삼", amount: 0.030)], steps: [Step(textInstructions: "one"), Step(textInstructions: "two"), Step(textInstructions: "three")], favorite: false),
+//            Recipe(dishName: "참치김치찌개", thumbnail: ImageData(photo: UIImage(named: "참치김치찌개")!), IIngredients: [Ingredient(name: "김치", amount: 0.150), Ingredient(name: "참치", amount: 0.070)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050)], steps: [Step(textInstructions: "1"), Step(textInstructions: "2"), Step(textInstructions: "3")], favorite: false),
+//            Recipe(dishName: "제육볶음", thumbnail: ImageData(photo: UIImage(named: "제육볶음")!), IIngredients: [Ingredient(name: "돼지고기", amount: 0.350)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "당근", amount: 0.050)], steps: [Step(textInstructions: "하나"), Step(textInstructions: "둘"), Step(textInstructions: "셋")], favorite: true)
+//        ]
+//
+//    }
 }
 
 
@@ -132,15 +133,15 @@ class RecipeViewModel {
     }
     
     func addRecipe(_ recipe: Recipe) {
-        //manager.addRecipe(recipe)
+        manager.addRecipe(recipe)
     }
     
     func deleteRecipe(_ recipe: Recipe) {
-        //manager.deleteRecipe(recipe)
+        manager.deleteRecipe(recipe)
     }
     
     func updateRecipe(_ recipe: Recipe) {
-        //manager.updateRecipe(recipe)
+        manager.updateRecipe(recipe)
     }
     
     func loadTasks() {
