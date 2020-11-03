@@ -23,6 +23,7 @@ class ListViewController: UIViewController {
     var searchVHeight: CGFloat!
     var resiedHeight: CGFloat!
     
+    @IBOutlet weak var collectionView: UICollectionView!
     let recipeListViewModel = RecipeViewModel()
     
 //Mark - Life Cycle
@@ -76,23 +77,33 @@ class ListViewController: UIViewController {
     }
     @IBAction func changedSort(_ sender: Any) {
         print(sortSC.selectedSegmentIndex)
+        collectionView.reloadData()
     }
 }
 
 
 //Mark - CollectionView DataSource
 extension ListViewController: UICollectionViewDataSource {
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        print("numberOfSection \(recipeListViewModel.numOfSection)")
+//        return recipeListViewModel.numOfSection
+//    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipeListViewModel.numOfSection
+        print("favorite \(recipeListViewModel.favoriteRecipes.count)")
+        print("All \(recipeListViewModel.allRecipes.count)")
+        return sortSC.selectedSegmentIndex == 0 ? recipeListViewModel.allRecipes.count : recipeListViewModel.favoriteRecipes.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCollectionViewCell", for: indexPath) as? RecipesCollectionViewCell else {
             return UICollectionViewCell()
         }
         
         var recipe: Recipe
+        
         if sortSC.selectedSegmentIndex == 0 {
             recipe = recipeListViewModel.allRecipes[indexPath.row]
+
         } else {
             recipe = recipeListViewModel.favoriteRecipes[indexPath.row]
         }

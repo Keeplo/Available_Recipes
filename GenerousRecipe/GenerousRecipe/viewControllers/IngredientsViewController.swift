@@ -23,6 +23,7 @@ class IngredientsViewController: UIViewController {
     var searchVHeight: CGFloat!
     var resiedHeight: CGFloat!
     
+    let recipeListViewModel = RecipeViewModel()
     
 //Mark - Life Cycle
     override func viewDidLoad() {
@@ -91,17 +92,25 @@ class IngredientsViewController: UIViewController {
 
 //Mark - CollectionView DataSource
 extension IngredientsViewController: UICollectionViewDataSource {
+//    func numberOfSections(in collectionView: UICollectionView) -> Int {
+//        print("numberOfSection \(recipeListViewModel.numOfSection)")
+//        return recipeListViewModel.numOfSection
+//    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return recipeListViewModel.allRecipes.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "IngredientsCollectionViewCell", for: indexPath) as? IngredientsCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
+        var recipe: Recipe
+        recipe = recipeListViewModel.allRecipes[indexPath.row]
+        
+        // ++TODO: todo 를 이용해서 updateUI
+        cell.updateUI(recipe: recipe)
+        
         return cell
     }
-    
-    
 }
-
