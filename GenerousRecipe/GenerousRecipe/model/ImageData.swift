@@ -8,6 +8,13 @@
 
 import UIKit
 
-class ImageData: NSObject {
-
+public struct ImageData: Codable, Equatable {
+    public let photo: Data
+    public init(photo: UIImage) {
+        self.photo = photo.pngData()!
+    }
+    public func getPhoto() -> UIImage {
+        guard let image = UIImage(data: photo) else { return UIImage() }
+        return image
+    }
 }
