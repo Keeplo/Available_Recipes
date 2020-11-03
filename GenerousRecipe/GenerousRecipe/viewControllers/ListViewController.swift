@@ -80,7 +80,7 @@ class ListViewController: UIViewController {
         changeViewState(isHidden: searchVIsHidden)
     }
     // BG 탭했을때, 키보드 내려오게 하기
-    @IBAction func tapBG(_ sender: Any) {
+    @IBAction func tapBG(_ sender: Any) {q
         searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
         
         if(!searchVIsHidden) {
@@ -128,3 +128,10 @@ extension ListViewController: UICollectionViewDataSource {
     }
 }
 
+extension ListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width: CGFloat = collectionView.bounds.width
+        let height: CGFloat = 150
+        return CGSize(width: width, height: height)
+    }
+}
