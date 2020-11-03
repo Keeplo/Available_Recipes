@@ -101,40 +101,40 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMy-FY-SvG">
                                 <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UgO-TM-1N3">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="UgO-TM-1N3">
                                     <size key="itemSize" width="375" height="150"/>
+                                    <size key="estimatedItemSize" width="374" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecipesCollectionViewCell" id="8Ac-8O-Kse" customClass="RecipesCollectionViewCell" customModule="GenerousRecipe" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecipesCollectionViewCell" translatesAutoresizingMaskIntoConstraints="NO" id="8Ac-8O-Kse" customClass="RecipesCollectionViewCell" customModule="GenerousRecipe" customModuleProvider="target">
                                         <rect key="frame" x="19.5" y="0.0" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5qK-PA-Kad">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cN0-Qs-3fZ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0AG-2x-Iz1" userLabel="RecipesPics">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0AG-2x-Iz1" userLabel="RecipesPics">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="150" id="Bds-yw-km5"/>
-                                                    </constraints>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김치찌개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZX-hC-iOf" userLabel="RecipesName">
-                                                    <rect key="frame" x="275.5" y="111" width="69.5" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                    <rect key="frame" x="241" y="99" width="104" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="1ZX-hC-iOf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5qK-PA-Kad" secondAttribute="leading" constant="20" symbolic="YES" id="4I0-5j-674"/>
+                                                <constraint firstItem="1ZX-hC-iOf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cN0-Qs-3fZ" secondAttribute="leading" constant="20" symbolic="YES" id="4I0-5j-674"/>
                                                 <constraint firstAttribute="bottom" secondItem="0AG-2x-Iz1" secondAttribute="bottom" id="6rK-Ii-jyy"/>
                                                 <constraint firstAttribute="bottom" secondItem="1ZX-hC-iOf" secondAttribute="bottom" constant="15" id="EkR-fs-9Vv"/>
-                                                <constraint firstItem="0AG-2x-Iz1" firstAttribute="leading" secondItem="5qK-PA-Kad" secondAttribute="leading" id="KQQ-z2-BmQ"/>
+                                                <constraint firstItem="0AG-2x-Iz1" firstAttribute="leading" secondItem="cN0-Qs-3fZ" secondAttribute="leading" id="KQQ-z2-BmQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="1ZX-hC-iOf" secondAttribute="trailing" constant="30" id="MlB-lx-kQZ"/>
-                                                <constraint firstItem="0AG-2x-Iz1" firstAttribute="top" secondItem="5qK-PA-Kad" secondAttribute="top" id="gbd-Hb-QIj"/>
+                                                <constraint firstItem="0AG-2x-Iz1" firstAttribute="top" secondItem="cN0-Qs-3fZ" secondAttribute="top" id="gbd-Hb-QIj"/>
                                                 <constraint firstAttribute="trailing" secondItem="0AG-2x-Iz1" secondAttribute="trailing" id="qf8-0p-7vt"/>
                                             </constraints>
                                         </collectionViewCellContentView>
@@ -379,7 +379,21 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xj7-Dv-oJ2" id="dDH-10-dmQ">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MlG-X7-cyq">
+                                                    <rect key="frame" x="20" y="5" width="334" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="MlG-X7-cyq" secondAttribute="bottom" id="5UB-Ky-L5g"/>
+                                            <constraint firstItem="MlG-X7-cyq" firstAttribute="top" secondItem="Xj7-Dv-oJ2" secondAttribute="top" id="Vrp-ew-hei"/>
+                                            <constraint firstAttribute="trailing" secondItem="MlG-X7-cyq" secondAttribute="trailing" symbolic="YES" id="kdw-HK-ets"/>
+                                            <constraint firstItem="MlG-X7-cyq" firstAttribute="leading" secondItem="Xj7-Dv-oJ2" secondAttribute="leading" symbolic="YES" id="m7o-W9-TQq"/>
+                                        </constraints>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="wzy-wB-G4p">
                                         <rect key="frame" x="20" y="99" width="374" height="43.5"/>
@@ -438,7 +452,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fNx-dh-Jt0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1457" y="106"/>
+            <point key="canvasLocation" x="1456.521739130435" y="105.80357142857143"/>
         </scene>
         <!--Ingredients-->
         <scene sceneID="OKz-fb-jml">
@@ -529,7 +543,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4DD-oE-S2X">
                                 <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eyf-gl-XCB">
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="eyf-gl-XCB">
                                     <size key="itemSize" width="375" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -543,12 +557,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1dC-aN-ibZ" userLabel="RecipesPics">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="1dC-aN-ibZ" userLabel="RecipesPics">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김치찌개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMB-8l-ct8" userLabel="RecipesName">
-                                                    <rect key="frame" x="275.5" y="111" width="69.5" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                    <rect key="frame" x="241" y="99" width="104" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
