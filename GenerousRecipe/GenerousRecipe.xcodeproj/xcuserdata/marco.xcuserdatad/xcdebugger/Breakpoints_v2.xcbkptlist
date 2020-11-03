@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "41C52AD8-A9E1-4FE8-ACBF-11FC4DFFD8F0"
+            uuid = "0980DAE0-2B9C-4A8A-A564-B125ECCC2F8B"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GenerousRecipe/RecipesCollectionViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "16"
-            endingLineNumber = "16"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
             landmarkName = "updateUI(recipe:)"
             landmarkType = "7">
          </BreakpointContent>

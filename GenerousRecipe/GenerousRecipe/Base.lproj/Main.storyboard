@@ -102,24 +102,27 @@
                                 <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="UgO-TM-1N3">
-                                    <size key="itemSize" width="375" height="123"/>
+                                    <size key="itemSize" width="375" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecipesCollectionViewCell" id="8Ac-8O-Kse" customClass="RecipesCollectionViewCell" customModule="GenerousRecipe" customModuleProvider="target">
-                                        <rect key="frame" x="19.5" y="0.0" width="375" height="123"/>
+                                        <rect key="frame" x="19.5" y="0.0" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5qK-PA-Kad">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0AG-2x-Iz1" userLabel="RecipesPics">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="150" id="Bds-yw-km5"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김치찌개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZX-hC-iOf" userLabel="RecipesName">
-                                                    <rect key="frame" x="275.5" y="84" width="69.5" height="24"/>
+                                                    <rect key="frame" x="275.5" y="111" width="69.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -135,10 +138,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="0AG-2x-Iz1" secondAttribute="trailing" id="qf8-0p-7vt"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="375" height="123"/>
+                                        <size key="customSize" width="375" height="150"/>
                                         <connections>
                                             <outlet property="dishName" destination="1ZX-hC-iOf" id="5RX-4r-EeE"/>
-                                            <outlet property="recipeImage" destination="0AG-2x-Iz1" id="qwE-Kp-owa"/>
+                                            <outlet property="recipeThumbnail" destination="0AG-2x-Iz1" id="Iv3-6G-4C0"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -170,6 +173,7 @@
                     <tabBarItem key="tabBarItem" title="My Recipes" image="target" catalog="system" id="Guo-S3-ZeC"/>
                     <connections>
                         <outlet property="addingB" destination="Xn3-VZ-IZD" id="CUY-Yv-SNf"/>
+                        <outlet property="collectionView" destination="PMy-FY-SvG" id="ZWL-kY-FCG"/>
                         <outlet property="searchB" destination="Wuq-NG-CVo" id="bAQ-1c-Lft"/>
                         <outlet property="searchTF" destination="Ofd-Q4-1Z1" id="1NI-HO-ckb"/>
                         <outlet property="searchV" destination="Q7m-JE-6xf" id="1a1-0D-wmY"/>
@@ -526,24 +530,24 @@
                                 <rect key="frame" x="0.0" y="184" width="414" height="629"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="eyf-gl-XCB">
-                                    <size key="itemSize" width="375" height="123"/>
+                                    <size key="itemSize" width="375" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IngredientsCollectionViewCell" id="en1-1T-KPY" customClass="IngredientsCollectionViewCell" customModule="GenerousRecipe" customModuleProvider="target">
-                                        <rect key="frame" x="19.5" y="0.0" width="375" height="123"/>
+                                        <rect key="frame" x="19.5" y="0.0" width="375" height="150"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mvo-Vg-24R">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1dC-aN-ibZ" userLabel="RecipesPics">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="123"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김치찌개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMB-8l-ct8" userLabel="RecipesName">
-                                                    <rect key="frame" x="275.5" y="84" width="69.5" height="24"/>
+                                                    <rect key="frame" x="275.5" y="111" width="69.5" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -559,10 +563,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="1dC-aN-ibZ" secondAttribute="bottom" id="yKg-Ii-n8g"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="375" height="123"/>
+                                        <size key="customSize" width="375" height="150"/>
                                         <connections>
                                             <outlet property="dishName" destination="OMB-8l-ct8" id="yBL-Nq-zJh"/>
-                                            <outlet property="recipeImage" destination="1dC-aN-ibZ" id="wV0-Ry-mIq"/>
+                                            <outlet property="recipeThumbnail" destination="1dC-aN-ibZ" id="tLN-zU-GPp"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
