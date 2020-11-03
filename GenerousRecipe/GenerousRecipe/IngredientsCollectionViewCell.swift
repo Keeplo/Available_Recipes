@@ -9,7 +9,11 @@
 import UIKit
 
 class IngredientsCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var recipeImage: UIImageView!
+    @IBOutlet weak var recipeThumbnail: UIImageView!
     @IBOutlet weak var dishName: UILabel!
     
+    func updateUI(recipe: Recipe) {
+        dishName.text = recipe.dishName
+        recipeThumbnail.image = recipe.thumbnail?.getPhoto()
+    }
 }
