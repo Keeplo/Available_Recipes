@@ -15,6 +15,7 @@ struct Recipe: Codable, Equatable {
     let OIngredients: [Ingredient] // optional ingredients
     let steps: [Step]
     var favorite: Bool? = false
+    var section: Section? = .nokind
     
     func containsAllIngrdients(_ ingredients: [Ingredient]) -> Bool {
         // TODO: 나중에 필터로 재료로 레시피를 찾을때 이용하면 편할 함수입니다.
@@ -29,17 +30,19 @@ struct Recipe: Codable, Equatable {
     var toJSON: [String:Any] {
         return [
             "dishName": String(),
-            "importantIngreidients": [String:Any](),
-            "optionalIngreidients": [String:Any](),
-            "steps": [[String:Any]](),
-            "favorite": Bool()
+            "thumbnail": (Any).self,
+            "important": [Any](),
+            "optional": [Any](),
+            "steps": [Any](),
+            "favorite": Bool(),
+            "section": Any.self
         ]
     }
     
-    static func instance(from json: [String:Any]) -> Recipe {
-        // JSON에서 객체를 만들떄 써주세요.
-        return Recipe(dishName: "", thumbnail: nil, IIngredients: [], OIngredients: [], steps: [], favorite: false)
-    }
+//    static func instance(from json: [String:Any]) -> Recipe {
+//        // JSON에서 객체를 만들떄 써주세요.
+//        return Recipe(dishName: json["dishName"], thumbnail: json["thumbnail"], IIngredients: json["important"], OIngredients: json["optional"], steps: json["steps"], favorite: json["favorite"], section: json["section"])
+//    }
     
     static func == (leftRecipeName: Self, rightRecipeName: Self) -> Bool {
         // ++TODO: 동등 조건 추가
@@ -53,8 +56,8 @@ class RecipeManager {
     
     var recipes: [Recipe] = []
     
-    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool?) -> Recipe {
-        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite)
+    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool?, section: Section) -> Recipe {
+        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite, section: nil)
     }
     
     func addRecipe(_ recipe: Recipe) {
