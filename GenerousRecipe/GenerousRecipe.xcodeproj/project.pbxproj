@@ -22,8 +22,9 @@
 		A921BA3725404A77007F5BAF /* AddRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A921BA3625404A77007F5BAF /* AddRecipeViewController.swift */; };
 		A921BA3B25404AA7007F5BAF /* RecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A921BA3A25404AA7007F5BAF /* RecipeViewController.swift */; };
 		A92976D32546CFDE00E93512 /* RecipesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92976D22546CFDE00E93512 /* RecipesCollectionViewCell.swift */; };
-		A92976D72546D04D00E93512 /* IngredientsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92976D62546D04D00E93512 /* IngredientsCollectionViewCell.swift */; };
 		A92B77A925468FB00072054A /* SearchingViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92B77A825468FB00072054A /* SearchingViewViewController.swift */; };
+		A97BB3D22552DB1B00DFB42E /* EmptyListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BB3D12552DB1B00DFB42E /* EmptyListCell.swift */; };
+		A97BB3D82552DB6800DFB42E /* EmptyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A97BB3D72552DB6800DFB42E /* EmptyListCell.xib */; };
 		A9BF89C425515ACF0026E7F5 /* photos in Resources */ = {isa = PBXBuildFile; fileRef = A9BF89C325515ACF0026E7F5 /* photos */; };
 		A9E469E525511C8800EF4AD0 /* ImageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E469E425511C8800EF4AD0 /* ImageData.swift */; };
 		A9E6872B255268E900DBDEFC /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9E6872A255268E900DBDEFC /* Section.swift */; };
@@ -47,8 +48,9 @@
 		A921BA3625404A77007F5BAF /* AddRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRecipeViewController.swift; sourceTree = "<group>"; };
 		A921BA3A25404AA7007F5BAF /* RecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeViewController.swift; sourceTree = "<group>"; };
 		A92976D22546CFDE00E93512 /* RecipesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCollectionViewCell.swift; sourceTree = "<group>"; };
-		A92976D62546D04D00E93512 /* IngredientsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsCollectionViewCell.swift; sourceTree = "<group>"; };
 		A92B77A825468FB00072054A /* SearchingViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchingViewViewController.swift; sourceTree = "<group>"; };
+		A97BB3D12552DB1B00DFB42E /* EmptyListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListCell.swift; sourceTree = "<group>"; };
+		A97BB3D72552DB6800DFB42E /* EmptyListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyListCell.xib; sourceTree = "<group>"; };
 		A9BF89C325515ACF0026E7F5 /* photos */ = {isa = PBXFileReference; lastKnownFileType = folder; path = photos; sourceTree = "<group>"; };
 		A9E469E425511C8800EF4AD0 /* ImageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageData.swift; sourceTree = "<group>"; };
 		A9E6872A255268E900DBDEFC /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
@@ -136,7 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				A92976D22546CFDE00E93512 /* RecipesCollectionViewCell.swift */,
-				A92976D62546D04D00E93512 /* IngredientsCollectionViewCell.swift */,
+				A97BB3D12552DB1B00DFB42E /* EmptyListCell.swift */,
+				A97BB3D72552DB6800DFB42E /* EmptyListCell.xib */,
 			);
 			path = collectionViewCell;
 			sourceTree = "<group>";
@@ -202,6 +205,7 @@
 				6C8E77C124DAE37D00D77643 /* LaunchScreen.storyboard in Resources */,
 				6C8E77BE24DAE37D00D77643 /* Assets.xcassets in Resources */,
 				6C8E77BC24DAE37B00D77643 /* Main.storyboard in Resources */,
+				A97BB3D82552DB6800DFB42E /* EmptyListCell.xib in Resources */,
 				A9BF89C425515ACF0026E7F5 /* photos in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,13 +221,13 @@
 				A913EA1B254FE7B1003830B7 /* Storage.swift in Sources */,
 				6C8E77CA24DAE38800D77643 /* Ingredient.swift in Sources */,
 				6C8E77B924DAE37B00D77643 /* ListViewController.swift in Sources */,
-				A92976D72546D04D00E93512 /* IngredientsCollectionViewCell.swift in Sources */,
 				6C8E77CE24DAE49B00D77643 /* Setting.swift in Sources */,
 				A921BA3B25404AA7007F5BAF /* RecipeViewController.swift in Sources */,
 				A92B77A925468FB00072054A /* SearchingViewViewController.swift in Sources */,
 				A9E469E525511C8800EF4AD0 /* ImageData.swift in Sources */,
 				A92976D32546CFDE00E93512 /* RecipesCollectionViewCell.swift in Sources */,
 				A921BA3425404A3A007F5BAF /* SettingViewController.swift in Sources */,
+				A97BB3D22552DB1B00DFB42E /* EmptyListCell.swift in Sources */,
 				6C8E77D024DAE5A200D77643 /* Step.swift in Sources */,
 				6C8E77B524DAE37B00D77643 /* AppDelegate.swift in Sources */,
 				A9E6872B255268E900DBDEFC /* Section.swift in Sources */,

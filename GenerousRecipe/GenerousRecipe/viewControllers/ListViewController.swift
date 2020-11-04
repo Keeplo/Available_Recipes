@@ -147,13 +147,16 @@ extension ListViewController: UICollectionViewDataSource {
         
         var recipe: Recipe
         
-        if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
+        if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
             if sortSC.selectedSegmentIndex == 0 {
                 recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
             } else {
                 recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
             }
-        } else {       // 검색중 x
+        } else if !searchTF.text!.isEmpty {                      // 검색 결과없음
+            guard cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyListCell", for: indexPath) as? EmptyListCell else { return UICollectionViewCell() }
+            return cell
+        } else {                                                 // 검색중 x
             if sortSC.selectedSegmentIndex == 0 {
                 recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
             } else {
