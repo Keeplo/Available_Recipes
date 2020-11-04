@@ -85,10 +85,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" enablesReturnKeyAutomatically="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
                                         <imageReference key="background" image="magnifyingglass" catalog="system" symbolScale="medium"/>
-                                        <connections>
-                                            <action selector="completeInput:" destination="scN-1h-0gg" eventType="editingDidEndOnExit" id="lED-9T-zeC"/>
-                                            <action selector="endInput:" destination="scN-1h-0gg" eventType="editingDidEnd" id="8Q5-pb-zY4"/>
-                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.84506899120000001" green="0.44914639000000001" blue="0.29799601440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

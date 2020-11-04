@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController, UICollectionViewDelegate {
+class ListViewController: UIViewController {
     @IBOutlet weak var searchV: UIView!
     @IBOutlet weak var searchTF: UITextField!
         
@@ -43,6 +43,7 @@ class ListViewController: UIViewController, UICollectionViewDelegate {
         
         // Delegate
         collectionView.delegate = self
+        searchTF.delegate = self
         
         // SearchingView Control
         searchVIsHidden = true
@@ -95,34 +96,28 @@ class ListViewController: UIViewController, UICollectionViewDelegate {
         searchVIsHidden = !searchVIsHidden
         changeViewState(isHidden: searchVIsHidden)
     }
-    // BG 탭했을때, 키보드 내려오게 하기
+    // BG 탭했을때, 키보드 내려오게 하기 + searching View 비활성화
     @IBAction func tapBG(_ sender: Any) {
         searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
         
         if !searchVIsHidden, searchTF.text == "" {
             searchVIsHidden = !searchVIsHidden
             changeViewState(isHidden: searchVIsHidden)
+            recipeListViewModel.emptySearchedList()
+            collectionViewUpadate()
         }
     }
     @IBAction func changedSort(_ sender: Any) {
-        collectionView.reloadData()
+        collectionViewUpadate()
     }
-
-    @IBAction func endInput(_ sender: Any) {
-        guard let input = searchTF.text else { return }
-        if !input.isEmpty {
-            recipeListViewModel.searchingDishName(name: input)
-        }
-    }
-    @IBAction func completeInput(_ sender: Any) {
-        // 동작시 endInput 동시 동작됨
-    }
-    
 }
 
 
 //Mark - CollectionView DataSource
 extension ListViewController: UICollectionViewDataSource {
+    func collectionViewUpadate() {
+        collectionView.reloadData()
+    }
 //    func numberOfSections(in collectionView: UICollectionView) -> Int {
 //        print("numberOfSection \(recipeListViewModel.numOfSection)")
 //        return recipeListViewModel.numOfSection
@@ -182,6 +177,33 @@ extension ListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("--> \(indexPath.row)")
         performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
+    }
+}
+
+// Mark: Delegate Part
+extension ListViewController: UITextFieldDelegate {
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        resetList()
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resetList()
+        return true
+    }
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        searchTF.text = ""
+        resetList()
+        return true
+    }
+    
+    func resetList() { // 컬렉션 뷰 띄우기 변경
+        guard let input = searchTF.text else { return }
+        if !input.isEmpty {
+            recipeListViewModel.searchingDishName(name: input)
+        } else {
+            recipeListViewModel.emptySearchedList()
+        }
+        collectionViewUpadate()
     }
 }
 

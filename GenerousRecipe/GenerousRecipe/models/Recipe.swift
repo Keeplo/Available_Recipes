@@ -105,6 +105,9 @@ class RecipeManager {
         for tag in tags {
         }
     }
+    func emptySearchedList() {
+        searchedRecipes.removeAll()
+    }
 }
 
 
@@ -176,6 +179,9 @@ class RecipeViewModel {
     }
     func searchingOptionalRecipe(ingredients tags: [String]) {
         manager.searchingOptionalRecipe(tags)
+    }
+    func emptySearchedList() {
+        manager.emptySearchedList()
     }
 }
 
