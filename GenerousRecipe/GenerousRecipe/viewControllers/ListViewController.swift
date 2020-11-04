@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ListViewController: UIViewController {
+class ListViewController: UIViewController, UICollectionViewDelegate {
     @IBOutlet weak var searchV: UIView!
     @IBOutlet weak var searchTF: UITextField!
         
@@ -26,9 +26,23 @@ class ListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     let recipeListViewModel = RecipeViewModel()
     
-//Mark - Life Cycle
+// Mark - Navigation
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showRecipe" {
+//            let vc = segue.destination as? RecipeViewController
+//            if let index = sender as? Int {
+//                vc?.name = nameList[index]
+//                vc?.bounty = bountyList[index]
+//            }
+//        }
+//    }
+    
+// Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Delegate
+        collectionView.delegate = self
         
         // SearchingView Control
         searchVIsHidden = true
@@ -45,8 +59,8 @@ class ListViewController: UIViewController {
             Recipe(dishName: "삼계탕", thumbnail: ImageData(photo: UIImage(named: "삼계탕")!), IIngredients: [Ingredient(name: "닭", amount: 1.000)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "인삼", amount: 0.030)], steps: [Step(textInstructions: "one"), Step(textInstructions: "two"), Step(textInstructions: "three")], favorite: false, section: .korean),
             Recipe(dishName: "참치김치찌개", thumbnail: ImageData(photo: UIImage(named: "참치김치찌개")!), IIngredients: [Ingredient(name: "김치", amount: 0.150), Ingredient(name: "참치", amount: 0.070)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050)], steps: [Step(textInstructions: "1"), Step(textInstructions: "2"), Step(textInstructions: "3")], favorite: false, section: .korean),
             Recipe(dishName: "제육볶음", thumbnail: ImageData(photo: UIImage(named: "제육볶음")!), IIngredients: [Ingredient(name: "돼지고기", amount: 0.350)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "당근", amount: 0.050)], steps: [Step(textInstructions: "하나"), Step(textInstructions: "둘"), Step(textInstructions: "셋")], favorite: true, section: .korean),
-            Recipe(dishName: "광어초밥", thumbnail: ImageData(photo: UIImage(named: "초밥")!), IIngredients: [Ingredient(name: "밥", amount: 0.350)], OIngredients: [Ingredient(name: "겨자", amount: 0.020)], steps: [Step(textInstructions: "원"), Step(textInstructions: "투"), Step(textInstructions: "쓰리")], favorite: true, section: .japanese)//,
-            //Recipe(dishName: "스테이크", thumbnail: ImageData(photo: UIImage(named: "소고기")!), IIngredients: [Ingredient(name: "버터", amount: 0.350)], OIngredients: [Ingredient(name: "양파", amount: 0.020)], steps: [Step(textInstructions: "이"), Step(textInstructions: "얼"), Step(textInstructions: "싼")], favorite: true, section: .chinese)
+            Recipe(dishName: "광어초밥", thumbnail: ImageData(photo: UIImage(named: "초밥")!), IIngredients: [Ingredient(name: "밥", amount: 0.350)], OIngredients: [Ingredient(name: "겨자", amount: 0.020)], steps: [Step(textInstructions: "원"), Step(textInstructions: "투"), Step(textInstructions: "쓰리")], favorite: true, section: .japanese),
+            Recipe(dishName: "스테이크", thumbnail: ImageData(photo: UIImage(named: "스테이크")!), IIngredients: [Ingredient(name: "소고기", amount: 0.350)], OIngredients: [Ingredient(name: "버터", amount: 0.020), Ingredient(name: "후추", amount: 0.020)], steps: [Step(textInstructions: "이"), Step(textInstructions: "얼"), Step(textInstructions: "싼")], favorite: true, section: .chinese)
         ]
         let _ = rs.map({ recipeListViewModel.addRecipe($0)})
     }
@@ -85,15 +99,25 @@ class ListViewController: UIViewController {
     @IBAction func tapBG(_ sender: Any) {
         searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
         
-        if(!searchVIsHidden) {
+        if !searchVIsHidden, searchTF.text == "" {
             searchVIsHidden = !searchVIsHidden
             changeViewState(isHidden: searchVIsHidden)
         }
     }
     @IBAction func changedSort(_ sender: Any) {
-        print(sortSC.selectedSegmentIndex)
         collectionView.reloadData()
     }
+
+    @IBAction func endInput(_ sender: Any) {
+        guard let input = searchTF.text else { return }
+        if !input.isEmpty {
+            recipeListViewModel.searchingDishName(name: input)
+        }
+    }
+    @IBAction func completeInput(_ sender: Any) {
+        // 동작시 endInput 동시 동작됨
+    }
+    
 }
 
 
@@ -106,7 +130,19 @@ extension ListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("favorite \(recipeListViewModel.favoriteRecipes.count)")
 //        print("All \(recipeListViewModel.allRecipes.count)")
-        return sortSC.selectedSegmentIndex == 0 ? recipeListViewModel.allRecipes.count : recipeListViewModel.favoriteRecipes.count
+        if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
+            if sortSC.selectedSegmentIndex == 0 {
+                return recipeListViewModel.searchedAllRecipes.count
+            } else {
+                return recipeListViewModel.searchedFavoriteRecipes.count
+            }
+        } else {       // 검색중 x
+            if sortSC.selectedSegmentIndex == 0 {
+                return recipeListViewModel.baseAllRecipes.count
+            } else {
+                return recipeListViewModel.baseFavoriteRecipes.count
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -116,20 +152,25 @@ extension ListViewController: UICollectionViewDataSource {
         
         var recipe: Recipe
         
-        if sortSC.selectedSegmentIndex == 0 {
-            recipe = recipeListViewModel.allRecipes[indexPath.row]
-
-        } else {
-            recipe = recipeListViewModel.favoriteRecipes[indexPath.row]
+        if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
+            if sortSC.selectedSegmentIndex == 0 {
+                recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
+            } else {
+                recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
+            }
+        } else {       // 검색중 x
+            if sortSC.selectedSegmentIndex == 0 {
+                recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
+            } else {
+                recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
+            }
         }
         
-        // ++TODO: todo 를 이용해서 updateUI
         cell.updateUI(recipe: recipe)
         
         return cell
     }
 }
-
 extension ListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.bounds.width
@@ -137,3 +178,20 @@ extension ListViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: width, height: height)
     }
 }
+extension ListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("--> \(indexPath.row)")
+        performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
+    }
+}
+
+/*
+ let alert = UIAlertController(title: "접수불가", message: msg, preferredStyle: .alert)
+ let confirmAction = UIAlertAction(title: "확인", style: .default) {(action: UIAlertAction!) -> Void in
+     NSLog(msg)
+ }
+ 
+ alert.addAction(confirmAction)
+ 
+ present(alert, animated: true, completion:nil)
+ */

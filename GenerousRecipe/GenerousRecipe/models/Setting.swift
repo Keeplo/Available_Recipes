@@ -9,7 +9,6 @@
 import Foundation
 
 enum Setting: CaseIterable {
-    // Review를 부탁하는 걸 남기면 어떨까요?
     case appVersion
     case requestToReview
     

@@ -54,14 +54,15 @@ class RecipeManager {
     static let shared = RecipeManager()
     static var lastDishName: String = ""
     
-    var recipes: [Recipe] = []
+    var baseRecipes: [Recipe] = []
+    var searchedRecipes: [Recipe] = []
     
     func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool?, section: Section) -> Recipe {
         return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite, section: nil)
     }
     
     func addRecipe(_ recipe: Recipe) {
-        recipes.append(recipe)
+        baseRecipes.append(recipe)
         saveRecipe()
     }
 
@@ -70,25 +71,39 @@ class RecipeManager {
             recipes.remove(at: index)
         }
         */
-        Storage.store(recipes, to: .documents, as: "recipes.json")
+        Storage.store(baseRecipes, to: .documents, as: "recipes.json")
     }
     
     func updateRecipe(_ recipe: Recipe) {
-        guard let index = recipes.firstIndex(of: recipe) else { return }
-        recipes[index].update()
+        guard let index = baseRecipes.firstIndex(of: recipe) else { return }
+        baseRecipes[index].update()
 
         saveRecipe()
     }
     
     func saveRecipe() {
-        Storage.store(recipes, to: .documents, as: "recipes.json")
+        Storage.store(baseRecipes, to: .documents, as: "recipes.json")
     }
     
     func retrieveRecipe(){
-        recipes = Storage.retrive("recipes.json", from: .documents, as: [Recipe].self) ?? []
+        baseRecipes = Storage.retrive("recipes.json", from: .documents, as: [Recipe].self) ?? []
 
 //        let lastDishName = recipes.last?.dishName ?? ""
 //        RecipeManager.lastDishName = lastDishName
+    }
+    func searchingDishName(_ name: String) {
+        let foundRecipes = baseRecipes.filter({ $0.dishName.contains(name) })
+        searchedRecipes = foundRecipes
+    }
+    func searchingImportantRecipe(_ tags: [String]) {
+        var checkRecipes: [Recipe] = []
+        for tag in tags {
+        }
+    }
+    func searchingOptionalRecipe(_ tags: [String]) {
+        var checkRecipes: [Recipe] = []
+        for tag in tags {
+        }
     }
 }
 
@@ -106,21 +121,32 @@ class RecipeViewModel {
             case .japanese: return "일식"
             case .chinese: return "중식"
             case .western: return "양식"
-            default: return "All"
+            default: return ""
             }
         }
     }
     
     private let manager = RecipeManager.shared // 상글톤
     
-    var recipes: [Recipe] {
-        return manager.recipes
+    var baseRecipes: [Recipe] {
+        return manager.baseRecipes
     }
-    var allRecipes: [Recipe] {
-        return recipes
+    var searchedRecipes: [Recipe] {
+        return manager.searchedRecipes
     }
-    var favoriteRecipes: [Recipe] {
-        return recipes.filter { $0.favorite == true }
+    
+    var baseAllRecipes: [Recipe] {
+        return baseRecipes
+    }
+    var baseFavoriteRecipes: [Recipe] {
+        return baseRecipes.filter { $0.favorite == true }
+    }
+    
+    var searchedAllRecipes: [Recipe] {
+        return searchedRecipes
+    }
+    var searchedFavoriteRecipes: [Recipe] {
+        return searchedRecipes.filter { $0.favorite == true }
     }
     
     var numOfSection: Int {
@@ -141,6 +167,15 @@ class RecipeViewModel {
     
     func loadTasks() {
         manager.retrieveRecipe()
+    }
+    func searchingDishName(name: String) {
+        manager.searchingDishName(name)
+    }
+    func searchingImportantRecipe(ingredients tags: [String]) {
+        manager.searchingImportantRecipe(tags)
+    }
+    func searchingOptionalRecipe(ingredients tags: [String]) {
+        manager.searchingOptionalRecipe(tags)
     }
 }
 
