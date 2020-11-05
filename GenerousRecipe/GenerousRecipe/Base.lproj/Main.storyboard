@@ -7,7 +7,6 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -98,82 +97,69 @@
                                     <constraint firstItem="Ofd-Q4-1Z1" firstAttribute="leading" secondItem="Q7m-JE-6xf" secondAttribute="leading" constant="15" id="vK8-8q-bju"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PMy-FY-SvG">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LtI-h1-Cfw">
                                 <rect key="frame" x="0.0" y="184" width="414" height="629"/>
-                                <color key="backgroundColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="0.65745398116438358" colorSpace="custom" customColorSpace="displayP3"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="0.0" id="UgO-TM-1N3">
-                                    <size key="itemSize" width="375" height="150"/>
-                                    <size key="estimatedItemSize" width="374" height="150"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecipesCollectionViewCell" translatesAutoresizingMaskIntoConstraints="NO" id="8Ac-8O-Kse" customClass="RecipesCollectionViewCell" customModule="GenerousRecipe" customModuleProvider="target">
-                                        <rect key="frame" x="19.5" y="0.0" width="375" height="150"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="cN0-Qs-3fZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListTableViewCell" id="3M3-Q4-CNc" customClass="ListTableViewCell" customModule="GenerousRecipe" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3M3-Q4-CNc" id="zdd-qf-mby">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="0AG-2x-Iz1" userLabel="RecipesPics">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h91-aQ-qoh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김치찌개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ZX-hC-iOf" userLabel="RecipesName">
-                                                    <rect key="frame" x="241" y="99" width="104" height="36"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="김치찌개" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tgk-4L-ZMu">
+                                                    <rect key="frame" x="20" y="94" width="374" height="36"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstItem="1ZX-hC-iOf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cN0-Qs-3fZ" secondAttribute="leading" constant="20" symbolic="YES" id="4I0-5j-674"/>
-                                                <constraint firstAttribute="bottom" secondItem="0AG-2x-Iz1" secondAttribute="bottom" id="6rK-Ii-jyy"/>
-                                                <constraint firstAttribute="bottom" secondItem="1ZX-hC-iOf" secondAttribute="bottom" constant="15" id="EkR-fs-9Vv"/>
-                                                <constraint firstItem="0AG-2x-Iz1" firstAttribute="leading" secondItem="cN0-Qs-3fZ" secondAttribute="leading" id="KQQ-z2-BmQ"/>
-                                                <constraint firstAttribute="trailing" secondItem="1ZX-hC-iOf" secondAttribute="trailing" constant="30" id="MlB-lx-kQZ"/>
-                                                <constraint firstItem="0AG-2x-Iz1" firstAttribute="top" secondItem="cN0-Qs-3fZ" secondAttribute="top" id="gbd-Hb-QIj"/>
-                                                <constraint firstAttribute="trailing" secondItem="0AG-2x-Iz1" secondAttribute="trailing" id="qf8-0p-7vt"/>
-                                            </constraints>
-                                        </collectionViewCellContentView>
-                                        <size key="customSize" width="375" height="150"/>
+                                        </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="h91-aQ-qoh" firstAttribute="top" secondItem="3M3-Q4-CNc" secondAttribute="top" id="8Fy-YO-PgK"/>
+                                            <constraint firstAttribute="trailing" secondItem="Tgk-4L-ZMu" secondAttribute="trailing" constant="20" id="D6s-Fc-5ky"/>
+                                            <constraint firstAttribute="bottom" secondItem="Tgk-4L-ZMu" secondAttribute="bottom" constant="20" id="Nvm-7P-cJS"/>
+                                            <constraint firstItem="h91-aQ-qoh" firstAttribute="leading" secondItem="3M3-Q4-CNc" secondAttribute="leading" id="Ylg-Ov-cQ0"/>
+                                            <constraint firstAttribute="bottom" secondItem="h91-aQ-qoh" secondAttribute="bottom" id="n72-Ko-dbI"/>
+                                            <constraint firstItem="Tgk-4L-ZMu" firstAttribute="leading" secondItem="3M3-Q4-CNc" secondAttribute="leading" constant="20" id="rR0-Mc-eAG"/>
+                                            <constraint firstAttribute="trailing" secondItem="h91-aQ-qoh" secondAttribute="trailing" id="x7L-Hb-DMo"/>
+                                        </constraints>
                                         <connections>
-                                            <outlet property="dishName" destination="1ZX-hC-iOf" id="5RX-4r-EeE"/>
-                                            <outlet property="recipeThumbnail" destination="0AG-2x-Iz1" id="Iv3-6G-4C0"/>
+                                            <outlet property="dishName" destination="Tgk-4L-ZMu" id="oob-wD-oPD"/>
+                                            <outlet property="recipeThumbnail" destination="h91-aQ-qoh" id="Xc3-oU-ejX"/>
                                         </connections>
-                                    </collectionViewCell>
-                                </cells>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="scN-1h-0gg" id="aJ7-hh-EaN"/>
-                                    <outlet property="delegate" destination="scN-1h-0gg" id="YvI-tU-ZPW"/>
+                                    <outlet property="dataSource" destination="scN-1h-0gg" id="X5k-1H-e1L"/>
+                                    <outlet property="delegate" destination="scN-1h-0gg" id="IK9-Q5-XKo"/>
                                 </connections>
-                            </collectionView>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WL9-Rv-uwa"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
                         <constraints>
+                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="bottom" secondItem="LtI-h1-Cfw" secondAttribute="bottom" id="2sw-NU-LgX"/>
                             <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="K1e-Hn-y5z" secondAttribute="trailing" id="FiL-Xy-Lwe"/>
-                            <constraint firstItem="PMy-FY-SvG" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="Fnk-68-fUz"/>
-                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="bottom" secondItem="PMy-FY-SvG" secondAttribute="bottom" id="LrV-W8-O4R"/>
-                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="PMy-FY-SvG" secondAttribute="trailing" id="ThV-qT-udb"/>
                             <constraint firstItem="K1e-Hn-y5z" firstAttribute="top" secondItem="WL9-Rv-uwa" secondAttribute="top" id="akX-03-zcQ"/>
+                            <constraint firstItem="LtI-h1-Cfw" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="awT-f9-NIZ"/>
                             <constraint firstItem="Q7m-JE-6xf" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="eas-ps-ewr"/>
                             <constraint firstItem="Q7m-JE-6xf" firstAttribute="top" secondItem="K1e-Hn-y5z" secondAttribute="bottom" id="fM6-dr-89Y"/>
                             <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="Q7m-JE-6xf" secondAttribute="trailing" id="mxx-3a-Aad"/>
-                            <constraint firstItem="PMy-FY-SvG" firstAttribute="top" secondItem="Q7m-JE-6xf" secondAttribute="bottom" id="otk-qp-mtx"/>
+                            <constraint firstItem="WL9-Rv-uwa" firstAttribute="trailing" secondItem="LtI-h1-Cfw" secondAttribute="trailing" id="n7a-uT-MfX"/>
+                            <constraint firstItem="LtI-h1-Cfw" firstAttribute="top" secondItem="Q7m-JE-6xf" secondAttribute="bottom" id="w3W-v6-IDC"/>
                             <constraint firstItem="K1e-Hn-y5z" firstAttribute="leading" secondItem="WL9-Rv-uwa" secondAttribute="leading" id="wR1-HL-QFd"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="rfE-7k-8jP" appends="YES" id="otZ-hn-tbA"/>
-                        </connections>
                     </view>
                     <tabBarItem key="tabBarItem" title="My Recipes" image="target" catalog="system" id="Guo-S3-ZeC"/>
                     <connections>
+                        <outlet property="ListTableView" destination="LtI-h1-Cfw" id="DbS-Ay-yog"/>
                         <outlet property="addingB" destination="Xn3-VZ-IZD" id="CUY-Yv-SNf"/>
-                        <outlet property="collectionView" destination="PMy-FY-SvG" id="ZWL-kY-FCG"/>
                         <outlet property="searchB" destination="Wuq-NG-CVo" id="bAQ-1c-Lft"/>
                         <outlet property="searchTF" destination="Ofd-Q4-1Z1" id="1NI-HO-ckb"/>
                         <outlet property="searchV" destination="Q7m-JE-6xf" id="1a1-0D-wmY"/>
@@ -183,13 +169,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sK0-Tb-noM" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="rfE-7k-8jP" userLabel="HideKeyboard">
-                    <connections>
-                        <action selector="tapBG:" destination="scN-1h-0gg" id="cFS-tD-KBW"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="167" y="38"/>
+            <point key="canvasLocation" x="166.66666666666669" y="37.5"/>
         </scene>
         <!--Add Recipe View Controller-->
         <scene sceneID="Cr3-l1-pnG">

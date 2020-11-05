@@ -23,7 +23,8 @@ class ListViewController: UIViewController {
     var searchVHeight: CGFloat!
     var resiedHeight: CGFloat!
     
-    @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var ListTableView: UITableView!
     let recipeListViewModel = RecipeViewModel()
     
 // Mark - Navigation
@@ -42,7 +43,7 @@ class ListViewController: UIViewController {
         super.viewDidLoad()
         
         // Delegate
-        collectionView.delegate = self
+        ListTableView.delegate = self
         searchTF.delegate = self
         
         // SearchingView Control
@@ -97,56 +98,53 @@ class ListViewController: UIViewController {
         changeViewState(isHidden: searchVIsHidden)
     }
     // BG 탭했을때, 키보드 내려오게 하기 + searching View 비활성화
-    @IBAction func tapBG(_ sender: Any) {
-        searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
-        
-        if !searchVIsHidden, searchTF.text == "" {
-            searchVIsHidden = !searchVIsHidden
-            changeViewState(isHidden: searchVIsHidden)
-            recipeListViewModel.emptySearchedList()
-            collectionViewUpadate()
-        }
-    }
+//    @IBAction func tapBG(_ sender: Any) {
+//        searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
+//
+//        if !searchVIsHidden, searchTF.text == "" {
+//            searchVIsHidden = !searchVIsHidden
+//            changeViewState(isHidden: searchVIsHidden)
+//            recipeListViewModel.emptySearchedList()
+//            tableViewUpadate()
+//        }
+//    }
     @IBAction func changedSort(_ sender: Any) {
-        collectionViewUpadate()
+        tableViewUpadate()
     }
 }
 
 
-//Mark - CollectionView DataSource
-extension ListViewController: UICollectionViewDataSource {
-    func collectionViewUpadate() {
-        collectionView.reloadData()
+//Mark - TableView DataSource
+extension ListViewController: UITableViewDataSource {
+    func tableViewUpadate() {
+        ListTableView.reloadData()
     }
-//    func numberOfSections(in collectionView: UICollectionView) -> Int {
-//        print("numberOfSection \(recipeListViewModel.numOfSection)")
-//        return recipeListViewModel.numOfSection
-//    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print("favorite \(recipeListViewModel.favoriteRecipes.count)")
-//        print("All \(recipeListViewModel.allRecipes.count)")
-        if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !recipeListViewModel.searchedRecipes.isEmpty || !searchTF.text!.isEmpty {           // 검색중
             if sortSC.selectedSegmentIndex == 0 {
+                print("all 1 \(recipeListViewModel.searchedAllRecipes.count)")
                 return recipeListViewModel.searchedAllRecipes.count
             } else {
+                print("fab 1 \(recipeListViewModel.searchedFavoriteRecipes.count)")
                 return recipeListViewModel.searchedFavoriteRecipes.count
             }
-        } else {       // 검색중 x
+        } else {                                                    // 검색중 x
             if sortSC.selectedSegmentIndex == 0 {
+                print("all 2 \(recipeListViewModel.baseAllRecipes.count)")
                 return recipeListViewModel.baseAllRecipes.count
             } else {
+                print("fav 2 \(recipeListViewModel.baseFavoriteRecipes.count)")
                 return recipeListViewModel.baseFavoriteRecipes.count
             }
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipesCollectionViewCell", for: indexPath) as? RecipesCollectionViewCell else {
-            return UICollectionViewCell()
-        }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as? ListTableViewCell else {return UITableViewCell() }
         
         var recipe: Recipe
         
+        recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
         if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
             if sortSC.selectedSegmentIndex == 0 {
                 recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
@@ -154,7 +152,7 @@ extension ListViewController: UICollectionViewDataSource {
                 recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
             }
         } else if !searchTF.text!.isEmpty {                      // 검색 결과없음
-            guard cell = collectionView.dequeueReusableCell(withReuseIdentifier: "EmptyListCell", for: indexPath) as? EmptyListCell else { return UICollectionViewCell() }
+            recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
             return cell
         } else {                                                 // 검색중 x
             if sortSC.selectedSegmentIndex == 0 {
@@ -163,21 +161,18 @@ extension ListViewController: UICollectionViewDataSource {
                 recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
             }
         }
-        
         cell.updateUI(recipe: recipe)
         
         return cell
     }
-}
-extension ListViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width: CGFloat = collectionView.bounds.width
-        let height: CGFloat = 150
-        return CGSize(width: width, height: height)
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height = CGFloat(150)
+        return height
     }
+    
 }
-extension ListViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension ListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("--> \(indexPath.row)")
         performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
     }
@@ -206,7 +201,7 @@ extension ListViewController: UITextFieldDelegate {
         } else {
             recipeListViewModel.emptySearchedList()
         }
-        collectionViewUpadate()
+        tableViewUpadate()
     }
 }
 
@@ -220,3 +215,4 @@ extension ListViewController: UITextFieldDelegate {
  
  present(alert, animated: true, completion:nil)
  */
+
