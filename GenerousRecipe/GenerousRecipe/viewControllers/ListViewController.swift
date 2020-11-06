@@ -76,7 +76,6 @@ class ListViewController: UIViewController {
     func changeViewState(isHidden: Bool) {
         isHidden ? hideSearchingView() : AppearSearchingView() }
     func hideSearchingView() {
-        //print("before : \(searchV.bounds.height) / resize : \(resiedHeight)")
         searchVHeightConstraint.constant = resiedHeight
         
         searchTF.isHidden = !searchTF.isHidden
@@ -94,8 +93,12 @@ class ListViewController: UIViewController {
         print("func addRecipeButton / press AddingRecipeButton")
     }
     @IBAction func searchingRecipeButton(_ sender: Any) {
-        searchVIsHidden = !searchVIsHidden
-        changeViewState(isHidden: searchVIsHidden)
+        if searchTF.text!.isEmpty {
+            searchVIsHidden = !searchVIsHidden
+            changeViewState(isHidden: searchVIsHidden)
+        } else {
+            searchTF.delegate?.textFieldDidEndEditing?(searchTF)
+        }
     }
     // BG 탭했을때, 키보드 내려오게 하기 + searching View 비활성화
 //    @IBAction func tapBG(_ sender: Any) {
@@ -152,8 +155,7 @@ extension ListViewController: UITableViewDataSource {
                 recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
             }
         } else if !searchTF.text!.isEmpty {                      // 검색 결과없음
-            recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
-            return cell
+            return UITableViewCell()
         } else {                                                 // 검색중 x
             if sortSC.selectedSegmentIndex == 0 {
                 recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
@@ -174,7 +176,7 @@ extension ListViewController: UITableViewDataSource {
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("--> \(indexPath.row)")
-        performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
+        //performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
     }
 }
 
@@ -193,7 +195,11 @@ extension ListViewController: UITextFieldDelegate {
         resetList()
         return true
     }
-    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if searchTF.text!.isEmpty {
+            resetList()
+        }
+    }
     func resetList() { // 컬렉션 뷰 띄우기 변경
         guard let input = searchTF.text else { return }
         if !input.isEmpty {
