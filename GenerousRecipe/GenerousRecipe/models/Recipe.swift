@@ -14,8 +14,8 @@ struct Recipe: Codable, Equatable {
     let IIngredients: [Ingredient] // important ingredients
     let OIngredients: [Ingredient] // optional ingredients
     let steps: [Step]
-    var favorite: Bool? = false
-    var section: Section? = .nokind
+    var favorite: Bool = false
+    var section: Section = .nokind
     
     func containsAllIngrdients(_ ingredients: [Ingredient]) -> Bool {
         // TODO: 나중에 필터로 재료로 레시피를 찾을때 이용하면 편할 함수입니다.
@@ -57,8 +57,11 @@ class RecipeManager {
     var baseRecipes: [Recipe] = []
     var searchedRecipes: [Recipe] = []
     
-    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool?, section: Section) -> Recipe {
-        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite, section: nil)
+    var importantIngredients: [Ingredient] = []
+    var optionalIngredients: [Ingredient] = []
+    
+    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool, section: Section) -> Recipe {
+        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite, section: .nokind)
     }
     
     func addRecipe(_ recipe: Recipe) {
@@ -95,15 +98,8 @@ class RecipeManager {
         let foundRecipes = baseRecipes.filter({ $0.dishName.contains(name) })
         searchedRecipes = foundRecipes
     }
-    func searchingImportantRecipe(_ tags: [String]) {
-        var checkRecipes: [Recipe] = []
-        for tag in tags {
-        }
-    }
-    func searchingOptionalRecipe(_ tags: [String]) {
-        var checkRecipes: [Recipe] = []
-        for tag in tags {
-        }
+    func recommandingRecipe() {
+        
     }
     func emptySearchedList() {
         searchedRecipes.removeAll()
@@ -174,11 +170,8 @@ class RecipeViewModel {
     func searchingDishName(name: String) {
         manager.searchingDishName(name)
     }
-    func searchingImportantRecipe(ingredients tags: [String]) {
-        manager.searchingImportantRecipe(tags)
-    }
-    func searchingOptionalRecipe(ingredients tags: [String]) {
-        manager.searchingOptionalRecipe(tags)
+    func recommandingRecipe() {
+        manager.recommandingRecipe()
     }
     func emptySearchedList() {
         manager.emptySearchedList()

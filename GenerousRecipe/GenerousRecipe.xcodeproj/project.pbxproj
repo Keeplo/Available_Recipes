@@ -86,7 +86,7 @@
 				6C8E77B624DAE37B00D77643 /* SceneDelegate.swift */,
 				A913EA1E254FE7BD003830B7 /* storeHandler */,
 				6C8E77C824DAE38100D77643 /* models */,
-				A921BA2E2540482C007F5BAF /* viewControllers */,
+				A921BA2E2540482C007F5BAF /* mainStoryboard */,
 				6C8E77BA24DAE37B00D77643 /* Main.storyboard */,
 				A9F4F04525545F7000E751F2 /* ListTableViewCell.swift */,
 				A9BF89C325515ACF0026E7F5 /* photos */,
@@ -118,7 +118,7 @@
 			path = storeHandler;
 			sourceTree = "<group>";
 		};
-		A921BA2E2540482C007F5BAF /* viewControllers */ = {
+		A921BA2E2540482C007F5BAF /* mainStoryboard */ = {
 			isa = PBXGroup;
 			children = (
 				6C8E77B824DAE37B00D77643 /* ListViewController.swift */,
@@ -127,7 +127,7 @@
 				A921BA3625404A77007F5BAF /* AddRecipeViewController.swift */,
 				A921BA3A25404AA7007F5BAF /* RecipeViewController.swift */,
 			);
-			path = viewControllers;
+			path = mainStoryboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
