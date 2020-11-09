@@ -148,10 +148,6 @@ class RecipeViewModel {
         return searchedRecipes.filter { $0.favorite == true }
     }
     
-    var numOfSection: Int {
-        return Section.allCases.count
-    }
-    
     func addRecipe(_ recipe: Recipe) {
         manager.addRecipe(recipe)
     }

@@ -10,13 +10,11 @@ import UIKit
 
 class SearchingViewController: UIViewController {
     
-    @IBOutlet weak var backgroundImage: UIImageView!
+    var tags: [String:String] = [:]
     
-//Mark - Life Cycle
+    //Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        backgroundImage.image = UIImage(named: "grocery-bag-512px.png")
     }
     
     /*
@@ -29,28 +27,47 @@ class SearchingViewController: UIViewController {
     }
     */
     
-    @IBAction func cancelAddingButton(_ sender: Any) {
+    @IBAction func cancelButton(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion:nil)
+    }
+    @IBAction func searchingButton(_ sender: Any) {
+        if false {
+            self.presentingViewController?.dismiss(animated: true, completion:nil)
+        } else {
+            let msg = "검색할 조건을 입력해주세요"
+            let title = "재료 입력 필요"
+            let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "확인", style: .default) {(action: UIAlertAction!) -> Void in
+                NSLog(msg)
+            }
+            
+            alert.addAction(confirmAction)
+            
+            present(alert, animated: true, completion:nil)
+        }
     }
 }
 
-//extension SearchViewController: UISearchBarDelegate {
-//    private func dismissKeyboard() {
-//        searchBar.resignFirstResponder() //
-//        print("dismissKeyboard")
-//    }
-//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-//        dismissKeyboard() // 키보드가 올라와 있을때, 내려가게 처리
-//        guard let searchTerm = searchBar.text, searchTerm.isEmpty == false else { return } // 검색어가 있는지 확인 비어 있을경우 검색x
-//
-//
-//        SearchAPI.search(searchTerm) { movies in        // collectionView로 표현하기
-//            print("--> 몇개 넘어왔어?? \(movies.count), 첫번째꺼 제목: \(String(describing: movies.first?.title))")
-//            DispatchQueue.main.async { // 검색 결과가 메인쓰레드에서 UI변경을 해야 하므로 네트워크 쓰레드가 아니라 메인에서 처리하도록 두기
-//                self.movies = movies
-//                self.resultCollectionView.reloadData()
-//            }
-//        }
-//        print("--> 검색어: \(searchTerm)")
-//    }
-//}
+extension SearchingViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
+    
+    
+}
+extension SearchingViewController: UICollectionViewDelegate {
+    
+}
+
+extension SearchingViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text!.isEmpty {
+            
+        }
+        return true
+    }
+}

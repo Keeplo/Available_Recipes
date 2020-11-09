@@ -87,7 +87,7 @@
 				6C8E77B424DAE37B00D77643 /* AppDelegate.swift */,
 				6C8E77B624DAE37B00D77643 /* SceneDelegate.swift */,
 				A913EA1E254FE7BD003830B7 /* storeHandler */,
-				6C8E77C824DAE38100D77643 /* models */,
+				6C8E77C824DAE38100D77643 /* Models */,
 				A9E93403255927FD00552DA8 /* ShowSelectedRecipe */,
 				A921BA2E2540482C007F5BAF /* MainStoryboard */,
 				A9F4F04525545F7000E751F2 /* ListTableViewCell.swift */,
@@ -99,7 +99,7 @@
 			path = GenerousRecipe;
 			sourceTree = "<group>";
 		};
-		6C8E77C824DAE38100D77643 /* models */ = {
+		6C8E77C824DAE38100D77643 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				6C8E77CB24DAE3B500D77643 /* Recipe.swift */,
@@ -109,7 +109,7 @@
 				A9E469E425511C8800EF4AD0 /* ImageData.swift */,
 				A9E6872A255268E900DBDEFC /* Section.swift */,
 			);
-			path = models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		A913EA1E254FE7BD003830B7 /* storeHandler */ = {
