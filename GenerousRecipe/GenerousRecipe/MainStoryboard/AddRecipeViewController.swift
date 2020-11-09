@@ -8,7 +8,6 @@
 import UIKit
 
 class AddRecipeViewController: UIViewController {
-    @IBOutlet weak var cancelB: UIButton!
     @IBOutlet weak var storeB: UIButton!
     
     

@@ -10,19 +10,11 @@ import UIKit
 
 class ListViewController: UIViewController {
     @IBOutlet weak var searchV: UIView!
-    @IBOutlet weak var searchTF: UITextField!
-        
-    @IBOutlet weak var searchVBottomConstraint: NSLayoutConstraint!
-    @IBOutlet weak var searchVHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     @IBOutlet weak var sortSC: UISegmentedControl!
     @IBOutlet weak var searchB: UIButton!
     @IBOutlet weak var addingB: UIButton!
-    
-    var searchVIsHidden: Bool!
-    var searchVHeight: CGFloat!
-    var resiedHeight: CGFloat!
-    
     
     @IBOutlet weak var ListTableView: UITableView!
     let recipeListViewModel = RecipeViewModel()
@@ -44,14 +36,6 @@ class ListViewController: UIViewController {
         
         // Delegate
         ListTableView.delegate = self
-        searchTF.delegate = self
-        
-        // SearchingView Control
-        searchVIsHidden = true
-        searchVHeight = searchV.bounds.height
-        resiedHeight = searchV.bounds.height  - searchVBottomConstraint.constant - searchTF.bounds.height
-        
-        changeViewState(isHidden: searchVIsHidden)
         
         // CollectionView UIUpdate
         
@@ -71,46 +55,16 @@ class ListViewController: UIViewController {
         
         recipeListViewModel.loadTasks()
     }
-    
-    // Seaching View UIControll
-    func changeViewState(isHidden: Bool) {
-        isHidden ? hideSearchingView() : AppearSearchingView() }
-    func hideSearchingView() {
-        searchVHeightConstraint.constant = resiedHeight
-        
-        searchTF.isHidden = !searchTF.isHidden
-        searchTF.isEnabled = !searchTF.isEnabled }
-    func AppearSearchingView() {
-        searchVHeightConstraint.constant = searchVHeight
-        
-        searchTF.isHidden = !searchTF.isHidden
-        searchTF.isEnabled = !searchTF.isEnabled
-    }
 
     
 //Mark - IBActions
     @IBAction func addRecipeButton(_ sender: Any) {
         print("func addRecipeButton / press AddingRecipeButton")
     }
-    @IBAction func searchingRecipeButton(_ sender: Any) {
-        if searchTF.text!.isEmpty {
-            searchVIsHidden = !searchVIsHidden
-            changeViewState(isHidden: searchVIsHidden)
-        } else {
-            searchTF.delegate?.textFieldDidEndEditing?(searchTF)
-        }
-    }
+
     // BG 탭했을때, 키보드 내려오게 하기 + searching View 비활성화
-//    @IBAction func tapBG(_ sender: Any) {
-//        searchTF.resignFirstResponder() // 최고의 관심사가 아니게 된다.
-//
-//        if !searchVIsHidden, searchTF.text == "" {
-//            searchVIsHidden = !searchVIsHidden
-//            changeViewState(isHidden: searchVIsHidden)
-//            recipeListViewModel.emptySearchedList()
-//            tableViewUpadate()
-//        }
-//    }
+    
+    
     @IBAction func changedSort(_ sender: Any) {
         tableViewUpadate()
     }
@@ -123,20 +77,16 @@ extension ListViewController: UITableViewDataSource {
         ListTableView.reloadData()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !recipeListViewModel.searchedRecipes.isEmpty || !searchTF.text!.isEmpty {           // 검색중
+        if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
             if sortSC.selectedSegmentIndex == 0 {
-                print("all 1 \(recipeListViewModel.searchedAllRecipes.count)")
                 return recipeListViewModel.searchedAllRecipes.count
             } else {
-                print("fab 1 \(recipeListViewModel.searchedFavoriteRecipes.count)")
                 return recipeListViewModel.searchedFavoriteRecipes.count
             }
         } else {                                                    // 검색중 x
             if sortSC.selectedSegmentIndex == 0 {
-                print("all 2 \(recipeListViewModel.baseAllRecipes.count)")
                 return recipeListViewModel.baseAllRecipes.count
             } else {
-                print("fav 2 \(recipeListViewModel.baseFavoriteRecipes.count)")
                 return recipeListViewModel.baseFavoriteRecipes.count
             }
         }
@@ -154,8 +104,6 @@ extension ListViewController: UITableViewDataSource {
             } else {
                 recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
             }
-        } else if !searchTF.text!.isEmpty {                      // 검색 결과없음
-            return UITableViewCell()
         } else {                                                 // 검색중 x
             if sortSC.selectedSegmentIndex == 0 {
                 recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
@@ -179,32 +127,25 @@ extension ListViewController: UITableViewDelegate {
         //performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
     }
 }
+extension ListViewController: UISearchBarDelegate {
+    private func dismissKeyboard() {
+        searchBar.resignFirstResponder() //
+        print("dismissKeyboard")
+    }
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        dismissKeyboard() // 키보드가 올라와 있을때, 내려가게 처리
+        guard let searchTerm = searchBar.text, searchTerm.isEmpty == false else { return recipeListViewModel.emptySearchedList() } // 검색어가 있는지 확인 비어 있을경우 검색x
 
-// Mark: Delegate Part
-extension ListViewController: UITextFieldDelegate {
+        print("--> 검색어: \(searchTerm)")
+            
+        recipeListViewModel.searchingDishName(name: searchTerm)
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        resetList()
+        tableViewUpadate()
+         
+        print("--> 검색어: \(searchTerm)")
     }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resetList()
-        return true
-    }
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        searchTF.text = ""
-        resetList()
-        return true
-    }
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        if searchTF.text!.isEmpty {
-            resetList()
-        }
-    }
-    func resetList() { // 컬렉션 뷰 띄우기 변경
-        guard let input = searchTF.text else { return }
-        if !input.isEmpty {
-            recipeListViewModel.searchingDishName(name: input)
-        } else {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
             recipeListViewModel.emptySearchedList()
         }
         tableViewUpadate()
