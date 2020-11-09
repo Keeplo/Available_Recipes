@@ -32,7 +32,7 @@ class SearchingViewController: UIViewController {
     }
     @IBAction func searchingButton(_ sender: Any) {
         if false {
-            self.presentingViewController?.dismiss(animated: true, completion:nil)
+            //self.presentingViewController?.dismiss(animated: true, completion:nil)
         } else {
             let msg = "검색할 조건을 입력해주세요"
             let title = "재료 입력 필요"
@@ -65,9 +65,9 @@ extension SearchingViewController: UICollectionViewDelegate {
 
 extension SearchingViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text!.isEmpty {
-            
-        }
+//        if textField.text!.isEmpty {
+//
+//        }
         return true
     }
 }

@@ -86,7 +86,7 @@
 			children = (
 				6C8E77B424DAE37B00D77643 /* AppDelegate.swift */,
 				6C8E77B624DAE37B00D77643 /* SceneDelegate.swift */,
-				A913EA1E254FE7BD003830B7 /* storeHandler */,
+				A913EA1E254FE7BD003830B7 /* StoreHandler */,
 				6C8E77C824DAE38100D77643 /* Models */,
 				A9E93403255927FD00552DA8 /* ShowSelectedRecipe */,
 				A921BA2E2540482C007F5BAF /* MainStoryboard */,
@@ -112,12 +112,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		A913EA1E254FE7BD003830B7 /* storeHandler */ = {
+		A913EA1E254FE7BD003830B7 /* StoreHandler */ = {
 			isa = PBXGroup;
 			children = (
 				A913EA1A254FE7B1003830B7 /* Storage.swift */,
 			);
-			path = storeHandler;
+			path = StoreHandler;
 			sourceTree = "<group>";
 		};
 		A921BA2E2540482C007F5BAF /* MainStoryboard */ = {
