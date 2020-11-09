@@ -12,7 +12,7 @@
         <!--Recipe View Controller-->
         <scene sceneID="lXM-Gj-LOc">
             <objects>
-                <viewController storyboardIdentifier="RecipeViewController" id="eQ2-fV-VxE" customClass="RecipeViewController" customModule="GenerousRecipe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RecipeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eQ2-fV-VxE" customClass="RecipeViewController" customModule="GenerousRecipe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2DA-jw-S17">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,6 +30,9 @@
                                         <state key="normal" title="Back" image="chevron.backward" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                         </state>
+                                        <connections>
+                                            <action selector="backToList:" destination="eQ2-fV-VxE" eventType="touchUpInside" id="VIh-Pk-40P"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9g9-DB-nl6" userLabel="StoreButton">
                                         <rect key="frame" x="376" y="5" width="30" height="30"/>
@@ -63,19 +66,46 @@
                                     <constraint firstItem="hZx-J2-mXv" firstAttribute="centerY" secondItem="Gxs-Xl-l7G" secondAttribute="centerY" id="wBo-Uh-1IZ"/>
                                 </constraints>
                             </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vhg-KK-QDM">
+                                <rect key="frame" x="0.0" y="84" width="414" height="778"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AUy-8v-UPq">
+                                        <rect key="frame" x="8" y="8" width="398" height="398"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="AUy-8v-UPq" secondAttribute="height" multiplier="1:1" id="uym-K2-6Gs"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="AUy-8v-UPq" firstAttribute="centerX" secondItem="vhg-KK-QDM" secondAttribute="centerX" id="2nu-eh-LBv"/>
+                                    <constraint firstItem="AUy-8v-UPq" firstAttribute="leading" secondItem="vhg-KK-QDM" secondAttribute="leading" constant="8" id="7fs-HR-u4t"/>
+                                    <constraint firstAttribute="trailing" secondItem="AUy-8v-UPq" secondAttribute="trailing" constant="8" id="rYD-u7-DFi"/>
+                                    <constraint firstItem="AUy-8v-UPq" firstAttribute="top" secondItem="vhg-KK-QDM" secondAttribute="top" constant="8" id="soB-cX-3eL"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="G5G-y7-Uz9"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="qRt-LI-Wsv"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Szt-wE-2Ti"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Szt-wE-2Ti" firstAttribute="trailing" secondItem="Gxs-Xl-l7G" secondAttribute="trailing" id="2uU-YQ-bGB"/>
+                            <constraint firstItem="vhg-KK-QDM" firstAttribute="leading" secondItem="Szt-wE-2Ti" secondAttribute="leading" id="6Ge-HH-GVF"/>
+                            <constraint firstItem="Szt-wE-2Ti" firstAttribute="bottom" secondItem="vhg-KK-QDM" secondAttribute="bottom" id="Ezh-N6-FDx"/>
                             <constraint firstItem="Szt-wE-2Ti" firstAttribute="leading" secondItem="Gxs-Xl-l7G" secondAttribute="leading" id="Rda-0J-s2l"/>
+                            <constraint firstItem="Szt-wE-2Ti" firstAttribute="trailing" secondItem="vhg-KK-QDM" secondAttribute="trailing" id="hDU-PC-9Ed"/>
+                            <constraint firstItem="vhg-KK-QDM" firstAttribute="top" secondItem="Gxs-Xl-l7G" secondAttribute="bottom" id="hKm-rS-QVc"/>
                             <constraint firstItem="Gxs-Xl-l7G" firstAttribute="top" secondItem="Szt-wE-2Ti" secondAttribute="top" id="oXX-yu-qQb"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="dishName" destination="eWU-Lb-KEv" id="eFo-bf-b01"/>
+                        <outlet property="thumbNail" destination="AUy-8v-UPq" id="Eae-7E-gby"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wYG-jo-GVA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-846" y="38"/>
+            <point key="canvasLocation" x="-846.37681159420299" y="37.5"/>
         </scene>
     </scenes>
     <resources>

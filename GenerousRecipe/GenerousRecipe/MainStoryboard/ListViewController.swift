@@ -19,17 +19,6 @@ class ListViewController: UIViewController {
     @IBOutlet weak var ListTableView: UITableView!
     let recipeListViewModel = RecipeViewModel()
     
-// Mark - Navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showRecipe" {
-//            let vc = segue.destination as? RecipeViewController
-//            if let index = sender as? Int {
-//                vc?.name = nameList[index]
-//                vc?.bounty = bountyList[index]
-//            }
-//        }
-//    }
-    
 // Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,17 +48,30 @@ class ListViewController: UIViewController {
     
 //Mark - IBActions
     @IBAction func addRecipeButton(_ sender: Any) {
-        print("func addRecipeButton / press AddingRecipeButton")
+        let msg = "새로운 레시피를 등록하시겠습니까?"
+        let title = "레시피 등록하기"
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let confirmAction = UIAlertAction(title: "Yes", style: .default) {(action: UIAlertAction!) -> Void in
+            self.tabBarController?.selectedIndex = 1
+            
+            NSLog(msg)
+        }
+        let cancelAction = UIAlertAction(title: "No", style: .default) {(action: UIAlertAction!) -> Void in
+            NSLog(msg)
+        }
+        
+        alert.addAction(confirmAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion:nil)
     }
-
-    // BG 탭했을때, 키보드 내려오게 하기 + searching View 비활성화
-    
-    
     @IBAction func changedSort(_ sender: Any) {
         tableViewUpadate()
     }
+    @IBAction func tapNavigatorView(_ sender: Any) {
+        dismissKeyboard()
+    }
 }
-
 
 //Mark - TableView DataSource
 extension ListViewController: UITableViewDataSource {
@@ -124,6 +126,33 @@ extension ListViewController: UITableViewDataSource {
 extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("--> \(indexPath.row)")
+        
+        let sb = UIStoryboard(name: "RecipeViewController", bundle: nil)
+        guard let vc = sb.instantiateViewController(identifier: "RecipeViewController") as? RecipeViewController else {
+            return
+        }
+        
+        var recipe: Recipe
+        
+        if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
+            if sortSC.selectedSegmentIndex == 0 {
+                recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
+            } else {
+                recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
+            }
+        } else {                                                 // 검색중 x
+            if sortSC.selectedSegmentIndex == 0 {
+                recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
+            } else {
+                recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
+            }
+        }
+
+        vc.modalPresentationStyle = .fullScreen
+        vc.update(recipe)
+        
+        self.present(vc, animated: false, completion: nil)
+        
         //performSegue(withIdentifier: "showRecipe", sender: indexPath.row)
     }
 }
@@ -134,12 +163,9 @@ extension ListViewController: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         dismissKeyboard() // 키보드가 올라와 있을때, 내려가게 처리
-        guard let searchTerm = searchBar.text, searchTerm.isEmpty == false else { return recipeListViewModel.emptySearchedList() } // 검색어가 있는지 확인 비어 있을경우 검색x
-
-        print("--> 검색어: \(searchTerm)")
-            
+        guard let searchTerm = searchBar.text, searchTerm.isEmpty == false else {
+            return recipeListViewModel.emptySearchedList() } // 검색어가 있는지 확인 비어 있을경우 검색x
         recipeListViewModel.searchingDishName(name: searchTerm)
-
         tableViewUpadate()
          
         print("--> 검색어: \(searchTerm)")
@@ -151,15 +177,3 @@ extension ListViewController: UISearchBarDelegate {
         tableViewUpadate()
     }
 }
-
-/*
- let alert = UIAlertController(title: "접수불가", message: msg, preferredStyle: .alert)
- let confirmAction = UIAlertAction(title: "확인", style: .default) {(action: UIAlertAction!) -> Void in
-     NSLog(msg)
- }
- 
- alert.addAction(confirmAction)
- 
- present(alert, animated: true, completion:nil)
- */
-

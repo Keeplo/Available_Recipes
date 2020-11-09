@@ -58,6 +58,7 @@
                                     </segmentedControl>
                                 </subviews>
                                 <color key="backgroundColor" red="0.84506899120000001" green="0.44914639000000001" blue="0.29799601440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Xn3-VZ-IZD" secondAttribute="trailing" constant="20" id="5nV-hT-PMW"/>
                                     <constraint firstItem="9hQ-BX-B1z" firstAttribute="centerX" secondItem="K1e-Hn-y5z" secondAttribute="centerX" id="8fM-Pi-nDG"/>
@@ -67,12 +68,16 @@
                                     <constraint firstAttribute="height" constant="45" id="u8B-rD-61C"/>
                                     <constraint firstItem="Xn3-VZ-IZD" firstAttribute="leading" secondItem="Wuq-NG-CVo" secondAttribute="trailing" constant="20" id="wBa-Hh-Z5q"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="L4W-Sf-2Bu" appends="YES" id="ITe-XQ-69m"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q7m-JE-6xf">
                                 <rect key="frame" x="0.0" y="89" width="414" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mxx-Gt-p9O" userLabel="My Recipe">
                                         <rect key="frame" x="15" y="8" width="384" height="32.5"/>
+                                        <gestureRecognizers/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -100,9 +105,6 @@
                                     <constraint firstItem="mxx-Gt-p9O" firstAttribute="top" secondItem="Q7m-JE-6xf" secondAttribute="top" constant="8" id="jTR-2z-UvG"/>
                                     <constraint firstAttribute="trailing" secondItem="61h-Eh-k8I" secondAttribute="trailing" constant="10" id="sB3-Uo-rND"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="hKt-Ma-9Lj" appends="YES" id="hQh-4T-Oja"/>
-                                </connections>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LtI-h1-Cfw">
                                 <rect key="frame" x="0.0" y="199" width="414" height="614"/>
@@ -174,14 +176,18 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sK0-Tb-noM" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="hKt-Ma-9Lj"/>
+                <tapGestureRecognizer id="L4W-Sf-2Bu">
+                    <connections>
+                        <action selector="tapNavigatorView:" destination="scN-1h-0gg" id="V8a-GM-lho"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="166.66666666666669" y="37.5"/>
         </scene>
         <!--Add Recipe-->
         <scene sceneID="Cr3-l1-pnG">
             <objects>
-                <viewController id="Q21-0u-T6w" customClass="AddRecipeViewController" customModule="GenerousRecipe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddRecipeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Q21-0u-T6w" customClass="AddRecipeViewController" customModule="GenerousRecipe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xTP-t3-zM3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -200,12 +206,21 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="medium"/>
                                         </state>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Auy-9j-vNI">
+                                        <rect key="frame" x="8" y="7.5" width="30" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="init">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.84506899120000001" green="0.44914639000000001" blue="0.29799601440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstItem="Auy-9j-vNI" firstAttribute="centerY" secondItem="Npf-0T-eJ5" secondAttribute="centerY" id="76U-1A-wrh"/>
                                     <constraint firstItem="f05-tU-Npm" firstAttribute="centerY" secondItem="Npf-0T-eJ5" secondAttribute="centerY" id="9EY-l9-DRI"/>
                                     <constraint firstAttribute="height" constant="45" id="QwD-2w-ogJ"/>
                                     <constraint firstAttribute="trailing" secondItem="f05-tU-Npm" secondAttribute="trailing" constant="8" id="Y3S-fx-goo"/>
+                                    <constraint firstItem="Auy-9j-vNI" firstAttribute="leading" secondItem="Npf-0T-eJ5" secondAttribute="leading" constant="8" id="hif-zK-ZZZ"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pf5-1U-5CB">
@@ -386,8 +401,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBG-Pw-eM4">
+                                <rect key="frame" x="0.0" y="130" width="414" height="678"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" highlighted="YES" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Dh-mJ-8AI">
+                                        <rect key="frame" x="5" y="137" width="404" height="404"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="3Dh-mJ-8AI" secondAttribute="height" multiplier="1:1" id="hO1-VL-jYH"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="3Dh-mJ-8AI" firstAttribute="leading" secondItem="qBG-Pw-eM4" secondAttribute="leading" constant="5" id="2Uw-md-bai"/>
+                                    <constraint firstItem="3Dh-mJ-8AI" firstAttribute="centerY" secondItem="qBG-Pw-eM4" secondAttribute="centerY" id="ZgM-AY-EQc"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Dh-mJ-8AI" secondAttribute="trailing" constant="5" id="rpw-R2-rBF"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDi-Cb-pb6" userLabel="AddingTagsView">
-                                <rect key="frame" x="0.0" y="40" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="40" width="414" height="90"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching with Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCb-TO-Xcg" userLabel="My Recipe">
                                         <rect key="frame" x="15" y="8" width="384" height="33"/>
@@ -429,7 +461,7 @@
                                     <constraint firstItem="yLk-Ta-G8K" firstAttribute="top" secondItem="uCb-TO-Xcg" secondAttribute="bottom" constant="15" id="PMG-VQ-fF3"/>
                                     <constraint firstItem="fs6-zT-6TE" firstAttribute="top" secondItem="uCb-TO-Xcg" secondAttribute="bottom" constant="12" id="WiF-bs-YLi"/>
                                     <constraint firstItem="uCb-TO-Xcg" firstAttribute="leading" secondItem="fDi-Cb-pb6" secondAttribute="leading" constant="15" id="oeW-fk-IRS"/>
-                                    <constraint firstAttribute="height" constant="100" id="yZl-Lx-idy"/>
+                                    <constraint firstAttribute="height" constant="90" id="yZl-Lx-idy"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQ9-1f-vtG" userLabel="NavigatorView">
@@ -482,7 +514,11 @@
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="vQ9-1f-vtG" firstAttribute="leading" secondItem="CH9-98-nb8" secondAttribute="leading" id="0Pq-Se-Pes"/>
+                            <constraint firstItem="qBG-Pw-eM4" firstAttribute="leading" secondItem="CH9-98-nb8" secondAttribute="leading" id="1dC-D3-21I"/>
                             <constraint firstItem="fDi-Cb-pb6" firstAttribute="firstBaseline" secondItem="vQ9-1f-vtG" secondAttribute="baseline" id="1ui-mI-nTd"/>
+                            <constraint firstItem="CH9-98-nb8" firstAttribute="trailing" secondItem="qBG-Pw-eM4" secondAttribute="trailing" id="9sP-Vf-8Wn"/>
+                            <constraint firstItem="CH9-98-nb8" firstAttribute="bottom" secondItem="qBG-Pw-eM4" secondAttribute="bottom" id="HqT-Lo-Y6Q"/>
+                            <constraint firstItem="qBG-Pw-eM4" firstAttribute="top" secondItem="fDi-Cb-pb6" secondAttribute="bottom" id="PeQ-mv-5CB"/>
                             <constraint firstItem="CH9-98-nb8" firstAttribute="trailing" secondItem="fDi-Cb-pb6" secondAttribute="trailing" id="WWx-OM-u6u"/>
                             <constraint firstItem="fDi-Cb-pb6" firstAttribute="leading" secondItem="CH9-98-nb8" secondAttribute="leading" id="w9U-Za-ZZz"/>
                             <constraint firstItem="CH9-98-nb8" firstAttribute="trailing" secondItem="vQ9-1f-vtG" secondAttribute="trailing" id="xQ4-5a-JyV"/>
@@ -494,6 +530,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Add Recipe" image="cart.fill.badge.plus" catalog="system" id="NKs-LE-3ru"/>
                     <navigationItem key="navigationItem" id="wUk-Mt-g5q"/>
+                    <connections>
+                        <outlet property="backgroundImage" destination="3Dh-mJ-8AI" id="kyK-x9-nX4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x9d-CM-JXI" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="Y5m-T7-0O7" userLabel="HideKeyboard"/>

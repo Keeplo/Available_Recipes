@@ -10,10 +10,13 @@ import UIKit
 
 class SearchingViewController: UIViewController {
     
-
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
 //Mark - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        backgroundImage.image = UIImage(named: "grocery-bag-512px.png")
     }
     
     /*
