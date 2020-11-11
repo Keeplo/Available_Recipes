@@ -108,22 +108,6 @@ class RecipeManager {
 
 
 class RecipeViewModel {
-    enum Section: Int, CaseIterable {
-        case korean
-        case japanese
-        case chinese
-        case western
-        
-        var title: String {
-            switch self {
-            case .korean: return "한식"
-            case .japanese: return "일식"
-            case .chinese: return "중식"
-            case .western: return "양식"
-            default: return ""
-            }
-        }
-    }
     
     private let manager = RecipeManager.shared // 상글톤
     

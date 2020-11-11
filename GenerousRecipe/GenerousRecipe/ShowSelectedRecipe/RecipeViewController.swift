@@ -9,29 +9,35 @@ import UIKit
 
 class RecipeViewController: UIViewController {
     @IBOutlet weak var dishName: UILabel!
-    @IBOutlet weak var thumbNail: UIImageView!
+//    @IBOutlet weak var thumbNail: UIImageView!
     
-    var name: String = ""
-    var image: UIImage? = nil
-    var important: [Ingredient] = []
-    var optional: [Ingredient] = []
-    var steps: [Step] = []
-    var favorite = false
+    enum Sections {
+        case thumnail
+        case section
+        case importtant
+        case optional
+        case steps
+        case favorite
+    }
+    
+    private let sections: [Sections] = [ .thumnail, .section, .importtant, .optional, .steps, .favorite]
+    var currentRecipe: Recipe? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dishName.text = name
-        thumbNail.image = image
+        upadateUI()
+//        thumbNail.image = image
     }
     
-    func update(_ recipe: Recipe) {
-        name = recipe.dishName
-        image = recipe.thumbnail?.getPhoto()
-        important = recipe.IIngredients
-        optional = recipe.OIngredients
-        steps = recipe.steps
-        favorite = recipe.favorite
+    func updateRecipe(_ recipe: Recipe) {
+        currentRecipe = recipe
+    }
+    func upadateUI() {
+        guard let recipe = currentRecipe else {
+            return print("currentRecipe nil")
+        }
+        dishName.text = recipe.dishName
     }
 
     @IBAction func backToList(_ sender: Any) {
@@ -52,4 +58,104 @@ class RecipeViewController: UIViewController {
     }
     */
 
+}
+
+extension RecipeViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch sections[section] {
+        case .thumnail:
+            return "Dish Thumbnail"
+        case .importtant:
+            return "Important Ingredients"
+        case .optional:
+            return "Optional Ingredients"
+        case .steps:
+            return "Cooking Steps"
+        case .favorite:
+            return "Favorite"
+        default:
+            return "error"
+        }
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let recipe = currentRecipe else {
+            print("currentRecipe nil")
+            return 0
+        }
+        
+        switch sections[section] {
+        case .thumnail:
+            return 1
+        case .section:
+            return 1
+        case .importtant:
+            return recipe.IIngredients.count
+        case .optional:
+            return recipe.OIngredients.count
+        case .steps:
+            return recipe.steps.count
+        case .favorite:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let recipe = currentRecipe else {
+            print("currentRecipe nil")
+        }
+        
+        switch sections[indexPath.section] {
+        case .thumnail:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "thumbnailCell", for: indexPath) as? RecipeCell else {
+                print("RecipeCell Error")
+                return UITableViewCell()
+            }
+            cell.updateThumbnail((recipe.thumbnail?.getPhoto())!)
+        case .section:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath) as? RecipeCell else {
+                print("RecipeCell Error")
+                return UITableViewCell()
+            }
+            cell.updateSection(recipe.section)
+        case .importtant:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCell", for: indexPath) as? RecipeCell else {
+                print("RecipeCell Error")
+                return UITableViewCell()
+            }
+            cell.updateIngredient(recipe.IIngredients[indexPath.row])
+        case .optional:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCell", for: indexPath) as? RecipeCell else {
+                print("RecipeCell Error")
+                return UITableViewCell()
+            }
+            cell.updateIngredient(recipe.OIngredients[indexPath.row])
+        case .steps:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "stepsCell", for: indexPath) as? RecipeCell else {
+                print("RecipeCell Error")
+                return UITableViewCell()
+            }
+            cell.updateSteps(recipe.steps[indexPath.row], indexPath.row)
+        case .favorite:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? RecipeCell else {
+                print("RecipeCell Error")
+                return UITableViewCell()
+            }
+            cell.updateFavorite(recipe.favorite)
+        default:
+            let cell = UITableViewCell()
+        }
+        
+        return cell
+    }
+}
+
+extension RecipeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        <#code#>
+    }
 }
