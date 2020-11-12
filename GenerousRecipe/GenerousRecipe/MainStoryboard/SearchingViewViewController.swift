@@ -8,6 +8,12 @@
 
 import UIKit
 
+// 11.12 목
+// 1. 컬렉션 뷰 띄우기
+// 2. 배열 선택 관련 구상
+// 3. 추가 제거 만들기
+
+
 class SearchingViewController: UIViewController {
     @IBOutlet weak var inputTF: UITextField!
     @IBOutlet weak var typeSC: UISegmentedControl!
