@@ -34,7 +34,7 @@ class RecipeCell: UITableViewCell {
                 case .japanese: return "일식"
                 case .chinese: return "중식"
                 case .western: return "양식"
-                default: return ""
+                default: break
             }
         }
         sectionName.text = title
@@ -44,7 +44,7 @@ class RecipeCell: UITableViewCell {
         ingredientsAmount.text = "\(ingredient.amount)g"
     }
     func updateSteps(_ step: Step, _ index: Int) {
-        if let image = (step.imageDescription?.getPhoto())! {
+        if let image = step.imageDescription?.getPhoto() {
             stepsImage.image = image
         } else {
             print("이미지 없음")

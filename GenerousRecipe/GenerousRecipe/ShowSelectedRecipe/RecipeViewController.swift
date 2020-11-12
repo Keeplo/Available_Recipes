@@ -68,6 +68,8 @@ extension RecipeViewController: UITableViewDataSource {
         switch sections[section] {
         case .thumnail:
             return "Dish Thumbnail"
+        case .section:
+            return "Dish Style"
         case .importtant:
             return "Important Ingredients"
         case .optional:
@@ -105,9 +107,7 @@ extension RecipeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let recipe = currentRecipe else {
-            print("currentRecipe nil")
-        }
+        guard let recipe = currentRecipe else { return UITableViewCell()}
         
         switch sections[indexPath.section] {
         case .thumnail:
@@ -116,46 +116,52 @@ extension RecipeViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.updateThumbnail((recipe.thumbnail?.getPhoto())!)
+            return cell
         case .section:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath) as? RecipeCell else {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
             cell.updateSection(recipe.section)
+            return cell
         case .importtant:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCell", for: indexPath) as? RecipeCell else {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
             cell.updateIngredient(recipe.IIngredients[indexPath.row])
+            return cell
         case .optional:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCell", for: indexPath) as? RecipeCell else {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
             cell.updateIngredient(recipe.OIngredients[indexPath.row])
+            return cell
         case .steps:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "stepsCell", for: indexPath) as? RecipeCell else {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
             cell.updateSteps(recipe.steps[indexPath.row], indexPath.row)
+            return cell
         case .favorite:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoriteCell", for: indexPath) as? RecipeCell else {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
             cell.updateFavorite(recipe.favorite)
+            return cell
         default:
             let cell = UITableViewCell()
+            return cell
         }
-        
-        return cell
     }
 }
 
 extension RecipeViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        <#code#>
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        //print(tableView.rowHeight)
+//        return 0
+//    }
 }
