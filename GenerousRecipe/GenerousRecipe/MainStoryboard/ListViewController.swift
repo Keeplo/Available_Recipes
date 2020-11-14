@@ -12,23 +12,27 @@ class ListViewController: UIViewController {
     @IBOutlet weak var searchV: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @IBOutlet weak var headTitleL: UILabel!
+    
     @IBOutlet weak var sortSC: UISegmentedControl!
     @IBOutlet weak var searchB: UIButton!
     @IBOutlet weak var addingB: UIButton!
+    @IBOutlet weak var changeTaskB: UIButton!
     
     @IBOutlet weak var ListTableView: UITableView!
     let recipeListViewModel = RecipeViewModel()
     
-// Mark - Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // Delegate
-        ListTableView.delegate = self
-        
-        // CollectionView UIUpdate
-        
-        // 더미 파일 입력
+    var taskMode: Bool = false
+    
+    var searchVHeight: CGFloat!
+    var resiedHeight: CGFloat!
+    
+    @IBOutlet weak var searchVBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var searchVHeightConstraint: NSLayoutConstraint!
+    
+    // Dummy 생성용
+    @IBAction func dummy(_ sender: Any) {
+        print("Create Dummy")
         let rs =
         [
             Recipe(dishName: "삼계탕", thumbnail: ImageData(photo: UIImage(named: "삼계탕")!), IIngredients: [Ingredient(name: "닭", amount: 1.000)], OIngredients: [Ingredient(name: "마늘", amount: 0.020), Ingredient(name: "양파", amount: 0.050), Ingredient(name: "인삼", amount: 0.030)], steps: [Step(textInstructions: "one"), Step(textInstructions: "two"), Step(textInstructions: "three")], favorite: false, section: .korean),
@@ -38,11 +42,38 @@ class ListViewController: UIViewController {
             Recipe(dishName: "스테이크", thumbnail: ImageData(photo: UIImage(named: "스테이크")!), IIngredients: [Ingredient(name: "소고기", amount: 0.350)], OIngredients: [Ingredient(name: "버터", amount: 0.020), Ingredient(name: "후추", amount: 0.020)], steps: [Step(textInstructions: "이"), Step(textInstructions: "얼"), Step(textInstructions: "싼")], favorite: true, section: .western)
         ]
         let _ = rs.map({ recipeListViewModel.addRecipe($0)})
+        tableViewUpadate()
+    }
+    
+    
+    // Mark - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Delegate
+        ListTableView.delegate = self
+        
+        // SearchBar
+        searchVHeight = searchV.bounds.height
+        resiedHeight = searchV.bounds.height  - searchVBottomConstraint.constant - searchBar.bounds.height
+        
+        // CollectionView UIUpdate
+        
+        // Notification
+        NotificationCenter.default.addObserver(self, selector: #selector(recommandingRecipes(_:)), name: Notification.Name("getTags"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        recipeListViewModel.loadTasks()
+//        if taskMode {
+//
+//            recipeListViewModel.loadTasks()
+//        } else {
+//
+//            recipeListViewModel.loadTasks()
+//        }
+//
+        tableViewUpadate()
     }
 
     
@@ -51,12 +82,12 @@ class ListViewController: UIViewController {
         let msg = "새로운 레시피를 등록하시겠습니까?"
         let title = "레시피 등록하기"
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "Yes", style: .default) {(action: UIAlertAction!) -> Void in
+        let confirmAction = UIAlertAction(title: "네", style: .default) {(action: UIAlertAction!) -> Void in
             self.tabBarController?.selectedIndex = 1
             
             NSLog(msg)
         }
-        let cancelAction = UIAlertAction(title: "No", style: .default) {(action: UIAlertAction!) -> Void in
+        let cancelAction = UIAlertAction(title: "아니요", style: .default) {(action: UIAlertAction!) -> Void in
             NSLog(msg)
         }
         
@@ -71,6 +102,60 @@ class ListViewController: UIViewController {
     @IBAction func tapNavigatorView(_ sender: Any) {
         dismissKeyboard()
     }
+    @IBAction func taskChangeB(_ sender: Any) {
+        changeTaskMode()
+        recipeListViewModel.emptySearchedList()
+        tableViewUpadate()
+    }
+    
+    // ChangeTaskMode
+    func changeTaskMode() {
+        if taskMode {   // 현재 : 조건 검색 완료 페이지
+            changeViewState(current: taskMode)
+            taskMode = !taskMode
+        } else {        // 현재 : 기본 메인 페이지
+            changeViewState(current: taskMode)
+            taskMode = !taskMode
+        }
+    }
+    
+    // Seaching View UIControll
+    func changeViewState(current: Bool) {
+        current ?  appearSearchingView() : hideSearchingView()
+    }
+    func hideSearchingView() {
+        searchVHeightConstraint.constant = resiedHeight
+
+        searchBar.isHidden = !searchBar.isHidden
+        //searchBar.isEnabled = !searchBar.isEnabled
+        changeTaskB.isHidden = !changeTaskB.isHidden
+        changeTaskB.isEnabled = !changeTaskB.isEnabled
+        
+        headTitleL.text = "Recommanded Recipes"
+    }
+    func appearSearchingView() {
+        searchVHeightConstraint.constant = searchVHeight
+
+        searchBar.isHidden = !searchBar.isHidden
+        //searchBar.isEnabled = !searchBar.isEnabled
+        changeTaskB.isHidden = !changeTaskB.isHidden
+        changeTaskB.isEnabled = !changeTaskB.isEnabled
+        
+        headTitleL.text = "My Recipes"
+    }
+    
+    // Notification 구현부
+    @objc func recommandingRecipes(_ notification: Notification) {
+        let tags = notification.object as? [(Int, String)]
+        let important:[String] = (tags?.filter({ $0.0 == 0 }).map({$0.1}))!
+        let optional:[String] = (tags?.filter({ $0.0 == 1 }).map({$0.1}))!
+        
+        // spinner start
+        changeTaskMode()
+        recipeListViewModel.recommandingRecipe(important, optional)
+        // spinner end
+    }
+    
 }
 
 //Mark - TableView DataSource
