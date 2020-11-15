@@ -26,7 +26,7 @@ class RecipeCell: UITableViewCell {
     func updateThumbnail(_ image: UIImage) {
         thumbnail.image = image
     }
-    func updateSection(_ section: Section) {
+    func updateSection(_ section: Styles) {
         var title: String {
                 switch section {
                 case .nokind: return "기타"
@@ -34,7 +34,6 @@ class RecipeCell: UITableViewCell {
                 case .japanese: return "일식"
                 case .chinese: return "중식"
                 case .western: return "양식"
-                default: break
             }
         }
         sectionName.text = title

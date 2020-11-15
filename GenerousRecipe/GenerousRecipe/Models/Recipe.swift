@@ -17,7 +17,7 @@ struct Recipe: Codable, Equatable {
     let OIngredients: [Ingredient] // optional ingredients
     let steps: [Step]
     var favorite: Bool = false
-    var section: Section = .nokind
+    var section: Styles = .nokind
     
     mutating func containsAllIngrdients(_ important: [String], _ optional: [String]) {
         // 가지고 있는 량은 측정 불가
@@ -57,7 +57,7 @@ class RecipeManager {
     var baseRecipes: [Recipe] = []
     var searchedRecipes: [Recipe] = []
     
-    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool, section: Section) -> Recipe {
+    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool, section: Styles) -> Recipe {
         return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite, section: .nokind)
     }
     

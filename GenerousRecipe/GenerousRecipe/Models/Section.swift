@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Section: Int, CaseIterable, Codable, Equatable {
+enum Styles: Int, CaseIterable, Codable, Equatable {
     case nokind
     case korean
     case japanese
