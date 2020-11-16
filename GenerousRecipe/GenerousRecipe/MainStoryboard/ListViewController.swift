@@ -30,6 +30,19 @@ class ListViewController: UIViewController {
     @IBOutlet weak var searchVBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var searchVHeightConstraint: NSLayoutConstraint!
     
+    lazy var activityIndicator: UIActivityIndicatorView = {
+            // Create an indicator.
+            let activityIndicator = UIActivityIndicatorView()
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            activityIndicator.center = self.view.center
+            activityIndicator.color = UIColor.red
+            // Also show the indicator even when the animation is stopped.
+            activityIndicator.hidesWhenStopped = true
+        activityIndicator.style = UIActivityIndicatorView.Style.large
+            // Start animation.
+            activityIndicator.stopAnimating()
+            return activityIndicator }()
+         
     // Dummy 생성용
     @IBAction func dummy(_ sender: Any) {
         print("Create Dummy")
@@ -56,6 +69,9 @@ class ListViewController: UIViewController {
         // SearchBar
         searchVHeight = searchV.bounds.height
         resiedHeight = searchV.bounds.height  - searchVBottomConstraint.constant - searchBar.bounds.height
+        
+        // Indicator
+        self.view.addSubview(self.activityIndicator)
         
         // CollectionView UIUpdate
         
@@ -156,12 +172,18 @@ class ListViewController: UIViewController {
         let important:[String] = (tags?.filter({ $0.0 == 0 }).map({$0.1}))!
         let optional:[String] = (tags?.filter({ $0.0 == 1 }).map({$0.1}))!
         
-        // spinner start
         changeTaskMode()
-        recipeListViewModel.recommandingRecipe(important, optional)
-        // spinner end
+        DispatchQueue.global(qos: .userInitiated).async { [self] in
+            DispatchQueue.main.async {
+                activityIndicator.startAnimating()
+            }
+            self.recipeListViewModel.recommandingRecipe(important, optional)
+            DispatchQueue.main.async {
+                activityIndicator.stopAnimating()
+                tableViewUpadate()
+            }
+        }
     }
-    
 }
 
 //Mark - TableView DataSource
@@ -170,17 +192,21 @@ extension ListViewController: UITableViewDataSource {
         ListTableView.reloadData()
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
-            if sortSC.selectedSegmentIndex == 0 {
-                return recipeListViewModel.searchedAllRecipes.count
-            } else {
-                return recipeListViewModel.searchedFavoriteRecipes.count
-            }
-        } else {                                                    // 검색중 x
-            if sortSC.selectedSegmentIndex == 0 {
-                return recipeListViewModel.baseAllRecipes.count
-            } else {
-                return recipeListViewModel.baseFavoriteRecipes.count
+        if taskMode {
+            return recipeListViewModel.searchedAllRecipes.count
+        } else {
+            if !recipeListViewModel.searchedRecipes.isEmpty {           // 검색중
+                if sortSC.selectedSegmentIndex == 0 {
+                    return recipeListViewModel.searchedAllRecipes.count
+                } else {
+                    return recipeListViewModel.searchedFavoriteRecipes.count
+                }
+            } else {                                                    // 검색중 x
+                if sortSC.selectedSegmentIndex == 0 {
+                    return recipeListViewModel.baseAllRecipes.count
+                } else {
+                    return recipeListViewModel.baseFavoriteRecipes.count
+                }
             }
         }
     }
@@ -191,17 +217,21 @@ extension ListViewController: UITableViewDataSource {
         var recipe: Recipe
         
         recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
-        if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
-            if sortSC.selectedSegmentIndex == 0 {
-                recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
-            } else {
-                recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
-            }
-        } else {                                                 // 검색중 x
-            if sortSC.selectedSegmentIndex == 0 {
-                recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
-            } else {
-                recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
+        if taskMode {
+            recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
+        } else {
+            if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
+                if sortSC.selectedSegmentIndex == 0 {
+                    recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
+                } else {
+                    recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
+                }
+            } else {                                                 // 검색중 x
+                if sortSC.selectedSegmentIndex == 0 {
+                    recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
+                } else {
+                    recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
+                }
             }
         }
         cell.updateUI(recipe: recipe)
@@ -224,18 +254,21 @@ extension ListViewController: UITableViewDelegate {
         }
         
         var recipe: Recipe
-        
-        if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
-            if sortSC.selectedSegmentIndex == 0 {
-                recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
-            } else {
-                recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
-            }
-        } else {                                                 // 검색중 x
-            if sortSC.selectedSegmentIndex == 0 {
-                recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
-            } else {
-                recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
+        if taskMode {
+            recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
+        } else {
+            if !recipeListViewModel.searchedRecipes.isEmpty {        // 검색중
+                if sortSC.selectedSegmentIndex == 0 {
+                    recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
+                } else {
+                    recipe = recipeListViewModel.searchedFavoriteRecipes[indexPath.row]
+                }
+            } else {                                                 // 검색중 x
+                if sortSC.selectedSegmentIndex == 0 {
+                    recipe = recipeListViewModel.baseAllRecipes[indexPath.row]
+                } else {
+                    recipe = recipeListViewModel.baseFavoriteRecipes[indexPath.row]
+                }
             }
         }
 

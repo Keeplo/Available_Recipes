@@ -93,13 +93,27 @@ class RecipeManager {
         searchedRecipes = foundRecipes
     }
     func recommandingRecipe(_ important: [String], _ optional: [String]) {
-//        var recipesSet = Set<String>()
-//
-//        let selectedRecipes = baseRecipes.filter{ (recipe) -> Bool in
-//            let important = recipe.IIngredients.filter({ $0.name })
-//        }
-//
-        //searchedRecipes =
+        let selectedRecipes = baseRecipes.filter{ (recipe: Recipe) -> Bool in
+            print("요리 이름 : \(recipe.dishName)")
+            let importantWords: [String] = recipe.IIngredients.map({ $0.name })
+            let optionalWords: [String] = recipe.OIngredients.map({ $0.name })
+            
+            for str in important {
+                if importantWords.contains(str) {
+                    print("주메뉴 \(str)")
+                    return true
+                }
+            }
+            for str in optional {
+                if optionalWords.contains(str) {
+                    print("부메뉴 \(str)")
+                    return true
+                }
+            }
+            print("검색없음")
+            return false
+        }
+        searchedRecipes = selectedRecipes
     }
     func emptySearchedList() {
         searchedRecipes.removeAll()
