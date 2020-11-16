@@ -131,6 +131,9 @@ class ListViewController: UIViewController {
         changeTaskB.isHidden = !changeTaskB.isHidden
         changeTaskB.isEnabled = !changeTaskB.isEnabled
         
+        sortSC.isHidden = !sortSC.isHidden
+        sortSC.isEnabled = !sortSC.isEnabled
+        
         headTitleL.text = "Recommanded Recipes"
     }
     func appearSearchingView() {
@@ -140,6 +143,9 @@ class ListViewController: UIViewController {
         //searchBar.isEnabled = !searchBar.isEnabled
         changeTaskB.isHidden = !changeTaskB.isHidden
         changeTaskB.isEnabled = !changeTaskB.isEnabled
+        
+        sortSC.isHidden = !sortSC.isHidden
+        sortSC.isEnabled = !sortSC.isEnabled
         
         headTitleL.text = "My Recipes"
     }

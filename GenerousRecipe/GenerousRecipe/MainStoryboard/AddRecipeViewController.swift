@@ -12,11 +12,9 @@ class AddRecipeViewController: UIViewController {
     @IBOutlet weak var initB: UIButton!
     
     @IBOutlet weak var addTableView: UITableView!
-    
-    
-    
 
-
+    
+    
     enum Sections {
         case recipename
         case thumnail
@@ -28,13 +26,13 @@ class AddRecipeViewController: UIViewController {
     }
     
     private let sections: [(Sections,String)] = [ (.recipename,"Dish Name"), (.thumnail, "Dish Thumbnail"), (.section, "Dish Style"), (.importtant, "Important Ingredients"), (.optional, "Optional Ingredients"), (.steps, "Cooking Steps"), (.favorite, "Favorite")]
-    private let styles: [(Styles,String)] = [(.nokind, "Etc"), (.korean, "한식"), (.japanese, "일식"), (.chinese, "중식"), (.western, "양식")]
     
     
     var basedRecipe = Recipe(dishName: "", thumbnail: nil, IIngredients: [], OIngredients: [], steps: [], favorite: false, section: .nokind)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     @IBAction func initializationButton(_ sender: Any) {
@@ -88,6 +86,9 @@ extension AddRecipeViewController: UITableViewDataSource {
                 print("addRecipeCell Error")
                 return UITableViewCell()
             }
+            
+            cell.updateDishStyle()
+            
             return cell
         case .importtant:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "addIngredientsCell", for: indexPath) as? AddRecipeCell else {
@@ -122,7 +123,11 @@ extension AddRecipeViewController: UITableViewDelegate {
 //        //print(tableView.rowHeight)
 //        return 0
 //    }
+    
 }
 
-
-
+extension AddRecipeViewController {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+}

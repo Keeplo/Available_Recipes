@@ -57,11 +57,19 @@
                                             <action selector="changedSort:" destination="scN-1h-0gg" eventType="valueChanged" id="Rko-PC-qvO"/>
                                         </connections>
                                     </segmentedControl>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fLX-cA-2RO">
-                                        <rect key="frame" x="126.5" y="4.5" width="161" height="36"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fLX-cA-2RO">
+                                        <rect key="frame" x="132" y="4.5" width="150" height="36"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Show All Recipes"/>
+                                        <state key="normal">
+                                            <attributedString key="attributedTitle">
+                                                <fragment content="Show All Recipes">
+                                                    <attributes>
+                                                        <font key="NSFont" metaFont="system" size="20"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                        </state>
                                         <connections>
                                             <action selector="taskChangeB:" destination="scN-1h-0gg" eventType="touchUpInside" id="Bdj-kQ-4qh"/>
                                         </connections>
@@ -219,7 +227,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Npf-0T-eJ5" userLabel="NavigatorView">
                                 <rect key="frame" x="0.0" y="44" width="414" height="45"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f05-tU-Npm" userLabel="StoreButton">
+                                    <button opaque="NO" alpha="0.5" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f05-tU-Npm" userLabel="StoreButton">
                                         <rect key="frame" x="376" y="7.5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="f05-tU-Npm" secondAttribute="height" multiplier="1:1" id="3hM-b7-UOo"/>
@@ -274,6 +282,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="dishNameTF" destination="cb2-3E-1Wf" id="jMo-dX-l2y"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addThumbnailCell" rowHeight="34" id="K5h-Jw-WFu" userLabel="Thumbnail Cell" customClass="AddRecipeCell" customModule="GenerousRecipe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="70.5" width="414" height="34"/>
@@ -294,15 +305,19 @@
                                         <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addSectionCell" id="kQb-Ac-DCn" userLabel="Section Cell" customClass="AddRecipeCell" customModule="GenerousRecipe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="104.5" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="104.5" width="414" height="40.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kQb-Ac-DCn" id="BAv-KA-rVX">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="40.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="요리 스타일 선택" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TEI-By-ib8">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="요리 스타일 선택" textAlignment="center" minimumFontSize="17" id="TEI-By-ib8">
                                                     <rect key="frame" x="132" y="3" width="150" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -312,16 +327,20 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="dishStyleTF" destination="TEI-By-ib8" id="UVf-6n-6fT"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addIngredientsCell" id="4JK-2Y-tvb" userLabel="Ingredients Cell" customClass="AddRecipeCell" customModule="GenerousRecipe" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="148" width="414" height="40.5"/>
+                                        <rect key="frame" x="0.0" y="145" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4JK-2Y-tvb" id="O0e-0v-YCa">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="40.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AY-a8-gyu">
-                                                    <rect key="frame" x="376" y="5.5" width="18" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8AY-a8-gyu">
+                                                    <rect key="frame" x="376" y="7" width="18" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" image="plus" catalog="system"/>
@@ -329,25 +348,24 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="재료이름 입력" textAlignment="center" minimumFontSize="17" id="POI-dV-qoS">
                                                     <rect key="frame" x="20" y="3" width="160" height="34"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수량 입력 (단위 g)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r5A-pT-A4V">
+                                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수량 입력 (단위 g)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r5A-pT-A4V">
                                                     <rect key="frame" x="226" y="3" width="120" height="34"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                 </textField>
                                             </subviews>
                                             <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                            <constraints>
-                                                <constraint firstItem="r5A-pT-A4V" firstAttribute="centerY" secondItem="O0e-0v-YCa" secondAttribute="centerY" id="5ZW-aD-r4e"/>
-                                                <constraint firstItem="8AY-a8-gyu" firstAttribute="centerY" secondItem="O0e-0v-YCa" secondAttribute="centerY" id="SAG-Sk-K1x"/>
-                                                <constraint firstAttribute="trailing" secondItem="8AY-a8-gyu" secondAttribute="trailing" constant="20" symbolic="YES" id="TIy-wS-mos"/>
-                                                <constraint firstItem="POI-dV-qoS" firstAttribute="leading" secondItem="O0e-0v-YCa" secondAttribute="leading" constant="20" symbolic="YES" id="b4W-yB-R89"/>
-                                                <constraint firstItem="8AY-a8-gyu" firstAttribute="leading" secondItem="r5A-pT-A4V" secondAttribute="trailing" constant="30" id="ifK-dR-e7t"/>
-                                                <constraint firstItem="POI-dV-qoS" firstAttribute="centerY" secondItem="O0e-0v-YCa" secondAttribute="centerY" id="nTw-3X-X7F"/>
-                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountTF" destination="r5A-pT-A4V" id="l2Z-ST-Hwb"/>
+                                            <outlet property="ingredientNameTF" destination="POI-dV-qoS" id="gjE-Y5-mjD"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addStepsCell" rowHeight="185" id="tvu-QN-tIK" userLabel="Steps Cell" customClass="AddRecipeCell" customModule="GenerousRecipe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="188.5" width="414" height="185"/>
@@ -359,8 +377,8 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6rw-zT-NXI">
                                                     <rect key="frame" x="20" y="11" width="163" height="163"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="6rw-zT-NXI" secondAttribute="height" multiplier="1:1" id="Anf-md-BE7"/>
                                                         <constraint firstAttribute="height" constant="150" id="Xg9-sK-nZn"/>
+                                                        <constraint firstAttribute="width" secondItem="6rw-zT-NXI" secondAttribute="height" multiplier="1:1" id="wiS-Qk-mB9"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Step 1." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olN-YB-rZ5">
@@ -397,6 +415,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="stepsTF" destination="Vaw-62-RJj" id="TCa-OR-bLH"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addFavoriteCell" id="e3S-HH-7jJ" userLabel="Favorite Cell" customClass="AddRecipeCell" customModule="GenerousRecipe" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="373.5" width="414" height="43.5"/>
@@ -416,6 +437,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <connections>
+                                            <outlet property="favoriteSwitch" destination="3jA-M9-O5t" id="Mgr-Fv-3V7"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

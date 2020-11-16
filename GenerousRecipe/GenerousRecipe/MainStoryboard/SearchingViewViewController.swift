@@ -44,13 +44,13 @@ class SearchingViewController: UIViewController {
             let title = "아래 재료로 레시피 추천 받겠습니까?"
             let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
             let confirmAction = UIAlertAction(title: "추천받기", style: .default) { [self](action: UIAlertAction!) -> Void in
-                let sb = UIStoryboard(name: "ListViewController", bundle: nil)
-                guard let vc = sb.instantiateViewController(identifier: "ListViewController") as? ListViewController else {
-                    return
-                }
-                
-                
-                vc.modalPresentationStyle = .fullScreen
+//                let sb = UIStoryboard(name: "ListViewController", bundle: nil)
+//                guard let vc = sb.instantiateViewController(identifier: "ListViewController") as? ListViewController else {
+//                    return
+//                }
+//
+//
+//                vc.modalPresentationStyle = .fullScreen
                 
 //                self.present(vc, animated: false, completion: nil)
                 
