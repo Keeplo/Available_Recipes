@@ -4,10 +4,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
-        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -41,7 +39,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
                                         </state>
                                         <connections>
-                                            <segue destination="rQb-Bh-0l9" kind="show" id="TpQ-mX-G7V"/>
+                                            <action selector="startSearching:" destination="scN-1h-0gg" eventType="touchUpInside" id="JmO-cz-mkU"/>
                                         </connections>
                                     </button>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="9hQ-BX-B1z">
@@ -633,206 +631,6 @@
             </objects>
             <point key="canvasLocation" x="1461" y="38"/>
         </scene>
-        <!--Add Recipe-->
-        <scene sceneID="OKz-fb-jml">
-            <objects>
-                <viewController id="rQb-Bh-0l9" customClass="SearchingViewController" customModule="GenerousRecipe" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="A0d-jk-2pY">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBG-Pw-eM4">
-                                <rect key="frame" x="0.0" y="130" width="414" height="678"/>
-                                <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BQJ-5T-cR3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="678"/>
-                                        <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" sectionInsetReference="layoutMargins" id="Oqg-Pn-yqn">
-                                            <size key="itemSize" width="148" height="42"/>
-                                            <size key="estimatedItemSize" width="148" height="42"/>
-                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                            <inset key="sectionInset" minX="30" minY="230" maxX="30" maxY="100"/>
-                                        </collectionViewFlowLayout>
-                                        <cells>
-                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="tag" id="bjF-pN-n2q" customClass="TagsCollectionViewCell" customModule="GenerousRecipe" customModuleProvider="target">
-                                                <rect key="frame" x="38" y="238" width="148" height="42"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PqJ-Cy-FL7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="148" height="42"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="아스파라거스" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mSt-Y2-a4V">
-                                                            <rect key="frame" x="8" y="10" width="104" height="23"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                            <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kzi-le-Bs1">
-                                                            <rect key="frame" x="112" y="10" width="28" height="22"/>
-                                                            <color key="tintColor" systemColor="systemRedColor"/>
-                                                            <state key="normal" image="xmark" catalog="system"/>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="Kzi-le-Bs1" firstAttribute="centerY" secondItem="PqJ-Cy-FL7" secondAttribute="centerY" id="7xD-D4-qLv"/>
-                                                        <constraint firstItem="mSt-Y2-a4V" firstAttribute="centerY" secondItem="PqJ-Cy-FL7" secondAttribute="centerY" id="DWR-5I-cZs"/>
-                                                        <constraint firstItem="Kzi-le-Bs1" firstAttribute="leading" secondItem="mSt-Y2-a4V" secondAttribute="trailing" id="X0A-hk-HeX"/>
-                                                        <constraint firstItem="mSt-Y2-a4V" firstAttribute="leading" secondItem="PqJ-Cy-FL7" secondAttribute="leading" constant="8" id="kUB-fE-QbU"/>
-                                                        <constraint firstAttribute="trailing" secondItem="Kzi-le-Bs1" secondAttribute="trailing" constant="8" id="uVx-gh-XFL"/>
-                                                    </constraints>
-                                                </collectionViewCellContentView>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <size key="customSize" width="148" height="42"/>
-                                                <connections>
-                                                    <outlet property="deleteB" destination="Kzi-le-Bs1" id="yWe-IR-FgG"/>
-                                                    <outlet property="tagL" destination="mSt-Y2-a4V" id="rYf-G9-ako"/>
-                                                </connections>
-                                            </collectionViewCell>
-                                        </cells>
-                                        <connections>
-                                            <outlet property="dataSource" destination="rQb-Bh-0l9" id="ZHW-bY-vpY"/>
-                                            <outlet property="delegate" destination="rQb-Bh-0l9" id="8qA-k6-mmM"/>
-                                        </connections>
-                                    </collectionView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="BQJ-5T-cR3" firstAttribute="top" secondItem="qBG-Pw-eM4" secondAttribute="top" id="5fo-DH-ogR"/>
-                                    <constraint firstAttribute="bottom" secondItem="BQJ-5T-cR3" secondAttribute="bottom" id="VRP-D5-UG8"/>
-                                    <constraint firstAttribute="trailing" secondItem="BQJ-5T-cR3" secondAttribute="trailing" id="XH9-WR-EZm"/>
-                                    <constraint firstItem="BQJ-5T-cR3" firstAttribute="leading" secondItem="qBG-Pw-eM4" secondAttribute="leading" id="raF-Fl-r2c"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fDi-Cb-pb6" userLabel="AddingTagsView">
-                                <rect key="frame" x="0.0" y="40" width="414" height="90"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching with Ingredients" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uCb-TO-Xcg" userLabel="My Recipe">
-                                        <rect key="frame" x="15" y="8" width="384" height="33"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add things you have" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O2O-vJ-CjF">
-                                        <rect key="frame" x="104" y="51" width="246" height="34"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="name"/>
-                                        <imageReference key="background" image="magnifyingglass" catalog="system" symbolScale="medium"/>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="재료 추가" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yLk-Ta-G8K">
-                                        <rect key="frame" x="15" y="56" width="74" height="24"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fs6-zT-6TE">
-                                        <rect key="frame" x="370" y="53" width="29" height="30"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" image="cart.badge.plus" catalog="system">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="addATag:" destination="rQb-Bh-0l9" eventType="touchUpInside" id="NEB-9a-GCx"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.84506899120000001" green="0.44914639000000001" blue="0.29799601440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="uCb-TO-Xcg" firstAttribute="top" secondItem="fDi-Cb-pb6" secondAttribute="top" constant="8" id="05X-xt-nYN"/>
-                                    <constraint firstItem="O2O-vJ-CjF" firstAttribute="leading" secondItem="yLk-Ta-G8K" secondAttribute="trailing" constant="15" id="0dJ-Vi-45d"/>
-                                    <constraint firstItem="yLk-Ta-G8K" firstAttribute="leading" secondItem="fDi-Cb-pb6" secondAttribute="leading" constant="15" id="1JV-FI-zpR"/>
-                                    <constraint firstItem="fs6-zT-6TE" firstAttribute="leading" relation="lessThanOrEqual" secondItem="O2O-vJ-CjF" secondAttribute="trailing" constant="20" id="1gh-oX-cFB"/>
-                                    <constraint firstItem="O2O-vJ-CjF" firstAttribute="top" secondItem="uCb-TO-Xcg" secondAttribute="bottom" constant="10" id="9P5-ek-meb"/>
-                                    <constraint firstAttribute="trailing" secondItem="uCb-TO-Xcg" secondAttribute="trailing" constant="15" id="E9a-A3-pnw"/>
-                                    <constraint firstAttribute="trailing" secondItem="fs6-zT-6TE" secondAttribute="trailing" constant="15" id="IkQ-y0-tMT"/>
-                                    <constraint firstItem="yLk-Ta-G8K" firstAttribute="top" secondItem="uCb-TO-Xcg" secondAttribute="bottom" constant="15" id="PMG-VQ-fF3"/>
-                                    <constraint firstItem="fs6-zT-6TE" firstAttribute="top" secondItem="uCb-TO-Xcg" secondAttribute="bottom" constant="12" id="WiF-bs-YLi"/>
-                                    <constraint firstItem="uCb-TO-Xcg" firstAttribute="leading" secondItem="fDi-Cb-pb6" secondAttribute="leading" constant="15" id="oeW-fk-IRS"/>
-                                    <constraint firstAttribute="height" constant="90" id="yZl-Lx-idy"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vQ9-1f-vtG" userLabel="NavigatorView">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vlr-LT-85M" userLabel="AddingRecipeButton">
-                                        <rect key="frame" x="356" y="5" width="48" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Search">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large" weight="medium"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="searchingButton:" destination="rQb-Bh-0l9" eventType="touchUpInside" id="gzF-KM-DDx"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sjd-13-dtb" userLabel="CancelButton">
-                                        <rect key="frame" x="10" y="5" width="48" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Cancel">
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancelButton:" destination="rQb-Bh-0l9" eventType="touchUpInside" id="uCj-9M-Dw6"/>
-                                        </connections>
-                                    </button>
-                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="mPq-Hm-63p">
-                                        <rect key="frame" x="127" y="4.5" width="160" height="32"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="160" id="5Vk-Xd-4oY"/>
-                                        </constraints>
-                                        <segments>
-                                            <segment title="Important"/>
-                                            <segment title="Optional"/>
-                                        </segments>
-                                    </segmentedControl>
-                                </subviews>
-                                <color key="backgroundColor" red="0.84506899120000001" green="0.44914639000000001" blue="0.29799601440000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstItem="mPq-Hm-63p" firstAttribute="centerX" secondItem="vQ9-1f-vtG" secondAttribute="centerX" id="ANA-iI-waZ"/>
-                                    <constraint firstItem="Sjd-13-dtb" firstAttribute="centerY" secondItem="vQ9-1f-vtG" secondAttribute="centerY" id="NZy-NP-AIF"/>
-                                    <constraint firstAttribute="height" constant="40" id="Qhk-Sk-oyO"/>
-                                    <constraint firstItem="Vlr-LT-85M" firstAttribute="centerY" secondItem="vQ9-1f-vtG" secondAttribute="centerY" id="TZ7-Ur-gBb"/>
-                                    <constraint firstItem="Sjd-13-dtb" firstAttribute="leading" secondItem="vQ9-1f-vtG" secondAttribute="leading" constant="10" id="f2b-gy-4aG"/>
-                                    <constraint firstItem="mPq-Hm-63p" firstAttribute="centerY" secondItem="vQ9-1f-vtG" secondAttribute="centerY" id="htQ-7D-Uqt"/>
-                                    <constraint firstAttribute="trailing" secondItem="Vlr-LT-85M" secondAttribute="trailing" constant="10" id="tqA-8z-0EC"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="CH9-98-nb8"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="vQ9-1f-vtG" firstAttribute="leading" secondItem="CH9-98-nb8" secondAttribute="leading" id="0Pq-Se-Pes"/>
-                            <constraint firstItem="qBG-Pw-eM4" firstAttribute="leading" secondItem="CH9-98-nb8" secondAttribute="leading" id="1dC-D3-21I"/>
-                            <constraint firstItem="fDi-Cb-pb6" firstAttribute="firstBaseline" secondItem="vQ9-1f-vtG" secondAttribute="baseline" id="1ui-mI-nTd"/>
-                            <constraint firstItem="CH9-98-nb8" firstAttribute="trailing" secondItem="qBG-Pw-eM4" secondAttribute="trailing" id="9sP-Vf-8Wn"/>
-                            <constraint firstItem="CH9-98-nb8" firstAttribute="bottom" secondItem="qBG-Pw-eM4" secondAttribute="bottom" id="HqT-Lo-Y6Q"/>
-                            <constraint firstItem="qBG-Pw-eM4" firstAttribute="top" secondItem="fDi-Cb-pb6" secondAttribute="bottom" id="PeQ-mv-5CB"/>
-                            <constraint firstItem="CH9-98-nb8" firstAttribute="trailing" secondItem="fDi-Cb-pb6" secondAttribute="trailing" id="WWx-OM-u6u"/>
-                            <constraint firstItem="fDi-Cb-pb6" firstAttribute="leading" secondItem="CH9-98-nb8" secondAttribute="leading" id="w9U-Za-ZZz"/>
-                            <constraint firstItem="CH9-98-nb8" firstAttribute="trailing" secondItem="vQ9-1f-vtG" secondAttribute="trailing" id="xQ4-5a-JyV"/>
-                            <constraint firstItem="vQ9-1f-vtG" firstAttribute="top" secondItem="CH9-98-nb8" secondAttribute="top" id="yNB-KK-GuF"/>
-                        </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="Y5m-T7-0O7" appends="YES" id="Ewr-xV-rDx"/>
-                        </connections>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Add Recipe" image="cart.fill.badge.plus" catalog="system" id="NKs-LE-3ru"/>
-                    <navigationItem key="navigationItem" id="wUk-Mt-g5q"/>
-                    <connections>
-                        <outlet property="inputTF" destination="O2O-vJ-CjF" id="EGA-p7-sGK"/>
-                        <outlet property="tagsCollectionView" destination="BQJ-5T-cR3" id="Kzl-pI-FXf"/>
-                        <outlet property="typeSC" destination="mPq-Hm-63p" id="AkX-Kl-ROz"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x9d-CM-JXI" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Y5m-T7-0O7" userLabel="HideKeyboard"/>
-            </objects>
-            <point key="canvasLocation" x="167" y="731"/>
-        </scene>
         <!--setting-->
         <scene sceneID="H0F-lj-TbP">
             <objects>
@@ -854,18 +652,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cart.badge.plus" catalog="system" width="128" height="106"/>
         <image name="cart.fill.badge.plus" catalog="system" width="128" height="106"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="target" catalog="system" width="128" height="121"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -78,8 +78,6 @@ extension RecipeViewController: UITableViewDataSource {
             return "Cooking Steps"
         case .favorite:
             return "Favorite"
-        default:
-            return "error"
         }
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -101,8 +99,6 @@ extension RecipeViewController: UITableViewDataSource {
             return recipe.steps.count
         case .favorite:
             return 1
-        default:
-            return 0
         }
     }
     
@@ -151,9 +147,7 @@ extension RecipeViewController: UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.updateFavorite(recipe.favorite)
-            return cell
-        default:
-            let cell = UITableViewCell()
+            cell.recipe = recipe
             return cell
         }
     }

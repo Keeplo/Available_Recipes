@@ -12,18 +12,24 @@ import UIKit
 
 struct Recipe: Codable, Equatable {
     var dishName: String
-    let thumbnail: ImageData?
-    let IIngredients: [Ingredient] // important ingredients
-    let OIngredients: [Ingredient] // optional ingredients
-    let steps: [Step]
+    var thumbnail: ImageData?
+    var IIngredients: [Ingredient] // important ingredients
+    var OIngredients: [Ingredient] // optional ingredients
+    var steps: [Step]
     var favorite: Bool = false
     var section: Styles = .nokind
     
     mutating func containsAllIngrdients(_ important: [String], _ optional: [String]) {
         // 가지고 있는 량은 측정 불가
     }
-    mutating func update() {
-        
+    mutating func update(_ recipe: Recipe) {
+        dishName = recipe.dishName
+        thumbnail = recipe.thumbnail
+        IIngredients = recipe.IIngredients
+        OIngredients = recipe.OIngredients
+        steps = recipe.steps
+        favorite = recipe.favorite
+        section = recipe.section
     }
     
     // TODO: json에 저장할떄 이용해주세요.
@@ -76,8 +82,14 @@ class RecipeManager {
     
     func updateRecipe(_ recipe: Recipe) {
         guard let index = baseRecipes.firstIndex(of: recipe) else { return }
-        baseRecipes[index].update()
-
+        
+        if searchedRecipes.isEmpty {
+            baseRecipes[index].update(recipe)
+        } else {
+            baseRecipes[index].update(recipe)
+            searchedRecipes[index].update(recipe)
+        }
+        
         saveRecipe()
     }
     

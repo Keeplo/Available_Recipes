@@ -63,6 +63,9 @@ class ListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        recipeListViewModel.loadTasks()
+        
+        
         // Delegate
         ListTableView.delegate = self
         
@@ -77,19 +80,17 @@ class ListViewController: UIViewController {
         
         // Notification
         NotificationCenter.default.addObserver(self, selector: #selector(recommandingRecipes(_:)), name: Notification.Name("getTags"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changedFavorite(_:)), name: Notification.Name("changedFavorite"), object: nil)
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-//        if taskMode {
-//
-//            recipeListViewModel.loadTasks()
-//        } else {
-//
-//            recipeListViewModel.loadTasks()
-//        }
-//
+    
         tableViewUpadate()
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        // 데이터 쓰기
     }
 
     
@@ -112,6 +113,23 @@ class ListViewController: UIViewController {
         
         present(alert, animated: true, completion:nil)
     }
+    
+    @IBAction func startSearching(_ sender: Any) {
+        if taskMode {
+            changeTaskMode()
+            recipeListViewModel.emptySearchedList()
+            tableViewUpadate()
+        }
+        let sb = UIStoryboard(name: "SearchingViewController", bundle: nil)
+        guard let vc = sb.instantiateViewController(identifier: "SearchingViewController") as? SearchingViewController else {
+            return
+        }
+        vc.modalPresentationStyle = .fullScreen
+        
+        self.present(vc, animated: false, completion: nil)
+        
+    }
+    
     @IBAction func changedSort(_ sender: Any) {
         tableViewUpadate()
     }
@@ -184,6 +202,13 @@ class ListViewController: UIViewController {
             }
         }
     }
+    @objc func changedFavorite(_ notification: Notification) {
+        let recipe = notification.object as! Recipe
+        
+        recipeListViewModel.updateRecipe(recipe)
+        
+        tableViewUpadate()
+    }
 }
 
 //Mark - TableView DataSource
@@ -212,7 +237,9 @@ extension ListViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as? ListTableViewCell else {return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ListTableViewCell", for: indexPath) as? ListTableViewCell else {
+            return UITableViewCell()
+        }
         
         var recipe: Recipe
         
@@ -248,12 +275,8 @@ extension ListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("--> \(indexPath.row)")
         
-        let sb = UIStoryboard(name: "RecipeViewController", bundle: nil)
-        guard let vc = sb.instantiateViewController(identifier: "RecipeViewController") as? RecipeViewController else {
-            return
-        }
-        
         var recipe: Recipe
+        
         if taskMode {
             recipe = recipeListViewModel.searchedAllRecipes[indexPath.row]
         } else {
@@ -272,6 +295,11 @@ extension ListViewController: UITableViewDelegate {
             }
         }
 
+        
+        let sb = UIStoryboard(name: "RecipeViewController", bundle: nil)
+        guard let vc = sb.instantiateViewController(identifier: "RecipeViewController") as? RecipeViewController else {
+            return
+        }
         vc.modalPresentationStyle = .fullScreen
         vc.currentRecipe = recipe
         

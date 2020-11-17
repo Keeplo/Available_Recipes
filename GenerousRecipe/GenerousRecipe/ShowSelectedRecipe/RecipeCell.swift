@@ -23,6 +23,8 @@ class RecipeCell: UITableViewCell {
     
     @IBOutlet weak var favorite: UISwitch!
     
+    var recipe: Recipe?
+    
     func updateThumbnail(_ image: UIImage) {
         thumbnail.image = image
     }
@@ -51,17 +53,14 @@ class RecipeCell: UITableViewCell {
         stepsNumber.text = "Step \(index+1)."
         detailOfSteps.text = step.textInstructions
     }
-    func updateFavorite(_ select: Bool) {
-        favorite.isOn = select
+    func updateFavorite(_ selected: Bool) {
+        favorite.isOn = selected
     }
     
     @IBAction func changedFavoriteState(_ sender: Any) {
-        if favorite.isOn {
-            // 던지기
-        } else {
-            
-        }
+        recipe?.favorite = !favorite.isOn
+        NotificationCenter.default.post(name: Notification.Name("changedFavorite"), object: recipe)
+        favorite.setOn(!favorite.isOn, animated: false)
         favorite.isOn = !favorite.isOn
     }
-    
 }
