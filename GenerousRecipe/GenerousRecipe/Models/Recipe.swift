@@ -12,10 +12,10 @@ import UIKit
 
 struct Recipe: Codable, Equatable {
     var dishName: String
-    var thumbnail: ImageData?
-    var IIngredients: [Ingredient] // important ingredients
-    var OIngredients: [Ingredient] // optional ingredients
-    var steps: [Step]
+    var thumbnail: String?          // thumnail Path (온라인용)
+    var iIngredients: [Ingredient] // important ingredients
+    var oIngredients: [Ingredient] // optional ingredients
+    var steps: [Step]               
     var favorite: Bool = false
     var section: Styles = .nokind
     
@@ -25,8 +25,8 @@ struct Recipe: Codable, Equatable {
     mutating func update(_ recipe: Recipe) {
         dishName = recipe.dishName
         thumbnail = recipe.thumbnail
-        IIngredients = recipe.IIngredients
-        OIngredients = recipe.OIngredients
+        iIngredients = recipe.iIngredients
+        oIngredients = recipe.oIngredients
         steps = recipe.steps
         favorite = recipe.favorite
         section = recipe.section
@@ -36,7 +36,7 @@ struct Recipe: Codable, Equatable {
     var toJSON: [String:Any] {
         return [
             "dishName": String(),
-            "thumbnail": (Any).self,
+            "thumbnail": String(),
             "important": [Any](),
             "optional": [Any](),
             "steps": [Any](),
@@ -44,6 +44,15 @@ struct Recipe: Codable, Equatable {
             "section": Any.self
         ]
     }
+    
+    // 이미지 처리
+//    func loadImageFromLocal() {
+        
+    func saveImageToLocal() {
+        
+    }
+    
+    
     
 //    static func instance(from json: [String:Any]) -> Recipe {
 //        // JSON에서 객체를 만들떄 써주세요.
@@ -58,13 +67,12 @@ struct Recipe: Codable, Equatable {
 
 class RecipeManager {
     static let shared = RecipeManager()
-    static var lastDishName: String = ""
     
     var baseRecipes: [Recipe] = []
     var searchedRecipes: [Recipe] = []
     
-    func createRecipe(dishName: String, thumbnail: ImageData?, IIngredients: [Ingredient], OIngredients: [Ingredient], steps: [Step], favorite: Bool, section: Styles) -> Recipe {
-        return Recipe(dishName: dishName, thumbnail: thumbnail, IIngredients: IIngredients, OIngredients: OIngredients, steps: steps, favorite: favorite, section: .nokind)
+    func createRecipe(dishName: String, thumbnail: String, iIngredients: [Ingredient], oIngredients: [Ingredient], steps: [Step], favorite: Bool, section: Styles) -> Recipe {
+        return Recipe(dishName: dishName, thumbnail: thumbnail, iIngredients: iIngredients, oIngredients: oIngredients, steps: steps, favorite: favorite, section: .nokind)
     }
     
     func addRecipe(_ recipe: Recipe) {
@@ -89,11 +97,12 @@ class RecipeManager {
             baseRecipes[index].update(recipe)
             searchedRecipes[index].update(recipe)
         }
-        
+        print(recipe)
         saveRecipe()
     }
     
     func saveRecipe() {
+        print("this")
         Storage.store(baseRecipes, to: .documents, as: "recipes.json")
     }
     
@@ -107,8 +116,8 @@ class RecipeManager {
     func recommandingRecipe(_ important: [String], _ optional: [String]) {
         let selectedRecipes = baseRecipes.filter{ (recipe: Recipe) -> Bool in
             print("요리 이름 : \(recipe.dishName)")
-            let importantWords: [String] = recipe.IIngredients.map({ $0.name })
-            let optionalWords: [String] = recipe.OIngredients.map({ $0.name })
+            let importantWords: [String] = recipe.iIngredients.map({ $0.name })
+            let optionalWords: [String] = recipe.oIngredients.map({ $0.name })
             
             for str in important {
                 if importantWords.contains(str) {
@@ -134,7 +143,7 @@ class RecipeManager {
 
 
 class RecipeViewModel {
-    
+    private let imageManager = ImageFileManager.shared
     private let manager = RecipeManager.shared // 상글톤
     
     var baseRecipes: [Recipe] {
@@ -179,6 +188,39 @@ class RecipeViewModel {
     }
     func emptySearchedList() {
         manager.emptySearchedList()
+    }
+
+    // 이미지 처리
+    func saveImage(_ image: UIImage, _ dishName: String, _ index: Int? = nil) {
+        if let i = index {
+            let name = imageManager.stepsNaming(dishName, i)
+            imageManager.saveImage(image: image, name: name, onSuccess: { onSuccess in
+                print("saveImage onSuccess: \(onSuccess)")
+            })
+        } else {
+            let name = imageManager.thumbnailNaming(dishName)
+            imageManager.saveImage(image: image, name: name, onSuccess: { onSuccess in
+                print("saveImage onSuccess: \(onSuccess)")
+            })
+        }
+    }
+    func getImage(_ dishName: String, index: Int? = nil) -> UIImage? {
+        if let i = index {
+            let name = imageManager.stepsNaming(dishName, i)
+            return imageManager.getSavedImage(named: name)
+        } else {
+            let name = imageManager.thumbnailNaming(dishName)
+            return imageManager.getSavedImage(named: name)
+        }
+    }
+    func getImagePath(_ dishName: String, index: Int? = nil) -> String {
+        if let i = index {
+            let name = imageManager.stepsNaming(dishName, i)
+            return imageManager.getImagePath(named: name)
+        } else {
+            let name = imageManager.thumbnailNaming(dishName)
+            return imageManager.getImagePath(named: name)
+        }
     }
 }
 

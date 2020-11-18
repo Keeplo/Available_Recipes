@@ -92,9 +92,9 @@ extension RecipeViewController: UITableViewDataSource {
         case .section:
             return 1
         case .importtant:
-            return recipe.IIngredients.count
+            return recipe.iIngredients.count
         case .optional:
-            return recipe.OIngredients.count
+            return recipe.oIngredients.count
         case .steps:
             return recipe.steps.count
         case .favorite:
@@ -111,7 +111,11 @@ extension RecipeViewController: UITableViewDataSource {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
-            cell.updateThumbnail((recipe.thumbnail?.getPhoto())!)
+            guard let path = recipe.thumbnail else { print("thumbnail path error"); return  UITableViewCell()}
+            guard let image = UIImage(contentsOfFile: path) else { print("image error"); return  UITableViewCell() }
+            
+            cell.updateThumbnail(image)
+            
             return cell
         case .section:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "sectionCell", for: indexPath) as? RecipeCell else {
@@ -125,14 +129,14 @@ extension RecipeViewController: UITableViewDataSource {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
-            cell.updateIngredient(recipe.IIngredients[indexPath.row])
+            cell.updateIngredient(recipe.iIngredients[indexPath.row])
             return cell
         case .optional:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "ingredientsCell", for: indexPath) as? RecipeCell else {
                 print("RecipeCell Error")
                 return UITableViewCell()
             }
-            cell.updateIngredient(recipe.OIngredients[indexPath.row])
+            cell.updateIngredient(recipe.oIngredients[indexPath.row])
             return cell
         case .steps:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "stepsCell", for: indexPath) as? RecipeCell else {

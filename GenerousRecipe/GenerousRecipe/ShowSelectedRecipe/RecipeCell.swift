@@ -45,7 +45,8 @@ class RecipeCell: UITableViewCell {
         ingredientsAmount.text = "\(ingredient.amount)g"
     }
     func updateSteps(_ step: Step, _ index: Int) {
-        if let image = step.imageDescription?.getPhoto() {
+        if let path = step.imageDescription {
+            let image = UIImage(contentsOfFile: path)
             stepsImage.image = image
         } else {
             print("이미지 없음")
@@ -58,9 +59,8 @@ class RecipeCell: UITableViewCell {
     }
     
     @IBAction func changedFavoriteState(_ sender: Any) {
-        recipe?.favorite = !favorite.isOn
-        NotificationCenter.default.post(name: Notification.Name("changedFavorite"), object: recipe)
-        favorite.setOn(!favorite.isOn, animated: false)
-        favorite.isOn = !favorite.isOn
+        guard var currentRecipe = recipe else { return }
+        currentRecipe.favorite = favorite.isOn
+        NotificationCenter.default.post(name: Notification.Name("changedFavorite"), object: currentRecipe)
     }
 }

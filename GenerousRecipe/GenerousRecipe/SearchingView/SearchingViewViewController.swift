@@ -102,7 +102,6 @@ class SearchingViewController: UIViewController {
         }
     }
     @objc func deleteTag(sender: UIButton) {
-        
         let alert = UIAlertController(title: "재료 삭제", message: "재료 '\(tags[sender.tag].1)' 삭제 하시겠습니까?", preferredStyle: .alert)
         let confirmAction = UIAlertAction(title: "삭제하기", style: .default) { [self] (action: UIAlertAction!) -> Void in
             // 태그 삭제
@@ -122,6 +121,7 @@ class SearchingViewController: UIViewController {
     }
 }
 
+// Mark: - CollectionView
 extension SearchingViewController: UICollectionViewDataSource {
     func updateCollectionView() {
         tagsCollectionView.reloadData()
@@ -129,7 +129,6 @@ extension SearchingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return tags.count
     }
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tag", for: indexPath) as? TagsCollectionViewCell else { return UICollectionViewCell() }
         
@@ -145,13 +144,12 @@ extension SearchingViewController: UICollectionViewDataSource {
         
         return cell
     }
-    
-    
 }
 extension SearchingViewController: UICollectionViewDelegate {
     
 }
 
+// Mark: - TextField
 extension SearchingViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if !textField.text!.isEmpty {

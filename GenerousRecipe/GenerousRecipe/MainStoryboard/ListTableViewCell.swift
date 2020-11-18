@@ -15,6 +15,6 @@ class ListTableViewCell: UITableViewCell {
     
     func updateUI(recipe: Recipe) {
         dishName.text = recipe.dishName
-        recipeThumbnail.image = recipe.thumbnail?.getPhoto()
+        recipeThumbnail.image = UIImage(contentsOfFile: recipe.thumbnail!)
     }
 }
