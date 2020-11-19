@@ -315,6 +315,9 @@
                                                         <state key="normal" image="photo.fill.on.rectangle.fill" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="addThumbnail:" destination="Q21-0u-T6w" eventType="touchUpInside" id="Gao-yk-jWu"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4I-76-bxe" userLabel="Delete PhotoB">
                                                         <rect key="frame" x="346" y="15" width="21.5" height="18"/>
@@ -322,6 +325,9 @@
                                                         <state key="normal" image="minus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="deleteThumbnail:" destination="Q21-0u-T6w" eventType="touchUpInside" id="0xM-nQ-SMo"/>
+                                                        </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XUm-ra-KHc" userLabel="InputThumbnailImage">
                                                         <rect key="frame" x="0.0" y="45" width="414" height="200"/>
@@ -379,7 +385,8 @@
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="음식 종류를 선택하세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5s1-Tp-woY">
                                                                 <rect key="frame" x="8" y="5.5" width="398" height="34"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <color key="textColor" red="0.90196078430000004" green="0.42352941179999998" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                                 <textInputTraits key="textInputTraits"/>
                                                             </textField>
                                                         </subviews>
@@ -548,9 +555,15 @@
                                                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
                                                                 </state>
                                                             </button>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LxJ-0C-gcM">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="사진없음" textAlignment="center" lineBreakMode="clip" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="riw-m0-WkL">
+                                                                <rect key="frame" x="8" y="8" width="69.5" height="24"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                                <color key="textColor" red="0.90196078430000004" green="0.42192304130000002" blue="0.25484526159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                            </label>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LxJ-0C-gcM">
                                                                 <rect key="frame" x="8" y="8" width="119" height="119"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Step 1." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCy-12-cKi">
                                                                 <rect key="frame" x="135" y="8" width="52" height="21"/>
@@ -561,6 +574,10 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="riw-m0-WkL" firstAttribute="centerX" secondItem="LxJ-0C-gcM" secondAttribute="centerX" id="fur-ek-UEf"/>
+                                                            <constraint firstItem="riw-m0-WkL" firstAttribute="centerY" secondItem="LxJ-0C-gcM" secondAttribute="centerY" id="zyv-ui-H2b"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
