@@ -10,6 +10,7 @@ import UIKit
 class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var storeB: UIButton!
     @IBOutlet weak var initB: UIButton!
+    @IBOutlet weak var scrollViewConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var inputDishNameTF: UITextField!
     
@@ -20,8 +21,16 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     
     @IBOutlet weak var dishStyleTF: UITextField!
     
+    
+    @IBOutlet weak var importantViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var importantSV: UIStackView!
     @IBOutlet weak var importantV: UIView!
+    
+    @IBOutlet weak var importantTFsSV: UIStackView!
+    @IBOutlet weak var importantNameTF: UITextField!
+    @IBOutlet weak var importantAmountTF: UITextField!
+    @IBOutlet weak var importantDeleteB: UIButton!
+    
     
     @IBOutlet weak var optionalSV: UIStackView!
     @IBOutlet weak var optionalV: UIView!
@@ -108,31 +117,23 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         present(alert, animated: true, completion:nil)
     }
     @IBAction func addingNewRecipe(_ sender: Any) {
-        let alert = UIAlertController(title: "레시피 추가", message: "입력하신 레시피를 등록 하시겠습니까?", preferredStyle: .alert)
-        let confirmAction = UIAlertAction(title: "추가하기", style: .default) { [self] (action: UIAlertAction!) -> Void in
-            // 추가 하기
-            do {
-                if let text = dishStyleTF.text {
-                    basedRecipe.dishName = text
-                } else { print("입력된 요리이름 없음") }
-                //basedRecipe.thumbnail =
-                
-                
-                // 사진파일 이름 바꾸기
-            }
-            
-            catch {
-                
-            }
-            NSLog("레시피추가 완료")
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .default) {(action: UIAlertAction!) -> Void in
-            NSLog("레시피추가 취소")
-        }
-        alert.addAction(confirmAction)
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true, completion:nil)
+//        if !dishStyleTF.text!.isEmpty, inputThumbnailImageView.image != nil, !dishStyleTF.text!.isEmpty,  {
+//            
+//        } else {
+//            let alert = UIAlertController(title: "레시피 추가", message: "입력하신 레시피를 등록 하시겠습니까?", preferredStyle: .alert)
+//            let confirmAction = UIAlertAction(title: "추가하기", style: .default) { [self] (action: UIAlertAction!) -> Void in
+//                
+//                
+//                NSLog("레시피추가 완료")
+//            }
+//            let cancelAction = UIAlertAction(title: "취소", style: .default) {(action: UIAlertAction!) -> Void in
+//                NSLog("레시피추가 취소")
+//            }
+//            alert.addAction(confirmAction)
+//            alert.addAction(cancelAction)
+//
+//            present(alert, animated: true, completion:nil)
+//        }
     }
     @IBAction func addThumbnail(_ sender: Any) {
         let alert =  UIAlertController(title: "썸네일 추가", message: "추가할 사진을 선택해주세요", preferredStyle: .actionSheet)
@@ -175,7 +176,35 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
             present(alert, animated: true, completion:nil)
         }
     }
-    
+    @IBAction func addImportant(_ sender: Any) {
+        
+        let newHeight = importantSV.bounds.height + basicStandardHeight
+        
+        scrollViewConstraint.constant += basicStandardHeight
+        importantViewConstraint.constant = newHeight
+                
+        let stack = importantSV
+        let index = stack!.arrangedSubviews.count
+        
+        let newView = createEntry(index)
+        
+        newView.isHidden = true
+        stack!.insertArrangedSubview(newView, at: index)
+        
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            newView.isHidden = false
+        }
+    }
+    @objc func deleteIngredient(sender: UIButton) {
+        print("deleteIngredient")
+        print("button tag : \(sender.tag)")
+        deleteStackView(sender: sender)
+        
+        let newHeight = importantSV.bounds.height - basicStandardHeight
+        
+        scrollViewConstraint.constant -= basicStandardHeight
+        importantViewConstraint.constant = newHeight
+    }
     
 }
 
@@ -188,6 +217,52 @@ extension AddRecipeViewController {
         
         mainScrollView.contentSize = CGSize(width: width, height: height)
     }
+    private func createEntry(_ index: Int) -> UIView {
+        let newView = UIStackView()
+        let secondStack = UIStackView()
+        
+        let nameTF = UITextField()
+        let amountTF = UITextField()
+        
+        let deleteButton = UIButton()
+        deleteButton.tag = index
+        //deleteButton.setTitle("", for: .normal)
+        deleteButton.setImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
+        deleteButton.addTarget(self, action: #selector(deleteIngredient(sender:)), for: .touchUpInside)
+        
+        nameTF.frame(forAlignmentRect: CGRect(x: importantNameTF.frame.minX, y: importantNameTF.frame.minY, width: importantNameTF.frame.width, height: importantNameTF.frame.height))
+        amountTF.frame(forAlignmentRect: CGRect(x: importantAmountTF.frame.minX, y: importantAmountTF.frame.minY, width: importantAmountTF.frame.width, height: importantAmountTF.frame.height))
+        
+        secondStack.addArrangedSubview(nameTF)
+        secondStack.addArrangedSubview(amountTF)
+        secondStack.frame(forAlignmentRect: CGRect(x: importantTFsSV.frame.minX, y: importantTFsSV.frame.minY, width: importantTFsSV.frame.width, height: importantTFsSV.frame.height))
+        
+        secondStack.sizeToFit()
+        
+        deleteButton.frame(forAlignmentRect: CGRect(x: importantDeleteB.frame.minX, y: importantDeleteB.frame.minY, width: importantDeleteB.frame.width, height: importantDeleteB.frame.height))
+        
+        newView.addArrangedSubview(secondStack)
+//        NSLayoutConstraint.init(item: secondStack, attribute: .top, relatedBy: .equal, toItem: secondStack.superview, attribute: .topMargin, multiplier: 1.0, constant: 0.0).isActive = true
+//        NSLayoutConstraint.init(item: secondStack, attribute: .bottom, relatedBy: .equal, toItem: secondStack.superview, attribute: .bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
+//        NSLayoutConstraint.init(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: secondStack.superview, attribute: .leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+//        NSLayoutConstraint.init(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: secondStack.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 37.0).isActive = true
+        
+        newView.addArrangedSubview(deleteButton)
+//        NSLayoutConstraint.init(item: deleteButton, attribute: .trailing, relatedBy: .equal, toItem: deleteButton.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 8.0).isActive = true
+        newView.frame(forAlignmentRect: CGRect(x: importantV.frame.minX, y: importantV.frame.minY, width: importantV.frame.width, height: importantV.frame.height))
+        
+        return newView
+    }
+    func deleteStackView(sender: UIButton) { if let view = sender.superview {
+        UIView.animate(withDuration: 0.25, animations: { () -> Void in
+            view.isHidden = true
+        }, completion: { (success) -> Void in
+            view.removeFromSuperview()
+        })
+        
+    }
+    }
+
 }
 
 
