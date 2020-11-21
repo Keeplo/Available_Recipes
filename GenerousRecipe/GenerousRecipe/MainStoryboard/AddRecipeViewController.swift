@@ -75,6 +75,11 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         case steps
         case favorite
     }
+    enum ViewStyles {
+        case important
+        case optional
+        case step
+    }
     
     private let styles: [(Styles,String)] = [(.korean, "한식"), (.japanese, "일식"), (.chinese, "중식"), (.western, "양식"), (.nokind, "기타")]
     private let sections: [(Sections,String)] = [ (.recipename,"Dish Name"), (.thumnail, "Dish Thumbnail"), (.section, "Dish Style"), (.importtant, "Important Ingredients"), (.optional, "Optional Ingredients"), (.steps, "Cooking Steps"), (.favorite, "Favorite")]
@@ -177,33 +182,32 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     @IBAction func addImportant(_ sender: Any) {
-        
-        let newHeight = importantSV.bounds.height + basicStandardHeight
-        
-        scrollViewConstraint.constant += basicStandardHeight
-        importantViewConstraint.constant = newHeight
+        addViewResizing(.important)
                 
         let stack = importantSV
         let index = stack!.arrangedSubviews.count
         
         let newView = createEntry(index)
-        
         newView.isHidden = true
+        
         stack!.insertArrangedSubview(newView, at: index)
+        
+        print("stack Subviews count \(String(describing: stack?.subviews.count))")
+        print("newView index \(newView.tag)")
+        print("index \(index)")
         
         UIView.animate(withDuration: 0.25) { () -> Void in
             newView.isHidden = false
         }
     }
-    @objc func deleteIngredient(sender: UIButton) {
-        print("deleteIngredient")
-        print("button tag : \(sender.tag)")
-        deleteStackView(sender: sender)
-        
-        let newHeight = importantSV.bounds.height - basicStandardHeight
-        
-        scrollViewConstraint.constant -= basicStandardHeight
-        importantViewConstraint.constant = newHeight
+    @IBAction func deleteImportant(_ sender: Any) {
+        print("importantSV.subview.count \(importantSV.subviews.count)")
+        if importantSV.subviews.count > 1 {
+            deleteStackView(.important)
+            deleteViewResizing(.important)
+        } else {
+            print("입력 뷰 마지막 1개")
+        }
     }
     
 }
@@ -219,50 +223,76 @@ extension AddRecipeViewController {
     }
     private func createEntry(_ index: Int) -> UIView {
         let newView = UIStackView()
+        newView.tag = index
+
         let secondStack = UIStackView()
         
         let nameTF = UITextField()
         let amountTF = UITextField()
         
-        let deleteButton = UIButton()
-        deleteButton.tag = index
-        //deleteButton.setTitle("", for: .normal)
-        deleteButton.setImage(UIImage(systemName: "minus.circle.fill"), for: .normal)
-        deleteButton.addTarget(self, action: #selector(deleteIngredient(sender:)), for: .touchUpInside)
+//        nameTF.frame(forAlignmentRect: CGRect(x: importantNameTF.frame.minX, y: importantNameTF.frame.minY, width: importantNameTF.frame.width, height: importantNameTF.frame.height))
+//        amountTF.frame(forAlignmentRect: CGRect(x: importantAmountTF.frame.minX, y: importantAmountTF.frame.minY, width: importantAmountTF.frame.width, height: importantAmountTF.frame.height))
         
-        nameTF.frame(forAlignmentRect: CGRect(x: importantNameTF.frame.minX, y: importantNameTF.frame.minY, width: importantNameTF.frame.width, height: importantNameTF.frame.height))
-        amountTF.frame(forAlignmentRect: CGRect(x: importantAmountTF.frame.minX, y: importantAmountTF.frame.minY, width: importantAmountTF.frame.width, height: importantAmountTF.frame.height))
-        
+//        NSLayoutConstraint.init(item: deleteButton, attribute: .trailing, relatedBy: .equal, toItem: deleteButton.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 8.0).isActive = true
+//        
         secondStack.addArrangedSubview(nameTF)
         secondStack.addArrangedSubview(amountTF)
+        
         secondStack.frame(forAlignmentRect: CGRect(x: importantTFsSV.frame.minX, y: importantTFsSV.frame.minY, width: importantTFsSV.frame.width, height: importantTFsSV.frame.height))
         
         secondStack.sizeToFit()
-        
-        deleteButton.frame(forAlignmentRect: CGRect(x: importantDeleteB.frame.minX, y: importantDeleteB.frame.minY, width: importantDeleteB.frame.width, height: importantDeleteB.frame.height))
         
         newView.addArrangedSubview(secondStack)
 //        NSLayoutConstraint.init(item: secondStack, attribute: .top, relatedBy: .equal, toItem: secondStack.superview, attribute: .topMargin, multiplier: 1.0, constant: 0.0).isActive = true
 //        NSLayoutConstraint.init(item: secondStack, attribute: .bottom, relatedBy: .equal, toItem: secondStack.superview, attribute: .bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
 //        NSLayoutConstraint.init(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: secondStack.superview, attribute: .leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
 //        NSLayoutConstraint.init(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: secondStack.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 37.0).isActive = true
-        
-        newView.addArrangedSubview(deleteButton)
-//        NSLayoutConstraint.init(item: deleteButton, attribute: .trailing, relatedBy: .equal, toItem: deleteButton.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 8.0).isActive = true
+
         newView.frame(forAlignmentRect: CGRect(x: importantV.frame.minX, y: importantV.frame.minY, width: importantV.frame.width, height: importantV.frame.height))
         
         return newView
     }
-    func deleteStackView(sender: UIButton) { if let view = sender.superview {
-        UIView.animate(withDuration: 0.25, animations: { () -> Void in
-            view.isHidden = true
-        }, completion: { (success) -> Void in
-            view.removeFromSuperview()
-        })
-        
+    func deleteStackView(_ style: ViewStyles) {
+        switch style {
+        case .important:
+            if let view = importantSV.subviews.last {
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    view.isHidden = true
+                }, completion: { (success) -> Void in
+                    view.removeFromSuperview()
+                })
+            }
+        case .optional:
+            break
+        case .step:
+            break
+        }
     }
+    func addViewResizing(_ style: ViewStyles) {
+        switch style {
+        case .important :
+            let newHeight = importantSV.bounds.height + basicStandardHeight
+            importantViewConstraint.constant = newHeight
+            scrollViewConstraint.constant += basicStandardHeight
+        case .optional :
+            break
+        case .step :
+            break
+        }
     }
-
+    func deleteViewResizing(_ style: ViewStyles) {
+        switch style {
+        case .important :
+            let newHeight = importantSV.bounds.height - basicStandardHeight
+            importantViewConstraint.constant = newHeight
+            scrollViewConstraint.constant -= basicStandardHeight
+        case .optional :
+            break
+        case .step :
+            break
+        }
+    }
+    
 }
 
 

@@ -419,8 +419,18 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAu-O2-5bK" userLabel="AddImportantB">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lq-qo-3og" userLabel="DeleteImportantB">
                                                         <rect key="frame" x="387.5" y="13.5" width="18.5" height="18"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="minus" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="deleteImportant:" destination="Q21-0u-T6w" eventType="touchUpInside" id="wQK-hK-2mS"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAu-O2-5bK" userLabel="AddImportantB">
+                                                        <rect key="frame" x="361" y="13.5" width="18.5" height="18"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" image="plus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
@@ -433,10 +443,12 @@
                                                 <color key="backgroundColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="0.65745398119999998" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="eLA-4H-5z5" firstAttribute="leading" secondItem="I9O-b9-sUB" secondAttribute="leading" constant="8" id="2OQ-Cn-cdP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="5lq-qo-3og" secondAttribute="trailing" constant="8" id="6Ov-7Z-aPv"/>
+                                                    <constraint firstItem="5lq-qo-3og" firstAttribute="leading" secondItem="JAu-O2-5bK" secondAttribute="trailing" constant="8" id="Crg-rB-hEj"/>
                                                     <constraint firstItem="eLA-4H-5z5" firstAttribute="top" secondItem="I9O-b9-sUB" secondAttribute="top" constant="12" id="Gwe-5g-1oJ"/>
-                                                    <constraint firstAttribute="trailing" secondItem="JAu-O2-5bK" secondAttribute="trailing" constant="8" id="VK8-Qb-FAH"/>
                                                     <constraint firstAttribute="height" constant="45" id="cuf-F4-q3T"/>
                                                     <constraint firstItem="JAu-O2-5bK" firstAttribute="centerY" secondItem="I9O-b9-sUB" secondAttribute="centerY" id="tSK-do-ALd"/>
+                                                    <constraint firstItem="5lq-qo-3og" firstAttribute="centerY" secondItem="I9O-b9-sUB" secondAttribute="centerY" id="u7r-Pa-91y"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="3af-gi-ZN8" userLabel="ImportantStackView">
@@ -445,36 +457,27 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AsZ-71-m5L" userLabel="InputImportantView">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dan-lD-A9s">
-                                                                <rect key="frame" x="8" y="0.0" width="370" height="45"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dan-lD-A9s" userLabel="InputIngredientSV">
+                                                                <rect key="frame" x="8" y="0.0" width="398" height="45"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="재료 이름을 입력하세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWJ-g9-Gnq" userLabel="IngredientName">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="181" height="45"/>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="재료 이름을 입력하세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YWJ-g9-Gnq" userLabel="IngredientName">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="45"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수량을 입력하세요 (단위 g)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bj1-kK-YDb" userLabel="amount">
-                                                                        <rect key="frame" x="189" y="0.0" width="181" height="45"/>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수량을 입력하세요 (단위 g)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Bj1-kK-YDb" userLabel="amount">
+                                                                        <rect key="frame" x="203" y="0.0" width="195" height="45"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                 </subviews>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AFT-Rf-g4I" userLabel="DeleteImportant">
-                                                                <rect key="frame" x="386" y="13" width="20" height="19"/>
-                                                                <color key="tintColor" red="0.90196078430000004" green="0.42352941179999998" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="minus.circle.fill" catalog="system">
-                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
-                                                                </state>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstItem="AFT-Rf-g4I" firstAttribute="centerY" secondItem="AsZ-71-m5L" secondAttribute="centerY" id="1KE-3Z-HUe"/>
-                                                            <constraint firstAttribute="trailing" secondItem="AFT-Rf-g4I" secondAttribute="trailing" constant="8" id="8eg-7U-fXX"/>
                                                             <constraint firstItem="dan-lD-A9s" firstAttribute="leading" secondItem="AsZ-71-m5L" secondAttribute="leading" constant="8" id="CM2-KI-2nc"/>
                                                             <constraint firstItem="dan-lD-A9s" firstAttribute="top" secondItem="AsZ-71-m5L" secondAttribute="top" id="VHr-I6-PcO"/>
-                                                            <constraint firstItem="AFT-Rf-g4I" firstAttribute="leading" secondItem="dan-lD-A9s" secondAttribute="trailing" constant="8" id="bkZ-HE-FM0"/>
+                                                            <constraint firstAttribute="trailing" secondItem="dan-lD-A9s" secondAttribute="trailing" constant="8" id="YQ3-ty-Wk5"/>
                                                             <constraint firstAttribute="bottom" secondItem="dan-lD-A9s" secondAttribute="bottom" id="rPH-VY-Pkx"/>
                                                         </constraints>
                                                     </view>
@@ -493,10 +496,17 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QT4-6i-YUd" userLabel="AddOptionalB">
-                                                        <rect key="frame" x="387.5" y="13.5" width="18.5" height="18"/>
+                                                        <rect key="frame" x="361" y="13.5" width="18.5" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" image="plus" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
+                                                        </state>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoU-3D-oOb" userLabel="DeleteOpionalB">
+                                                        <rect key="frame" x="387" y="12" width="18.5" height="18"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="minus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
                                                         </state>
                                                     </button>
@@ -505,9 +515,11 @@
                                                 <constraints>
                                                     <constraint firstItem="25h-oS-AwZ" firstAttribute="leading" secondItem="h33-Q7-O2A" secondAttribute="leading" constant="8" id="2bm-nq-UKp"/>
                                                     <constraint firstItem="QT4-6i-YUd" firstAttribute="centerY" secondItem="h33-Q7-O2A" secondAttribute="centerY" id="4BG-AX-H0z"/>
+                                                    <constraint firstAttribute="trailing" secondItem="UoU-3D-oOb" secondAttribute="trailing" constant="8" id="9sT-KR-LlM"/>
+                                                    <constraint firstItem="UoU-3D-oOb" firstAttribute="leading" secondItem="QT4-6i-YUd" secondAttribute="trailing" constant="8" id="FIo-PG-O8Q"/>
+                                                    <constraint firstItem="UoU-3D-oOb" firstAttribute="centerY" secondItem="h33-Q7-O2A" secondAttribute="centerY" id="NzK-3O-gzB"/>
                                                     <constraint firstItem="25h-oS-AwZ" firstAttribute="top" secondItem="h33-Q7-O2A" secondAttribute="top" constant="12" id="b5h-47-UWD"/>
                                                     <constraint firstAttribute="height" constant="45" id="cXI-7Q-X9V"/>
-                                                    <constraint firstAttribute="trailing" secondItem="QT4-6i-YUd" secondAttribute="trailing" constant="8" id="iBX-ae-slf"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GKy-u9-ViY" userLabel="OptionalStackView">
@@ -516,35 +528,26 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6F-oC-C8w" userLabel="InputOptionalView">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="45"/>
                                                         <subviews>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gTO-ig-CiB">
-                                                                <rect key="frame" x="8" y="0.0" width="370" height="45"/>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gTO-ig-CiB" userLabel="InputIngredientSV">
+                                                                <rect key="frame" x="8" y="0.0" width="398" height="45"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="재료 이름을 입력하세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDb-dL-HBI" userLabel="IngredientName">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="181" height="45"/>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="재료 이름을 입력하세요" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NDb-dL-HBI" userLabel="IngredientName">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="45"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수량을 입력하세요 (단위 g)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yxf-A8-3Cr" userLabel="amount">
-                                                                        <rect key="frame" x="189" y="0.0" width="181" height="45"/>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="수량을 입력하세요 (단위 g)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yxf-A8-3Cr" userLabel="amount">
+                                                                        <rect key="frame" x="203" y="0.0" width="195" height="45"/>
                                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                         <textInputTraits key="textInputTraits"/>
                                                                     </textField>
                                                                 </subviews>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SIJ-rB-4tP" userLabel="DeleteImportant">
-                                                                <rect key="frame" x="386" y="13" width="20" height="19"/>
-                                                                <color key="tintColor" red="0.90196078430000004" green="0.42352941179999998" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="minus.circle.fill" catalog="system">
-                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
-                                                                </state>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="gTO-ig-CiB" secondAttribute="bottom" id="FRM-Ia-X9H"/>
-                                                            <constraint firstItem="SIJ-rB-4tP" firstAttribute="centerY" secondItem="Q6F-oC-C8w" secondAttribute="centerY" id="RGg-ct-9yY"/>
-                                                            <constraint firstItem="SIJ-rB-4tP" firstAttribute="leading" secondItem="gTO-ig-CiB" secondAttribute="trailing" constant="8" id="eMY-El-PD9"/>
-                                                            <constraint firstAttribute="trailing" secondItem="SIJ-rB-4tP" secondAttribute="trailing" constant="8" id="fau-Aj-RH9"/>
+                                                            <constraint firstAttribute="trailing" secondItem="gTO-ig-CiB" secondAttribute="trailing" constant="8" id="YKz-CE-HXA"/>
                                                             <constraint firstItem="gTO-ig-CiB" firstAttribute="leading" secondItem="Q6F-oC-C8w" secondAttribute="leading" constant="8" id="t88-VW-lRf"/>
                                                             <constraint firstItem="gTO-ig-CiB" firstAttribute="top" secondItem="Q6F-oC-C8w" secondAttribute="top" id="uSP-ii-ovL"/>
                                                         </constraints>
@@ -563,21 +566,30 @@
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhY-Yz-Ng8" userLabel="AddStepB">
-                                                        <rect key="frame" x="387.5" y="13.5" width="18.5" height="18"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WhY-Yz-Ng8" userLabel="AddStepB">
+                                                        <rect key="frame" x="363" y="12" width="18.5" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" image="plus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
                                                         </state>
                                                     </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Ax-KgI" userLabel="DeleteStepB">
+                                                        <rect key="frame" x="387.5" y="13.5" width="18.5" height="18"/>
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="minus" catalog="system">
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
+                                                        </state>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="0.65745398119999998" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="WhY-Yz-Ng8" secondAttribute="trailing" constant="8" id="4SR-OI-ZFg"/>
                                                     <constraint firstItem="h9b-6V-B7g" firstAttribute="top" secondItem="wtR-Gz-CFM" secondAttribute="top" constant="12" id="C7I-pp-UZx"/>
                                                     <constraint firstAttribute="height" constant="45" id="HqV-p6-TDg"/>
                                                     <constraint firstItem="h9b-6V-B7g" firstAttribute="leading" secondItem="wtR-Gz-CFM" secondAttribute="leading" constant="8" id="Oxm-Qx-xN5"/>
+                                                    <constraint firstAttribute="trailing" secondItem="uoa-Ax-KgI" secondAttribute="trailing" constant="8" id="WuJ-G1-XR1"/>
+                                                    <constraint firstItem="uoa-Ax-KgI" firstAttribute="leading" secondItem="WhY-Yz-Ng8" secondAttribute="trailing" constant="8" id="gbQ-nd-D95"/>
+                                                    <constraint firstItem="uoa-Ax-KgI" firstAttribute="centerY" secondItem="wtR-Gz-CFM" secondAttribute="centerY" id="rTs-5w-lkI"/>
                                                     <constraint firstItem="WhY-Yz-Ng8" firstAttribute="centerY" secondItem="wtR-Gz-CFM" secondAttribute="centerY" id="xsi-9z-4Rb"/>
                                                 </constraints>
                                             </view>
@@ -616,19 +628,19 @@
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dU3-nR-h76">
-                                                                <rect key="frame" x="135" y="8" width="242" height="119"/>
+                                                                <rect key="frame" x="135" y="8" width="271" height="119"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Step 1." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="45" translatesAutoresizingMaskIntoConstraints="NO" id="M6P-OY-pVf">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="242" height="20.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="271" height="20.5"/>
                                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j4Y-Xh-OgW">
-                                                                        <rect key="frame" x="0.0" y="28.5" width="242" height="90.5"/>
+                                                                        <rect key="frame" x="0.0" y="28.5" width="271" height="90.5"/>
                                                                         <subviews>
                                                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="scrollableAxes" keyboardDismissMode="interactive" text="설명을 작성하세요" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-Nw-bLb">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="242" height="90.5"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="271" height="90.5"/>
                                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <color key="textColor" systemColor="labelColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -646,13 +658,6 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </stackView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qct-nl-CBb" userLabel="DeleteStep">
-                                                                <rect key="frame" x="386" y="58" width="20" height="19"/>
-                                                                <color key="tintColor" red="0.90196078430000004" green="0.42352941179999998" blue="0.25490196079999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                <state key="normal" image="minus.circle.fill" catalog="system">
-                                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17"/>
-                                                                </state>
-                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
@@ -661,10 +666,8 @@
                                                             <constraint firstAttribute="bottom" secondItem="dU3-nR-h76" secondAttribute="bottom" constant="8" id="Dfv-UH-Rlg"/>
                                                             <constraint firstAttribute="bottom" secondItem="cJP-es-3LA" secondAttribute="bottom" constant="8" id="GVx-Je-n1B"/>
                                                             <constraint firstItem="dU3-nR-h76" firstAttribute="leading" secondItem="cJP-es-3LA" secondAttribute="trailing" constant="8" id="IXg-Te-eKy"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Qct-nl-CBb" secondAttribute="trailing" constant="8" id="JjQ-9f-v27"/>
                                                             <constraint firstItem="cJP-es-3LA" firstAttribute="top" secondItem="mJR-5u-lhA" secondAttribute="top" constant="8" id="iDI-VK-KK9"/>
-                                                            <constraint firstItem="Qct-nl-CBb" firstAttribute="centerY" secondItem="mJR-5u-lhA" secondAttribute="centerY" id="vJ1-jX-8mq"/>
-                                                            <constraint firstAttribute="trailing" secondItem="dU3-nR-h76" secondAttribute="trailing" constant="37" id="xJJ-i8-akc"/>
+                                                            <constraint firstAttribute="trailing" secondItem="dU3-nR-h76" secondAttribute="trailing" constant="8" id="xJJ-i8-akc"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -777,7 +780,6 @@
                         <outlet property="dishStyleTF" destination="5s1-Tp-woY" id="fwX-Ms-mty"/>
                         <outlet property="favoriteSwitch" destination="2ob-GC-lxd" id="JXL-4H-EOb"/>
                         <outlet property="importantAmountTF" destination="Bj1-kK-YDb" id="CKg-Nf-2rE"/>
-                        <outlet property="importantDeleteB" destination="AFT-Rf-g4I" id="G0l-D6-BIa"/>
                         <outlet property="importantNameTF" destination="YWJ-g9-Gnq" id="2ZU-Mi-VrN"/>
                         <outlet property="importantSV" destination="3af-gi-ZN8" id="NUH-rX-gqM"/>
                         <outlet property="importantTFsSV" destination="dan-lD-A9s" id="mHD-Zg-JyA"/>
@@ -966,7 +968,6 @@
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="minus" catalog="system" width="128" height="24"/>
-        <image name="minus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="96"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="target" catalog="system" width="128" height="121"/>
