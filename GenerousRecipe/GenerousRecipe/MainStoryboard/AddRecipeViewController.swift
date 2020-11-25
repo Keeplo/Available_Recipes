@@ -227,26 +227,27 @@ extension AddRecipeViewController {
 
         let secondStack = UIStackView()
         
-        let nameTF = UITextField()
-        let amountTF = UITextField()
+        var nameTF = UITextField()
+        var amountTF = UITextField()
         
-//        nameTF.frame(forAlignmentRect: CGRect(x: importantNameTF.frame.minX, y: importantNameTF.frame.minY, width: importantNameTF.frame.width, height: importantNameTF.frame.height))
-//        amountTF.frame(forAlignmentRect: CGRect(x: importantAmountTF.frame.minX, y: importantAmountTF.frame.minY, width: importantAmountTF.frame.width, height: importantAmountTF.frame.height))
+        nameTF. = importantNameTF.copy()
+        amountTF = importantAmountTF.copy() as! UITextField
         
-//        NSLayoutConstraint.init(item: deleteButton, attribute: .trailing, relatedBy: .equal, toItem: deleteButton.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 8.0).isActive = true
-//        
         secondStack.addArrangedSubview(nameTF)
         secondStack.addArrangedSubview(amountTF)
         
-        secondStack.frame(forAlignmentRect: CGRect(x: importantTFsSV.frame.minX, y: importantTFsSV.frame.minY, width: importantTFsSV.frame.width, height: importantTFsSV.frame.height))
-        
-        secondStack.sizeToFit()
+//        secondStack.frame(forAlignmentRect: CGRect(x: importantTFsSV.frame.minX, y: importantTFsSV.frame.minY, width: importantTFsSV.frame.width, height: importantTFsSV.frame.height))
+//
+//        secondStack.sizeToFit()
+        secondStack.spacing = 8
+        secondStack.distribution = .fillEqually
         
         newView.addArrangedSubview(secondStack)
-//        NSLayoutConstraint.init(item: secondStack, attribute: .top, relatedBy: .equal, toItem: secondStack.superview, attribute: .topMargin, multiplier: 1.0, constant: 0.0).isActive = true
-//        NSLayoutConstraint.init(item: secondStack, attribute: .bottom, relatedBy: .equal, toItem: secondStack.superview, attribute: .bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
-//        NSLayoutConstraint.init(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: secondStack.superview, attribute: .leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
-//        NSLayoutConstraint.init(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: secondStack.superview, attribute: .trailingMargin, multiplier: 1.0, constant: 37.0).isActive = true
+        
+        NSLayoutConstraint.init(item: secondStack, attribute: .top, relatedBy: .equal, toItem: secondStack.superview, attribute: .top, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint.init(item: secondStack, attribute: .bottom, relatedBy: .equal, toItem: secondStack.superview, attribute: .bottom, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint.init(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: secondStack.superview, attribute: .leading, multiplier: 1.0, constant: 8.0).isActive = true
+        NSLayoutConstraint.init(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: secondStack.superview, attribute: .trailing, multiplier: 1.0, constant: 8.0).isActive = true
 
         newView.frame(forAlignmentRect: CGRect(x: importantV.frame.minX, y: importantV.frame.minY, width: importantV.frame.width, height: importantV.frame.height))
         
