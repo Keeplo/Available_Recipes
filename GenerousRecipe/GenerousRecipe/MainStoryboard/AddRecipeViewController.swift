@@ -32,6 +32,7 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var importantDeleteB: UIButton!
     
     
+    @IBOutlet weak var optionalViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var optionalSV: UIStackView!
     @IBOutlet weak var optionalV: UIView!
     
@@ -86,7 +87,7 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     
     
     var basedRecipe = Recipe(dishName: "", thumbnail: nil, iIngredients: [], oIngredients: [], steps: [], favorite: false, section: .nokind)
-
+        
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -139,6 +140,7 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
 //
 //            present(alert, animated: true, completion:nil)
 //        }
+        appendDatas()
     }
     @IBAction func addThumbnail(_ sender: Any) {
         let alert =  UIAlertController(title: "썸네일 추가", message: "추가할 사진을 선택해주세요", preferredStyle: .actionSheet)
@@ -184,24 +186,22 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func addImportant(_ sender: Any) {
         addViewResizing(.important)
                 
-        let stack = importantSV
-        let index = stack!.arrangedSubviews.count
+        let index = importantSV.arrangedSubviews.count
         
         let newView = createEntry(index)
         newView.isHidden = true
+
+        importantSV.insertArrangedSubview(newView, at: index)
         
-        stack!.insertArrangedSubview(newView, at: index)
-        
-        print("stack Subviews count \(String(describing: stack?.subviews.count))")
-        print("newView index \(newView.tag)")
-        print("index \(index)")
-        
+//        print("stack Subviews count \(String(describing: importantSV.subviews.count))")
+//        print("newView index \(newView.tag)")
+//        print("index \(index)")
+//
         UIView.animate(withDuration: 0.25) { () -> Void in
             newView.isHidden = false
         }
     }
     @IBAction func deleteImportant(_ sender: Any) {
-        print("importantSV.subview.count \(importantSV.subviews.count)")
         if importantSV.subviews.count > 1 {
             deleteStackView(.important)
             deleteViewResizing(.important)
@@ -209,6 +209,29 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
             print("입력 뷰 마지막 1개")
         }
     }
+    @IBAction func addOptional(_ sender: Any) {
+        addViewResizing(.optional)
+        
+        let index = optionalSV.arrangedSubviews.count
+        
+        let newView = createEntry(index)
+        newView.isHidden = true
+
+        optionalSV.insertArrangedSubview(newView, at: index)
+
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            newView.isHidden = false
+        }
+    }
+    @IBAction func deleteOptional(_ sender: Any) {
+        if optionalSV.subviews.count > 1 {
+            deleteStackView(.optional)
+            deleteViewResizing(.optional)
+        } else {
+            print("입력 뷰 마지막 1개")
+        }
+    }
+    
     
 }
 
@@ -226,32 +249,84 @@ extension AddRecipeViewController {
         newView.tag = index
 
         let secondStack = UIStackView()
+        secondStack.tag = index+100
         
-        var nameTF = UITextField()
-        var amountTF = UITextField()
+        let nameTF = UITextField()
+        let amountTF = UITextField()
         
-        nameTF. = importantNameTF.copy()
-        amountTF = importantAmountTF.copy() as! UITextField
+        nameTF.borderStyle = .roundedRect
+        nameTF.textAlignment = .center
+        nameTF.font = .systemFont(ofSize: 14, weight: .regular)
+        nameTF.placeholder = "재료이름을 입력하세요"
+        nameTF.tag = index+200
+        
+        amountTF.borderStyle = .roundedRect
+        amountTF.textAlignment = .center
+        amountTF.font = .systemFont(ofSize: 14, weight: .regular)
+        amountTF.placeholder = "수량을 입력하세요 (단위 g)"
+        amountTF.tag = index+300
         
         secondStack.addArrangedSubview(nameTF)
         secondStack.addArrangedSubview(amountTF)
-        
-//        secondStack.frame(forAlignmentRect: CGRect(x: importantTFsSV.frame.minX, y: importantTFsSV.frame.minY, width: importantTFsSV.frame.width, height: importantTFsSV.frame.height))
-//
-//        secondStack.sizeToFit()
+
         secondStack.spacing = 8
         secondStack.distribution = .fillEqually
         
         newView.addArrangedSubview(secondStack)
-        
-        NSLayoutConstraint.init(item: secondStack, attribute: .top, relatedBy: .equal, toItem: secondStack.superview, attribute: .top, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint.init(item: secondStack, attribute: .bottom, relatedBy: .equal, toItem: secondStack.superview, attribute: .bottom, multiplier: 1.0, constant: 0.0).isActive = true
-        NSLayoutConstraint.init(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: secondStack.superview, attribute: .leading, multiplier: 1.0, constant: 8.0).isActive = true
-        NSLayoutConstraint.init(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: secondStack.superview, attribute: .trailing, multiplier: 1.0, constant: 8.0).isActive = true
 
-        newView.frame(forAlignmentRect: CGRect(x: importantV.frame.minX, y: importantV.frame.minY, width: importantV.frame.width, height: importantV.frame.height))
+//        secondStack.translatesAutoresizingMaskIntoConstraints = false
+//        newView.translatesAutoresizingMaskIntoConstraints = false
         
+//        let leadingCons = NSLayoutConstraint(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: newView, attribute: .leading, multiplier: 1.0, constant: 8.0)
+//        let trailingCons = NSLayoutConstraint(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: newView, attribute: .trailing, multiplier: 1.0, constant: 8.0)
+//
+//        let topCons = secondStack.topAnchor.constraint(equalTo: newView.topAnchor)
+//        let bottomCons = secondStack.bottomAnchor.constraint(equalTo: newView.bottomAnchor)
+//
+////        let ConsArray = [leadingCons, trailingCons, topCons, bottomCons]
+//        let ConsArray = [trailingCons, topCons, bottomCons]
+//        NSLayoutConstraint.activate(ConsArray)
+                
         return newView
+    }
+    func appendDatas() {
+        var importants: [Ingredient] = []
+        var optionals: [Ingredient] = []
+        var steps: [Step] = []
+        
+        for index in 0..<importantSV.subviews.count {
+            guard let name = importantSV.subviews[index].subviews[0].viewWithTag(index+200) else {
+                print("error 1"); return
+            }
+            guard let amount = importantSV.subviews[index].subviews[0].viewWithTag(index+300) else {
+                print("error 2"); return
+            }
+            
+            guard let nameTF = name as? UITextField else {
+                print("error 3"); return
+            }
+//            print(amount.text)
+
+//            importants.append(Ingredient(name: name.text!, amount: Float(amount.text!)!))
+        }
+//        for index in 0..<optionalSV.subviews.count {
+//            let name :UITextField = optionalSV.subviews[index].subviews[0].viewWithTag(index)! as! UITextField
+//            let amount :UITextField = optionalSV.subviews[index].subviews[0].viewWithTag(index+100)! as! UITextField
+//
+//            optionals.append(Ingredient(name: name.text!, amount: Float(amount.text!)!))
+//        }
+//        for index in 0..<importantSV.subviews.count {
+//            let name :UITextField = importantSV.subviews[index].subviews[0] as! UITextField
+//            let amount :UITextField = importantSV.subviews[index].subviews[1] as! UITextField
+//
+//            importants.append(Ingredient(name: name.text, amount: amount.text))
+//        }
+        
+//        print(importantSV.subviews[importantSV.subviews.count-1].tag)
+//        print(importantSV.subviews[importantSV.subviews.count-1].subviews[0].tag)
+        
+        print("--> importants : \(importants)")
+        print("--> optionals : \(optionals)")
     }
     func deleteStackView(_ style: ViewStyles) {
         switch style {
@@ -264,7 +339,13 @@ extension AddRecipeViewController {
                 })
             }
         case .optional:
-            break
+            if let view = optionalSV.subviews.last {
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    view.isHidden = true
+                }, completion: { (success) -> Void in
+                    view.removeFromSuperview()
+                })
+            }
         case .step:
             break
         }
@@ -276,7 +357,9 @@ extension AddRecipeViewController {
             importantViewConstraint.constant = newHeight
             scrollViewConstraint.constant += basicStandardHeight
         case .optional :
-            break
+            let newHeight = optionalSV.bounds.height + basicStandardHeight
+            optionalViewConstraint.constant = newHeight
+            scrollViewConstraint.constant += basicStandardHeight
         case .step :
             break
         }
@@ -288,7 +371,9 @@ extension AddRecipeViewController {
             importantViewConstraint.constant = newHeight
             scrollViewConstraint.constant -= basicStandardHeight
         case .optional :
-            break
+            let newHeight = optionalSV.bounds.height - basicStandardHeight
+            optionalViewConstraint.constant = newHeight
+            scrollViewConstraint.constant -= basicStandardHeight
         case .step :
             break
         }

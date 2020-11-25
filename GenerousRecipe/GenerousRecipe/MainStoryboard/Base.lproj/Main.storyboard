@@ -502,6 +502,9 @@
                                                         <state key="normal" image="plus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="addOptional:" destination="Q21-0u-T6w" eventType="touchUpInside" id="t9L-KA-AbE"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UoU-3D-oOb" userLabel="DeleteOpionalB">
                                                         <rect key="frame" x="387" y="12" width="18.5" height="18"/>
@@ -509,6 +512,9 @@
                                                         <state key="normal" image="minus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="deleteOptional:" destination="Q21-0u-T6w" eventType="touchUpInside" id="LRy-Ux-AKO"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="0.65745398119999998" colorSpace="custom" customColorSpace="displayP3"/>
@@ -522,7 +528,7 @@
                                                     <constraint firstAttribute="height" constant="45" id="cXI-7Q-X9V"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GKy-u9-ViY" userLabel="OptionalStackView">
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="GKy-u9-ViY" userLabel="OptionalStackView">
                                                 <rect key="frame" x="0.0" y="485" width="414" height="45"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q6F-oC-C8w" userLabel="InputOptionalView">
@@ -716,6 +722,7 @@
                                             <constraint firstAttribute="height" constant="800" id="3dM-JE-tdX"/>
                                             <constraint firstItem="Hk3-tO-UXC" firstAttribute="leading" secondItem="03P-4Y-xqW" secondAttribute="leading" id="40V-5G-Ej1"/>
                                             <constraint firstItem="z7C-on-dX6" firstAttribute="leading" secondItem="03P-4Y-xqW" secondAttribute="leading" id="4uY-H9-Tlw"/>
+                                            <constraint firstAttribute="trailing" secondItem="AsZ-71-m5L" secondAttribute="trailing" id="4yz-4z-wPh"/>
                                             <constraint firstItem="wtR-Gz-CFM" firstAttribute="leading" secondItem="03P-4Y-xqW" secondAttribute="leading" id="58r-D5-IUP"/>
                                             <constraint firstAttribute="trailing" secondItem="sHD-WI-Auo" secondAttribute="trailing" id="8KM-ea-bb2"/>
                                             <constraint firstItem="sHD-WI-Auo" firstAttribute="top" secondItem="8Q6-SE-ym0" secondAttribute="bottom" id="CIC-OV-zGj"/>
@@ -736,6 +743,7 @@
                                             <constraint firstAttribute="trailing" secondItem="8Q6-SE-ym0" secondAttribute="trailing" id="Wzy-EY-2fP"/>
                                             <constraint firstItem="h33-Q7-O2A" firstAttribute="top" secondItem="3af-gi-ZN8" secondAttribute="bottom" id="YoB-Wb-HSP"/>
                                             <constraint firstItem="h33-Q7-O2A" firstAttribute="leading" secondItem="03P-4Y-xqW" secondAttribute="leading" id="eG6-Lo-ySo"/>
+                                            <constraint firstItem="AsZ-71-m5L" firstAttribute="leading" secondItem="03P-4Y-xqW" secondAttribute="leading" id="ekq-Gp-tOp"/>
                                             <constraint firstItem="8Q6-SE-ym0" firstAttribute="top" secondItem="POY-sI-grS" secondAttribute="bottom" id="esg-Rd-Na8"/>
                                             <constraint firstAttribute="trailing" secondItem="z7C-on-dX6" secondAttribute="trailing" id="fuR-Yc-jLf"/>
                                             <constraint firstItem="z7C-on-dX6" firstAttribute="top" secondItem="wtR-Gz-CFM" secondAttribute="bottom" id="fxG-Ru-YHy"/>
@@ -792,6 +800,7 @@
                         <outlet property="mainScrollView" destination="6xH-PN-gyZ" id="2oB-Li-ZxH"/>
                         <outlet property="optionalSV" destination="GKy-u9-ViY" id="e9h-qF-2AY"/>
                         <outlet property="optionalV" destination="Q6F-oC-C8w" id="KOw-dv-abt"/>
+                        <outlet property="optionalViewConstraint" destination="wKt-Eb-cz1" id="h0Y-GO-3TO"/>
                         <outlet property="scrollViewConstraint" destination="3dM-JE-tdX" id="BTY-6A-VfP"/>
                         <outlet property="stepV" destination="mJR-5u-lhA" id="y87-wg-3rk"/>
                         <outlet property="stepsSV" destination="z7C-on-dX6" id="Rtr-wZ-OJd"/>
