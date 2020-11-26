@@ -517,7 +517,7 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="0.65745398119999998" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 <constraints>
                                                     <constraint firstItem="25h-oS-AwZ" firstAttribute="leading" secondItem="h33-Q7-O2A" secondAttribute="leading" constant="8" id="2bm-nq-UKp"/>
                                                     <constraint firstItem="QT4-6i-YUd" firstAttribute="centerY" secondItem="h33-Q7-O2A" secondAttribute="centerY" id="4BG-AX-H0z"/>
@@ -579,6 +579,9 @@
                                                         <state key="normal" image="plus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="addStep:" destination="Q21-0u-T6w" eventType="touchUpInside" id="0ci-Yq-qzb"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uoa-Ax-KgI" userLabel="DeleteStepB">
                                                         <rect key="frame" x="387.5" y="13.5" width="18.5" height="18"/>
@@ -586,6 +589,9 @@
                                                         <state key="normal" image="minus" catalog="system">
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" weight="bold"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="deleteStep:" destination="Q21-0u-T6w" eventType="touchUpInside" id="DBv-dU-MGx"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="0.65745398119999998" colorSpace="custom" customColorSpace="displayP3"/>
@@ -642,27 +648,15 @@
                                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j4Y-Xh-OgW">
+                                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="scrollableAxes" keyboardDismissMode="interactive" text="설명을 작성하세요" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-Nw-bLb">
                                                                         <rect key="frame" x="0.0" y="28.5" width="271" height="90.5"/>
-                                                                        <subviews>
-                                                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="scrollableAxes" keyboardDismissMode="interactive" text="설명을 작성하세요" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fRQ-Nw-bLb">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="271" height="90.5"/>
-                                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <color key="textColor" systemColor="labelColor"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                                                            </textView>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                                        <constraints>
-                                                                            <constraint firstAttribute="bottom" secondItem="fRQ-Nw-bLb" secondAttribute="bottom" id="4oe-e1-FxF"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="fRQ-Nw-bLb" secondAttribute="trailing" id="7AQ-pv-ow5"/>
-                                                                            <constraint firstItem="fRQ-Nw-bLb" firstAttribute="leading" secondItem="j4Y-Xh-OgW" secondAttribute="leading" id="9Yb-W2-kh3"/>
-                                                                            <constraint firstItem="fRQ-Nw-bLb" firstAttribute="top" secondItem="j4Y-Xh-OgW" secondAttribute="top" id="UMf-4I-hMl"/>
-                                                                        </constraints>
-                                                                    </view>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <color key="textColor" systemColor="labelColor"/>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no" returnKeyType="continue" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                    </textView>
                                                                 </subviews>
-                                                                <color key="backgroundColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                <color key="backgroundColor" red="0.98039215686274506" green="0.59607843137254901" blue="0.47058823529411764" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -787,6 +781,7 @@
                         <outlet property="deletePhotoB" destination="C4I-76-bxe" id="wpq-aA-ZS1"/>
                         <outlet property="dishStyleTF" destination="5s1-Tp-woY" id="fwX-Ms-mty"/>
                         <outlet property="favoriteSwitch" destination="2ob-GC-lxd" id="JXL-4H-EOb"/>
+                        <outlet property="imageWarningLabel" destination="riw-m0-WkL" id="II3-ag-tPr"/>
                         <outlet property="importantAmountTF" destination="Bj1-kK-YDb" id="CKg-Nf-2rE"/>
                         <outlet property="importantNameTF" destination="YWJ-g9-Gnq" id="2ZU-Mi-VrN"/>
                         <outlet property="importantSV" destination="3af-gi-ZN8" id="NUH-rX-gqM"/>
@@ -802,7 +797,13 @@
                         <outlet property="optionalV" destination="Q6F-oC-C8w" id="KOw-dv-abt"/>
                         <outlet property="optionalViewConstraint" destination="wKt-Eb-cz1" id="h0Y-GO-3TO"/>
                         <outlet property="scrollViewConstraint" destination="3dM-JE-tdX" id="BTY-6A-VfP"/>
+                        <outlet property="stepImage" destination="LxJ-0C-gcM" id="nrR-Ry-Qfo"/>
+                        <outlet property="stepImageView" destination="cJP-es-3LA" id="x3j-kr-fHs"/>
+                        <outlet property="stepLabel" destination="M6P-OY-pVf" id="NH9-GP-XGM"/>
+                        <outlet property="stepStack" destination="dU3-nR-h76" id="MRH-la-9n3"/>
+                        <outlet property="stepTextView" destination="fRQ-Nw-bLb" id="sbc-I5-uTS"/>
                         <outlet property="stepV" destination="mJR-5u-lhA" id="y87-wg-3rk"/>
+                        <outlet property="stepViewConstraint" destination="8WJ-WU-aD6" id="LWi-Nk-Fw9"/>
                         <outlet property="stepsSV" destination="z7C-on-dX6" id="Rtr-wZ-OJd"/>
                         <outlet property="storeB" destination="f05-tU-Npm" id="yFK-NW-glE"/>
                     </connections>

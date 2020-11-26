@@ -29,15 +29,24 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var importantTFsSV: UIStackView!
     @IBOutlet weak var importantNameTF: UITextField!
     @IBOutlet weak var importantAmountTF: UITextField!
-    @IBOutlet weak var importantDeleteB: UIButton!
     
     
     @IBOutlet weak var optionalViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var optionalSV: UIStackView!
     @IBOutlet weak var optionalV: UIView!
     
+    @IBOutlet weak var stepViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var stepsSV: UIStackView!
     @IBOutlet weak var stepV: UIView!
+    
+    @IBOutlet weak var stepImageView: UIView!
+    @IBOutlet weak var imageWarningLabel: UILabel!
+    @IBOutlet weak var stepImage: UIImageView!
+    
+    @IBOutlet weak var stepStack: UIStackView!
+    @IBOutlet weak var stepLabel: UILabel!
+    @IBOutlet weak var stepTextView: UITextView!
+    
     
     @IBOutlet weak var favoriteSwitch: UISwitch!
     
@@ -188,7 +197,7 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
                 
         let index = importantSV.arrangedSubviews.count
         
-        let newView = createEntry(index)
+        let newView = createEntry(index, .important)
         newView.isHidden = true
 
         importantSV.insertArrangedSubview(newView, at: index)
@@ -214,7 +223,7 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         
         let index = optionalSV.arrangedSubviews.count
         
-        let newView = createEntry(index)
+        let newView = createEntry(index, .optional)
         newView.isHidden = true
 
         optionalSV.insertArrangedSubview(newView, at: index)
@@ -227,6 +236,28 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         if optionalSV.subviews.count > 1 {
             deleteStackView(.optional)
             deleteViewResizing(.optional)
+        } else {
+            print("입력 뷰 마지막 1개")
+        }
+    }
+    @IBAction func addStep(_ sender: Any) {
+        addViewResizing(.step)
+        
+        let index = stepsSV.arrangedSubviews.count
+        
+        let newView = createEntry(index, .step)
+        newView.isHidden = true
+
+        stepsSV.insertArrangedSubview(newView, at: index)
+
+        UIView.animate(withDuration: 0.25) { () -> Void in
+            newView.isHidden = false
+        }
+    }
+    @IBAction func deleteStep(_ sender: Any) {
+        if stepsSV.subviews.count > 1 {
+            deleteStackView(.step)
+            deleteViewResizing(.step)
         } else {
             print("입력 뷰 마지막 1개")
         }
@@ -244,50 +275,107 @@ extension AddRecipeViewController {
         
         mainScrollView.contentSize = CGSize(width: width, height: height)
     }
-    private func createEntry(_ index: Int) -> UIView {
-        let newView = UIStackView()
-        newView.tag = index
+    private func createEntry(_ index: Int, _ style: ViewStyles) -> UIView {
+        switch style {
+        case .step:
+            let newView = UIStackView()
+            
+            let newImageView = UIView()
+            let newImage = UIImageView()
+            let newWarning = UILabel()
+            
+            let secondStack = UIStackView()
+            let newStepNum = UILabel()
+            let newStepDetail = UITextView()
+            
+            // newImageView Constraint
+            // height 119 / aspect 1:1 / top 8 / leading 8
+        
+            newWarning.text = "사진을 추가해주세요"
+            newWarning.font = .systemFont(ofSize: 20, weight: .bold)
+            newWarning.textAlignment = .center
+            newWarning.numberOfLines = 0
+            newWarning.textColor = #colorLiteral(red: 1, green: 0.5741140246, blue: 0.4397957921, alpha: 1)
+            
+            newImageView.addSubview(newWarning)
+            newImageView.addSubview(newImage)
+            
+            newImageView.translatesAutoresizingMaskIntoConstraints = false
+            
+            // newWarning Constraint
+            // every 0 superview
+            // newImage
+            // every 0 superview
+            
+            secondStack.distribution = .fill
+            secondStack.spacing = 8
+            secondStack.backgroundColor = #colorLiteral(red: 1, green: 0.5741140246, blue: 0.4397957921, alpha: 1)
+            
+            newStepNum.text = "Step \(index+1)."
+            newStepNum.textColor = .white
+            newStepNum.font = .systemFont(ofSize: 17, weight: .bold)
+            newStepNum.textAlignment = .center
+            
+            newStepDetail.text = "설명을 작성하세요"
+            
+            secondStack.backgroundColor = #colorLiteral(red: 1, green: 0.5742712021, blue: 0.4398984909, alpha: 1)
+            secondStack.axis = .vertical
+            secondStack.addArrangedSubview(newStepNum)
+            secondStack.addArrangedSubview(newStepDetail)
+            
+            // secondStack Constraint
+            // newImageView Leading 8
+            // superview top trailing bottom 8
+            
+            newView.alignment = .fill
+            newView.spacing = 8
+            
+            newView.addArrangedSubview(newImageView)
+            newView.addArrangedSubview(secondStack)
+            
+            return newView
+            
+        default:
+            let newView = UIStackView()
+    //        newView.tag = index
+            let secondStack = UIStackView()
+    //        secondStack.tag = index+100
+            let nameTF = UITextField()
+            let amountTF = UITextField()
+            
+            nameTF.borderStyle = .roundedRect
+            nameTF.textAlignment = .center
+            nameTF.font = .systemFont(ofSize: 14, weight: .regular)
+            nameTF.placeholder = "재료이름을 입력하세요"
+    //        nameTF.tag = index+200
+            amountTF.borderStyle = .roundedRect
+            amountTF.textAlignment = .center
+            amountTF.font = .systemFont(ofSize: 14, weight: .regular)
+            amountTF.placeholder = "수량을 입력하세요 (단위 g)"
+    //        amountTF.tag = index+300
+            secondStack.addArrangedSubview(nameTF)
+            secondStack.addArrangedSubview(amountTF)
 
-        let secondStack = UIStackView()
-        secondStack.tag = index+100
-        
-        let nameTF = UITextField()
-        let amountTF = UITextField()
-        
-        nameTF.borderStyle = .roundedRect
-        nameTF.textAlignment = .center
-        nameTF.font = .systemFont(ofSize: 14, weight: .regular)
-        nameTF.placeholder = "재료이름을 입력하세요"
-        nameTF.tag = index+200
-        
-        amountTF.borderStyle = .roundedRect
-        amountTF.textAlignment = .center
-        amountTF.font = .systemFont(ofSize: 14, weight: .regular)
-        amountTF.placeholder = "수량을 입력하세요 (단위 g)"
-        amountTF.tag = index+300
-        
-        secondStack.addArrangedSubview(nameTF)
-        secondStack.addArrangedSubview(amountTF)
+            secondStack.spacing = 8
+            secondStack.distribution = .fillEqually
+            
+            newView.addArrangedSubview(secondStack)
 
-        secondStack.spacing = 8
-        secondStack.distribution = .fillEqually
+    //        secondStack.translatesAutoresizingMaskIntoConstraints = false
+    //        newView.translatesAutoresizingMaskIntoConstraints = false
+            
+    //        let leadingCons = NSLayoutConstraint(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: newView, attribute: .leading, multiplier: 1.0, constant: 8.0)
+    //        let trailingCons = NSLayoutConstraint(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: newView, attribute: .trailing, multiplier: 1.0, constant: 8.0)
+    //
+    //        let topCons = secondStack.topAnchor.constraint(equalTo: newView.topAnchor)
+    //        let bottomCons = secondStack.bottomAnchor.constraint(equalTo: newView.bottomAnchor)
+    //
+    ////        let ConsArray = [leadingCons, trailingCons, topCons, bottomCons]
+    //        let ConsArray = [trailingCons, topCons, bottomCons]
+    //        NSLayoutConstraint.activate(ConsArray)
         
-        newView.addArrangedSubview(secondStack)
-
-//        secondStack.translatesAutoresizingMaskIntoConstraints = false
-//        newView.translatesAutoresizingMaskIntoConstraints = false
-        
-//        let leadingCons = NSLayoutConstraint(item: secondStack, attribute: .leading, relatedBy: .equal, toItem: newView, attribute: .leading, multiplier: 1.0, constant: 8.0)
-//        let trailingCons = NSLayoutConstraint(item: secondStack, attribute: .trailing, relatedBy: .equal, toItem: newView, attribute: .trailing, multiplier: 1.0, constant: 8.0)
-//
-//        let topCons = secondStack.topAnchor.constraint(equalTo: newView.topAnchor)
-//        let bottomCons = secondStack.bottomAnchor.constraint(equalTo: newView.bottomAnchor)
-//
-////        let ConsArray = [leadingCons, trailingCons, topCons, bottomCons]
-//        let ConsArray = [trailingCons, topCons, bottomCons]
-//        NSLayoutConstraint.activate(ConsArray)
-                
-        return newView
+            return newView
+        }
     }
     func appendDatas() {
         var importants: [Ingredient] = []
@@ -295,36 +383,41 @@ extension AddRecipeViewController {
         var steps: [Step] = []
         
         for index in 0..<importantSV.subviews.count {
-            guard let name = importantSV.subviews[index].subviews[0].viewWithTag(index+200) else {
-                print("error 1"); return
-            }
-            guard let amount = importantSV.subviews[index].subviews[0].viewWithTag(index+300) else {
-                print("error 2"); return
-            }
-            
-            guard let nameTF = name as? UITextField else {
-                print("error 3"); return
-            }
-//            print(amount.text)
 
-//            importants.append(Ingredient(name: name.text!, amount: Float(amount.text!)!))
+            guard let nameTF = importantSV.subviews[index].subviews[0].subviews[0] as? UITextField else {
+                print("error 1-1"); return
+            }
+            guard let amountTF = importantSV.subviews[index].subviews[0].subviews[1] as? UITextField else {
+                print("error 2-1"); return
+            }
+
+            importants.append(Ingredient(name: nameTF.text!, amount: Float(amountTF.text!)!))
         }
-//        for index in 0..<optionalSV.subviews.count {
-//            let name :UITextField = optionalSV.subviews[index].subviews[0].viewWithTag(index)! as! UITextField
-//            let amount :UITextField = optionalSV.subviews[index].subviews[0].viewWithTag(index+100)! as! UITextField
+        for index in 0..<optionalSV.subviews.count {
+            guard let nameTF = optionalSV.subviews[index].subviews[0].subviews[0] as? UITextField  else {
+                print("error 2-1"); return
+            }
+            guard let amountTF = optionalSV.subviews[index].subviews[0].subviews[1] as? UITextField else {
+                print("error 2-2"); return
+            }
+
+            optionals.append(Ingredient(name: nameTF.text!, amount: Float(amountTF.text!)!))
+        }
+        for index in 0..<importantSV.subviews.count {
+//            guard let stepImage = stepsSV.subviews[index].subviews[0].subviews[0] as? UIImageView  else {
+//                print("error 3-1"); return
+//            }
+//            guard let detail = stepsSV.subviews[index].subviews[0].subviews[1] as? UITextFieldView else {
+//                print("error 3-2"); return
+//            }
 //
-//            optionals.append(Ingredient(name: name.text!, amount: Float(amount.text!)!))
-//        }
-//        for index in 0..<importantSV.subviews.count {
-//            let name :UITextField = importantSV.subviews[index].subviews[0] as! UITextField
-//            let amount :UITextField = importantSV.subviews[index].subviews[1] as! UITextField
 //
-//            importants.append(Ingredient(name: name.text, amount: amount.text))
-//        }
+//            importants.append(Step(imageDescription: , textInstructions: <#T##String#>))
+        }
+
         
-//        print(importantSV.subviews[importantSV.subviews.count-1].tag)
-//        print(importantSV.subviews[importantSV.subviews.count-1].subviews[0].tag)
-        
+//        let thumbnail = inputThumbnailImageView.image
+//        let
         print("--> importants : \(importants)")
         print("--> optionals : \(optionals)")
     }
@@ -347,7 +440,13 @@ extension AddRecipeViewController {
                 })
             }
         case .step:
-            break
+            if let view = stepsSV.subviews.last {
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    view.isHidden = true
+                }, completion: { (success) -> Void in
+                    view.removeFromSuperview()
+                })
+            }
         }
     }
     func addViewResizing(_ style: ViewStyles) {
@@ -361,7 +460,9 @@ extension AddRecipeViewController {
             optionalViewConstraint.constant = newHeight
             scrollViewConstraint.constant += basicStandardHeight
         case .step :
-            break
+            let newHeight = stepsSV.bounds.height + basicStandardHeight*3
+            stepViewConstraint.constant = newHeight
+            scrollViewConstraint.constant += basicStandardHeight*3
         }
     }
     func deleteViewResizing(_ style: ViewStyles) {
@@ -375,7 +476,9 @@ extension AddRecipeViewController {
             optionalViewConstraint.constant = newHeight
             scrollViewConstraint.constant -= basicStandardHeight
         case .step :
-            break
+            let newHeight = stepsSV.bounds.height - basicStandardHeight*3
+            stepViewConstraint.constant = newHeight
+            scrollViewConstraint.constant -= basicStandardHeight*3
         }
     }
     
