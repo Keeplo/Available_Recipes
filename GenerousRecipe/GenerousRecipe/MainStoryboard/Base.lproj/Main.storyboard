@@ -624,6 +624,22 @@
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LxJ-0C-gcM">
                                                                         <rect key="frame" x="0.0" y="0.0" width="119" height="119"/>
                                                                     </imageView>
+                                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AMC-HD-C6I" userLabel="AddButton">
+                                                                        <rect key="frame" x="0.0" y="-2" width="119" height="121"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                                        <state key="normal">
+                                                                            <color key="titleColor" red="0.98225146529999996" green="0.59797102209999997" blue="0.47055643800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        </state>
+                                                                    </button>
+                                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="08a-ci-T5t" userLabel="DeleteButton">
+                                                                        <rect key="frame" x="95" y="96" width="16" height="15"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="tintColor" red="0.90366911890000001" green="0.42192304130000002" blue="0.25484526159999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <state key="normal" image="rectangle.fill.badge.minus" catalog="system">
+                                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="10"/>
+                                                                        </state>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
@@ -777,8 +793,10 @@
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="ag5-vj-D9K"/>
                     <connections>
+                        <outlet property="addStepImageB" destination="AMC-HD-C6I" id="1VR-G6-eoL"/>
                         <outlet property="changePhotoB" destination="hAm-cC-4Wn" id="c1k-aB-iP4"/>
                         <outlet property="deletePhotoB" destination="C4I-76-bxe" id="wpq-aA-ZS1"/>
+                        <outlet property="deleteStepImageB" destination="08a-ci-T5t" id="Mk8-PA-Njq"/>
                         <outlet property="dishStyleTF" destination="5s1-Tp-woY" id="fwX-Ms-mty"/>
                         <outlet property="favoriteSwitch" destination="2ob-GC-lxd" id="JXL-4H-EOb"/>
                         <outlet property="imageWarningLabel" destination="riw-m0-WkL" id="II3-ag-tPr"/>
@@ -797,7 +815,7 @@
                         <outlet property="optionalV" destination="Q6F-oC-C8w" id="KOw-dv-abt"/>
                         <outlet property="optionalViewConstraint" destination="wKt-Eb-cz1" id="h0Y-GO-3TO"/>
                         <outlet property="scrollViewConstraint" destination="3dM-JE-tdX" id="BTY-6A-VfP"/>
-                        <outlet property="stepImage" destination="LxJ-0C-gcM" id="nrR-Ry-Qfo"/>
+                        <outlet property="stepImage" destination="LxJ-0C-gcM" id="59O-pB-joc"/>
                         <outlet property="stepImageView" destination="cJP-es-3LA" id="x3j-kr-fHs"/>
                         <outlet property="stepLabel" destination="M6P-OY-pVf" id="NH9-GP-XGM"/>
                         <outlet property="stepStack" destination="dU3-nR-h76" id="MRH-la-9n3"/>
@@ -980,6 +998,7 @@
         <image name="minus" catalog="system" width="128" height="24"/>
         <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="96"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="rectangle.fill.badge.minus" catalog="system" width="128" height="93"/>
         <image name="target" catalog="system" width="128" height="121"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -12,16 +12,19 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var initB: UIButton!
     @IBOutlet weak var scrollViewConstraint: NSLayoutConstraint!
     
+    // DishName Properties tag : 100
     @IBOutlet weak var inputDishNameTF: UITextField!
     
+    // Thumbnail Properties tag : 200
     @IBOutlet weak var inputThumbnailView: UIView!
     @IBOutlet weak var inputThumbnailImageView: UIImageView!
     @IBOutlet weak var changePhotoB: UIButton!
     @IBOutlet weak var deletePhotoB: UIButton!
     
+    // Category Properties tag : 300
     @IBOutlet weak var dishStyleTF: UITextField!
     
-    
+    // Importants Properties tag : 300
     @IBOutlet weak var importantViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var importantSV: UIStackView!
     @IBOutlet weak var importantV: UIView!
@@ -30,11 +33,12 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var importantNameTF: UITextField!
     @IBOutlet weak var importantAmountTF: UITextField!
     
-    
+    // Optionals Properties tag : 400
     @IBOutlet weak var optionalViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var optionalSV: UIStackView!
     @IBOutlet weak var optionalV: UIView!
     
+    // Steps Properties tag : 500
     @IBOutlet weak var stepViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var stepsSV: UIStackView!
     @IBOutlet weak var stepV: UIView!
@@ -42,6 +46,9 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var stepImageView: UIView!
     @IBOutlet weak var imageWarningLabel: UILabel!
     @IBOutlet weak var stepImage: UIImageView!
+    
+    @IBOutlet weak var addStepImageB: UIButton!
+    @IBOutlet weak var deleteStepImageB: UIButton!
     
     @IBOutlet weak var stepStack: UIStackView!
     @IBOutlet weak var stepLabel: UILabel!
@@ -55,8 +62,8 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     
     // 이미지 처리
     let imageFileManager = ImageFileManager()
-    
-    
+
+    // 유동적인 UI조절
     let basicStandardHeight: CGFloat = 45
     var importantStackViewHeight: CGFloat {
         print("importantStackViewHeight \(CGFloat(basedRecipe.iIngredients.count+1) * basicStandardHeight)")
@@ -96,7 +103,8 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
     
     
     var basedRecipe = Recipe(dishName: "", thumbnail: nil, iIngredients: [], oIngredients: [], steps: [], favorite: false, section: .nokind)
-        
+    var currentTag = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -104,6 +112,15 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         photoPicker.delegate = self
         
         dishStyleTF.inputView = stylePicker
+        
+        // Add Target
+        addStepImageB.tag = 510
+        addStepImageB.addTarget(self, action: #selector(addStepPhoto(sender:)), for: .touchUpInside)
+        deleteStepImageB.tag = 520
+        deleteStepImageB.addTarget(self, action: #selector(deleteStepPhoto(sender:)), for: .touchUpInside)
+        
+        // Add Tag
+        stepImage.tag = 500
     }
 
     
@@ -115,12 +132,10 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
             inputDishNameTF.text = ""
             inputThumbnailImageView.image = nil
             dishStyleTF.text = ""
-            
+    
             basedRecipe.iIngredients = []
             basedRecipe.oIngredients = []
             basedRecipe.steps = []
-            
-            
             NSLog("초기화 완료")
         }
         let cancelAction = UIAlertAction(title: "취소", style: .default) {(action: UIAlertAction!) -> Void in
@@ -152,45 +167,12 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
         appendDatas()
     }
     @IBAction func addThumbnail(_ sender: Any) {
-        let alert =  UIAlertController(title: "썸네일 추가", message: "추가할 사진을 선택해주세요", preferredStyle: .actionSheet)
-
-        let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
-            self.currentImageView = self.inputThumbnailImageView
-            self.openLibrary()
-        }
-
-        let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
-            self.currentImageView = self.inputThumbnailImageView
-            self.openCamera()
-        }
-
-        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-
-        alert.addAction(library)
-        alert.addAction(camera)
-        alert.addAction(cancel)
-        present(alert, animated: true, completion: nil)
+        self.currentImageView = self.inputThumbnailImageView
+        addImage(title: "썸네일 추가", msg: "추가할 썸네일을 선택해주세요")
     }
     @IBAction func deleteThumbnail(_ sender: Any) {
         self.currentImageView = self.inputThumbnailImageView
-        if currentImageView.image == nil {
-            print("사진이 없습니다.")
-        } else {
-            let alert = UIAlertController(title: "썸네일 삭제", message: "추가된 썸네일을 삭제 하시겠습니까?", preferredStyle: .alert)
-            let confirmAction = UIAlertAction(title: "삭제하기", style: .default) { [self] (action: UIAlertAction!) -> Void in
-                // 삭제하기
-                currentImageView.image = nil
-                
-                NSLog("썸네일삭제 완료")
-            }
-            let cancelAction = UIAlertAction(title: "취소", style: .default) {(action: UIAlertAction!) -> Void in
-                NSLog("썸네일삭제 취소")
-            }
-            alert.addAction(confirmAction)
-            alert.addAction(cancelAction)
-
-            present(alert, animated: true, completion:nil)
-        }
+        deleteImage(title: "썸네일 삭제", msg: "추가된 썸네일을 삭제 하시겠습니까?")
     }
     @IBAction func addImportant(_ sender: Any) {
         addViewResizing(.important)
@@ -240,6 +222,25 @@ class AddRecipeViewController: UIViewController, UIScrollViewDelegate {
             print("입력 뷰 마지막 1개")
         }
     }
+    @objc func addStepPhoto(sender: UIButton) {
+        currentTag = sender.tag-10
+        if let selectedImageView = self.view.viewWithTag(sender.tag-10) as? UIImageView {
+            self.currentImageView = selectedImageView
+        } else {
+            print("\(sender.tag-10) 객체 못찾음")
+        }
+        addImage(title: "단계 사진 추가", msg: "추가할 사진을 선택해주세요")
+    }
+    @objc func deleteStepPhoto(sender: UIButton) {
+        currentTag = sender.tag-20
+        if let selectedImageView = self.view.viewWithTag(sender.tag-20) as? UIImageView {
+            self.currentImageView = selectedImageView
+        } else {
+            print("\(sender.tag-20) 객체 못찾음")
+        }
+        deleteImage(title: "단계 사진 삭제", msg: "추가된 사진을 삭제 하시겠습니까?")
+    }
+
     @IBAction func addStep(_ sender: Any) {
         addViewResizing(.step)
         
@@ -481,7 +482,69 @@ extension AddRecipeViewController {
             scrollViewConstraint.constant -= basicStandardHeight*3
         }
     }
-    
+    func addImage(title: String, msg: String) {
+        let alert =  UIAlertController(title: title, message: msg, preferredStyle: .actionSheet)
+        let library =  UIAlertAction(title: "사진앨범", style: .default) { (action) in
+            self.openLibrary()
+            NSLog("사진추가 완료")
+        }
+        let camera =  UIAlertAction(title: "카메라", style: .default) { (action) in
+            self.openCamera()
+            NSLog("사진추가 완료")
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(library)
+        alert.addAction(camera)
+        alert.addAction(cancel)
+        present(alert, animated: true, completion: nil)
+    }
+    func deleteImage(title: String, msg: String) {
+        if currentImageView.image == nil {
+            print("사진이 없습니다.")
+        } else {
+            let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+            let confirmAction = UIAlertAction(title: "삭제하기", style: .default) { [self] (action: UIAlertAction!) -> Void in
+                currentImageView.image = nil
+                NSLog("사진삭제 완료")
+                if currentTag >= 500 {
+                    self.splitStepBottonsState(tag: currentTag)
+                }
+            }
+            let cancelAction = UIAlertAction(title: "취소", style: .default) {(action: UIAlertAction!) -> Void in
+                NSLog("사진삭제 취소")
+            }
+            alert.addAction(confirmAction)
+            alert.addAction(cancelAction)
+            present(alert, animated: true, completion:nil)
+        }
+    }
+    func splitStepBottonsState(tag: Int) {
+        print("tag : \(tag)")
+        
+        guard let addButton = self.view.viewWithTag(tag+10) as? UIButton else {
+            print("UIButton 못찾음 1"); return
+        }
+        guard let deleteButton = self.view.viewWithTag(tag+20) as? UIButton else {
+            print("UIButton 못찾음 2"); return
+        }
+        guard let imageView = self.view.viewWithTag(tag) as? UIImageView else {
+            print("UIImageView 못찾음"); return
+        }
+        
+        if imageView.image == nil { // 사진없음
+            addButton.isHidden = false
+            addButton.isEnabled = true
+            
+            deleteButton.isHidden = true
+            deleteButton.isEnabled = false
+        } else {
+            addButton.isHidden = true
+            addButton.isEnabled = false
+            
+            deleteButton.isHidden = false
+            deleteButton.isEnabled = true
+        }
+    }
 }
 
 
@@ -525,6 +588,9 @@ extension AddRecipeViewController : UIImagePickerControllerDelegate, UINavigatio
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             currentImageView.image = image
+            if currentTag >= 500 {
+                self.splitStepBottonsState(tag: currentTag)
+            }
         } else {
             print("사진불러오기 실패")
         }
